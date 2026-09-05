@@ -1,0 +1,2509 @@
+{
+  "run_id": "run_20260905_133244_6e3016",
+  "metrics": {
+    "throughput": {
+      "bank_credits": 11,
+      "settlement_batches": 11,
+      "recon_rows": 70,
+      "settled_transactions": 64,
+      "orders": 68,
+      "total_records_processed": 149
+    },
+    "match_rates": {
+      "batch_match_rate_pct": 100.0,
+      "batch_match_denominator": "11 of 11 bank credits",
+      "order_match_rate_pct": 96.88,
+      "order_match_denominator": "62 of 64 settled transactions verified with no variance",
+      "value_match_rate_pct": 96.94,
+      "value_match_denominator": "Rs 5,27,517.57 of Rs 5,44,175.19 settled value",
+      "bank_value_match_rate_pct": 100.0,
+      "bank_value_denominator": "Rs 5,05,625.65 of Rs 5,05,625.65 banked"
+    },
+    "exceptions": {
+      "total": 15,
+      "actionable": 8,
+      "benign": 7,
+      "actionable_value": "Rs 30,411.64",
+      "benign_value": "Rs 52,630.77",
+      "unresolved_settlements": 0
+    },
+    "confidence_distribution": {
+      "0.95-1.00": 71,
+      "0.85-0.95": 1,
+      "0.65-0.85": 1,
+      "below-0.65": 0
+    },
+    "money": {
+      "total_banked": "Rs 5,05,625.65",
+      "total_settled_gross": "Rs 5,44,175.19",
+      "total_fees_charged": "Rs 6,949.90",
+      "total_gst_on_fees": "Rs 1,240.22",
+      "gst_understated": "Rs 10.76",
+      "itc_claimable": "Rs 1,238.79",
+      "itc_blocked": "Rs 0.00"
+    }
+  },
+  "exceptions": {
+    "total": 15,
+    "actionable_count": 8,
+    "benign_count": 7,
+    "actionable_value_paise": 3041164,
+    "benign_value_paise": 5263077,
+    "by_code": [
+      {
+        "code": "TIMING_LAG",
+        "meaning": "Correct match, but the bank credit landed outside the expected settlement window.",
+        "benign": true,
+        "count": 2,
+        "value_paise": 2427064,
+        "examples": [
+          {
+            "subject_id": "bnk_vi1t9vyVFg",
+            "order_id": null,
+            "reason": "Matched, but the credit landed 3 days after the settlement was created, outside the expected 2-day window. Amount agrees exactly, so this is a bank-side delay, not missing money. (settlement setl_XirZRiRBaepZIT)"
+          },
+          {
+            "subject_id": "bnk_CqpgrxMp1j",
+            "order_id": null,
+            "reason": "Matched on amount and date, but the bank reference '478833337H8' does not exactly correspond to the settlement UTR '478833337h83' (prefix). Reference drift of this kind is routine; the match itself is sound. (settlement setl_ohoNMdZEHNJSsa)"
+          }
+        ]
+      },
+      {
+        "code": "CHARGEBACK",
+        "meaning": "Dispute debit reduces the payout, typically in a batch later than the original sale.",
+        "benign": false,
+        "count": 1,
+        "value_paise": 1781114,
+        "examples": [
+          {
+            "subject_id": "disp_VWFzkmL2dDx5SF",
+            "order_id": "order_2064",
+            "reason": "Chargeback debit of Rs 17,811.14 against payment pay_JRzhbuXMZ5f0pK (dispute disp_VWFzkmL2dDx5SF), comprising the disputed value Rs 17,061.14 plus a handling fee of Rs 750.00. Debited in settlement setl_xVJGyOphTExIqq."
+          }
+        ]
+      },
+      {
+        "code": "ON_HOLD",
+        "meaning": "Amount captured but withheld (reserve/hold); correctly excluded from this payout.",
+        "benign": true,
+        "count": 1,
+        "value_paise": 1629656,
+        "examples": [
+          {
+            "subject_id": "pay_BHs8YGPI5g2q3U",
+            "order_id": "order_2015",
+            "reason": "Transaction pay_BHs8YGPI5g2q3U (Rs 16,296.56) is flagged on_hold and withheld from the payout as a reserve. Correctly excluded from the settled total \u2014 this is not missing money."
+          }
+        ]
+      },
+      {
+        "code": "PARTIAL_PAYMENT",
+        "meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+        "benign": false,
+        "count": 4,
+        "value_paise": 1254828,
+        "examples": [
+          {
+            "subject_id": "rfnd_xp07LjfP4tOPhR",
+            "order_id": "order_2007",
+            "reason": "Refund of Rs 4,236.77 against payment pay_0Fmxk754LEgw9Y (order order_2007, original Rs 9,514.70). Debited in settlement setl_oOgKUivuNZQ8Dl, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+          },
+          {
+            "subject_id": "rfnd_xXYPZTQGOAwwln",
+            "order_id": "order_2043",
+            "reason": "Refund of Rs 3,694.68 against payment pay_LUieV0vWqaTZJO (order order_2043, original Rs 10,310.14). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+          },
+          {
+            "subject_id": "rfnd_9jsWFHTGP2MLjl",
+            "order_id": "order_2009",
+            "reason": "Refund of Rs 3,967.55 against payment pay_GhnuKoneNo41eo (order order_2009, original Rs 12,507.96). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+          }
+        ]
+      },
+      {
+        "code": "NOT_YET_SETTLED",
+        "meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed).",
+        "benign": true,
+        "count": 3,
+        "value_paise": 1206214,
+        "examples": [
+          {
+            "subject_id": "order_2006",
+            "order_id": "order_2006",
+            "reason": "Order order_2006 (Rs 7,271.39, captured 2026-07-10 14:33:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+          },
+          {
+            "subject_id": "order_2022",
+            "order_id": "order_2022",
+            "reason": "Order order_2022 (Rs 256.41, captured 2026-07-05 06:27:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+          },
+          {
+            "subject_id": "order_2053",
+            "order_id": "order_2053",
+            "reason": "Order order_2053 (Rs 4,534.34, captured 2026-07-09 04:24:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+          }
+        ]
+      },
+      {
+        "code": "FEE_DEDUCTION",
+        "meaning": "MDR/platform fee differs from the contracted rate for this instrument.",
+        "benign": false,
+        "count": 1,
+        "value_paise": 3067,
+        "examples": [
+          {
+            "subject_id": "pay_DSBbszpPwIv9Iv",
+            "order_id": "order_2033",
+            "reason": "MDR charged Rs 184.00 on Rs 7,666.72 (2.400%) but the contracted rate for 'card' is 2.00%, which would be Rs 153.33. Overcharged by Rs 30.67."
+          }
+        ]
+      },
+      {
+        "code": "TAX_DEDUCTION",
+        "meaning": "GST-on-MDR differs from 18% of the charged fee.",
+        "benign": false,
+        "count": 2,
+        "value_paise": 2155,
+        "examples": [
+          {
+            "subject_id": "pay_gSB3tjhMKSxLsF",
+            "order_id": "order_2057",
+            "reason": "GST charged Rs 21.58 on a fee of Rs 179.82 is 12.00%, not the statutory 18% which would be Rs 32.37. Difference -Rs 10.79. Understated GST reduces the input tax credit the merchant can legitimately claim."
+          },
+          {
+            "subject_id": "settlement_gst_total",
+            "order_id": null,
+            "reason": "Across all settled transactions, GST actually deducted was Rs 1,240.22, but 18% of the Rs 6,949.90 of fees charged would be Rs 1,250.98 \u2014 GST is understated by Rs 10.76. Every rupee of understated GST is a rupee of input tax credit the merchant cannot claim."
+          }
+        ]
+      },
+      {
+        "code": "ROUNDING",
+        "meaning": "Sub-rupee drift from per-transaction fee/GST rounding.",
+        "benign": true,
+        "count": 1,
+        "value_paise": 143,
+        "examples": [
+          {
+            "subject_id": "RZP/202607/119857",
+            "order_id": null,
+            "reason": "Monthly GST invoice RZP/202607/119857 declares tax of Rs 1,238.79; the sum of per-transaction GST across all settled rows is Rs 1,240.22. Difference -Rs 1.43, within the Rs 5.00 monthly tolerance. This is accumulated per-transaction rounding, not an error \u2014 book a rounding journal for the difference."
+          }
+        ]
+      }
+    ],
+    "actionable": [
+      {
+        "subject_type": "adjustment",
+        "subject_id": "disp_VWFzkmL2dDx5SF",
+        "order_id": "order_2064",
+        "variance_code": "CHARGEBACK",
+        "confidence": 0.95,
+        "amount": 1781114,
+        "reason": "Chargeback debit of Rs 17,811.14 against payment pay_JRzhbuXMZ5f0pK (dispute disp_VWFzkmL2dDx5SF), comprising the disputed value Rs 17,061.14 plus a handling fee of Rs 750.00. Debited in settlement setl_xVJGyOphTExIqq.",
+        "code_meaning": "Dispute debit reduces the payout, typically in a batch later than the original sale.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "refund",
+        "subject_id": "rfnd_xp07LjfP4tOPhR",
+        "order_id": "order_2007",
+        "variance_code": "PARTIAL_PAYMENT",
+        "confidence": 0.97,
+        "amount": 423677,
+        "reason": "Refund of Rs 4,236.77 against payment pay_0Fmxk754LEgw9Y (order order_2007, original Rs 9,514.70). Debited in settlement setl_oOgKUivuNZQ8Dl, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+        "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "refund",
+        "subject_id": "rfnd_9jsWFHTGP2MLjl",
+        "order_id": "order_2009",
+        "variance_code": "PARTIAL_PAYMENT",
+        "confidence": 0.97,
+        "amount": 396755,
+        "reason": "Refund of Rs 3,967.55 against payment pay_GhnuKoneNo41eo (order order_2009, original Rs 12,507.96). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+        "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "refund",
+        "subject_id": "rfnd_xXYPZTQGOAwwln",
+        "order_id": "order_2043",
+        "variance_code": "PARTIAL_PAYMENT",
+        "confidence": 0.97,
+        "amount": 369468,
+        "reason": "Refund of Rs 3,694.68 against payment pay_LUieV0vWqaTZJO (order order_2043, original Rs 10,310.14). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+        "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "refund",
+        "subject_id": "rfnd_cwS8LUWoo7W4mQ",
+        "order_id": "order_2013",
+        "variance_code": "PARTIAL_PAYMENT",
+        "confidence": 0.97,
+        "amount": 64928,
+        "reason": "Refund of Rs 649.28 against payment pay_5GdF0ee1z6JJcf (order order_2013, original Rs 1,292.32). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+        "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "payment",
+        "subject_id": "pay_DSBbszpPwIv9Iv",
+        "order_id": "order_2033",
+        "variance_code": "FEE_DEDUCTION",
+        "confidence": 0.96,
+        "amount": 766672,
+        "variance_paise": 3067,
+        "reason": "MDR charged Rs 184.00 on Rs 7,666.72 (2.400%) but the contracted rate for 'card' is 2.00%, which would be Rs 153.33. Overcharged by Rs 30.67.",
+        "code_meaning": "MDR/platform fee differs from the contracted rate for this instrument.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "payment",
+        "subject_id": "pay_gSB3tjhMKSxLsF",
+        "order_id": "order_2057",
+        "variance_code": "TAX_DEDUCTION",
+        "confidence": 0.96,
+        "amount": 899090,
+        "variance_paise": -1079,
+        "reason": "GST charged Rs 21.58 on a fee of Rs 179.82 is 12.00%, not the statutory 18% which would be Rs 32.37. Difference -Rs 10.79. Understated GST reduces the input tax credit the merchant can legitimately claim.",
+        "code_meaning": "GST-on-MDR differs from 18% of the charged fee.",
+        "is_benign": false
+      },
+      {
+        "subject_type": "gst_period",
+        "subject_id": "settlement_gst_total",
+        "variance_code": "TAX_DEDUCTION",
+        "confidence": 0.94,
+        "amount": 124022,
+        "variance_paise": -1076,
+        "reason": "Across all settled transactions, GST actually deducted was Rs 1,240.22, but 18% of the Rs 6,949.90 of fees charged would be Rs 1,250.98 \u2014 GST is understated by Rs 10.76. Every rupee of understated GST is a rupee of input tax credit the merchant cannot claim.",
+        "code_meaning": "GST-on-MDR differs from 18% of the charged fee.",
+        "is_benign": false
+      }
+    ],
+    "benign": [
+      {
+        "subject_type": "bank_txn",
+        "subject_id": "bnk_vi1t9vyVFg",
+        "counterpart_id": "setl_XirZRiRBaepZIT",
+        "variance_code": "TIMING_LAG",
+        "confidence": 0.72,
+        "amount": 2044026,
+        "reason": "Matched, but the credit landed 3 days after the settlement was created, outside the expected 2-day window. Amount agrees exactly, so this is a bank-side delay, not missing money. (settlement setl_XirZRiRBaepZIT)",
+        "code_meaning": "Correct match, but the bank credit landed outside the expected settlement window.",
+        "is_benign": true
+      },
+      {
+        "subject_type": "payment",
+        "subject_id": "pay_BHs8YGPI5g2q3U",
+        "order_id": "order_2015",
+        "variance_code": "ON_HOLD",
+        "confidence": 0.99,
+        "amount": 1629656,
+        "reason": "Transaction pay_BHs8YGPI5g2q3U (Rs 16,296.56) is flagged on_hold and withheld from the payout as a reserve. Correctly excluded from the settled total \u2014 this is not missing money.",
+        "code_meaning": "Amount captured but withheld (reserve/hold); correctly excluded from this payout.",
+        "is_benign": true
+      },
+      {
+        "subject_type": "order",
+        "subject_id": "order_2006",
+        "order_id": "order_2006",
+        "variance_code": "NOT_YET_SETTLED",
+        "confidence": 0.9,
+        "amount": 727139,
+        "reason": "Order order_2006 (Rs 7,271.39, captured 2026-07-10 14:33:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+        "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed).",
+        "is_benign": true
+      },
+      {
+        "subject_type": "order",
+        "subject_id": "order_2053",
+        "order_id": "order_2053",
+        "variance_code": "NOT_YET_SETTLED",
+        "confidence": 0.9,
+        "amount": 453434,
+        "reason": "Order order_2053 (Rs 4,534.34, captured 2026-07-09 04:24:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+        "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed).",
+        "is_benign": true
+      },
+      {
+        "subject_type": "bank_txn",
+        "subject_id": "bnk_CqpgrxMp1j",
+        "counterpart_id": "setl_ohoNMdZEHNJSsa",
+        "variance_code": "TIMING_LAG",
+        "confidence": 0.88,
+        "amount": 383038,
+        "reason": "Matched on amount and date, but the bank reference '478833337H8' does not exactly correspond to the settlement UTR '478833337h83' (prefix). Reference drift of this kind is routine; the match itself is sound. (settlement setl_ohoNMdZEHNJSsa)",
+        "code_meaning": "Correct match, but the bank credit landed outside the expected settlement window.",
+        "is_benign": true
+      },
+      {
+        "subject_type": "order",
+        "subject_id": "order_2022",
+        "order_id": "order_2022",
+        "variance_code": "NOT_YET_SETTLED",
+        "confidence": 0.9,
+        "amount": 25641,
+        "reason": "Order order_2022 (Rs 256.41, captured 2026-07-05 06:27:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+        "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed).",
+        "is_benign": true
+      },
+      {
+        "subject_type": "invoice",
+        "subject_id": "RZP/202607/119857",
+        "variance_code": "ROUNDING",
+        "confidence": 0.97,
+        "amount": 123879,
+        "variance_paise": -143,
+        "reason": "Monthly GST invoice RZP/202607/119857 declares tax of Rs 1,238.79; the sum of per-transaction GST across all settled rows is Rs 1,240.22. Difference -Rs 1.43, within the Rs 5.00 monthly tolerance. This is accumulated per-transaction rounding, not an error \u2014 book a rounding journal for the difference.",
+        "code_meaning": "Sub-rupee drift from per-transaction fee/GST rounding.",
+        "is_benign": true
+      }
+    ]
+  },
+  "gst": {
+    "settled_fee_total": 694990,
+    "settled_tax_total": 124022,
+    "expected_tax_on_fees": 125098,
+    "gst_understated": 1076,
+    "total_itc_claimable": 123879,
+    "total_itc_blocked": 0,
+    "invoices": [
+      {
+        "invoice_no": "RZP/202607/119857",
+        "period": "2026-07",
+        "supplier": "RAZORPAY SOFTWARE PRIVATE LIMITED",
+        "supplier_gstin": "29AAGCR4375J1ZU",
+        "taxable_value": 694990,
+        "invoice_tax": 123879,
+        "settlement_tax": 124022,
+        "tax_difference": -143,
+        "within_tolerance": true,
+        "reflected_in_gstr2b": true,
+        "itc_claimable": 123879,
+        "itc_blockers": []
+      }
+    ],
+    "by_instrument": {
+      "card": {
+        "count": 24,
+        "gross": 24965204,
+        "fee": 502370,
+        "tax": 89348,
+        "effective_mdr_pct": 2.0123,
+        "effective_gst_pct": 17.79,
+        "contracted_mdr_pct": 2.0,
+        "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+      },
+      "upi": {
+        "count": 26,
+        "gross": 19821316,
+        "fee": 0,
+        "tax": 0,
+        "effective_mdr_pct": 0.0,
+        "effective_gst_pct": 0.0,
+        "contracted_mdr_pct": 0.0,
+        "statutory_note": "Zero MDR by statute (Sec 10A PSS Act); nil fee and nil GST are correct."
+      },
+      "netbanking": {
+        "count": 9,
+        "gross": 5910268,
+        "fee": 118205,
+        "tax": 21278,
+        "effective_mdr_pct": 2.0,
+        "effective_gst_pct": 18.0,
+        "contracted_mdr_pct": 2.0,
+        "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+      },
+      "wallet": {
+        "count": 5,
+        "gross": 3720731,
+        "fee": 74415,
+        "tax": 13396,
+        "effective_mdr_pct": 2.0,
+        "effective_gst_pct": 18.0,
+        "contracted_mdr_pct": 2.0,
+        "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+      }
+    }
+  },
+  "scorecard": {
+    "planted_faults": 9,
+    "detected": 9,
+    "recall_pct": 100.0,
+    "code_accuracy_pct": 100.0,
+    "planted_traps": 2,
+    "traps_passed": 2,
+    "trap_pass_pct": 100.0,
+    "cases": [
+      {
+        "id": "EC1",
+        "type": "REFUND_IN_LATER_BATCH",
+        "expected_code": "PARTIAL_PAYMENT",
+        "detected": true,
+        "correct_code": true,
+        "detail": "4 of 4 target entities flagged",
+        "description": "Partial refunds issued after the original sale settled; the refund debit appears in a later settlement batch than the sale it relates to."
+      },
+      {
+        "id": "EC2",
+        "type": "DISPUTE_DEBIT",
+        "expected_code": "CHARGEBACK",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "A chargeback debits both the disputed transaction value and a Rs 750 handling fee from a later settlement."
+      },
+      {
+        "id": "EC3",
+        "type": "ORDER_IN_FLIGHT",
+        "expected_code": "NOT_YET_SETTLED",
+        "detected": true,
+        "correct_code": true,
+        "detail": "3 of 3 target entities flagged",
+        "description": "Orders captured inside the settlement cycle window, so they legitimately appear in no settlement batch yet."
+      },
+      {
+        "id": "EC4",
+        "type": "RESERVE_HOLD",
+        "expected_code": "ON_HOLD",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "A captured transaction flagged on_hold=true and withheld from the payout as a risk reserve."
+      },
+      {
+        "id": "EC5",
+        "type": "WRONG_MDR_RATE",
+        "expected_code": "FEE_DEDUCTION",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "One transaction charged MDR at 2.4% instead of the contracted 2.0%."
+      },
+      {
+        "id": "EC6",
+        "type": "WRONG_GST_RATE",
+        "expected_code": "TAX_DEDUCTION",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "GST on the fee computed at 12% instead of the statutory 18%."
+      },
+      {
+        "id": "EC8",
+        "type": "DELAYED_BANK_CREDIT",
+        "expected_code": "TIMING_LAG",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "Bank credit for UTR 666690337n24 landed 3 days after the settlement date (bank holiday)."
+      },
+      {
+        "id": "EC9",
+        "type": "UTR_FORMAT_DRIFT",
+        "expected_code": "TIMING_LAG",
+        "detected": true,
+        "correct_code": true,
+        "detail": "1 of 1 target entities flagged",
+        "description": "Bank recorded the UTR as '478833337H8' where Razorpay recorded '478833337h83' (uppercased and truncated)."
+      },
+      {
+        "id": "EC11",
+        "type": "GST_INVOICE_VS_SETTLEMENT_DRIFT",
+        "expected_code": "ROUNDING",
+        "detected": true,
+        "correct_code": true,
+        "detail": "matched by variance code across the run",
+        "description": "Monthly GST invoice tax (Rs 1,238.79) differs from summed per-transaction tax (Rs 1,240.22) by -Rs 1.43 from accumulated per-transaction rounding."
+      }
+    ],
+    "traps": [
+      {
+        "id": "EC7",
+        "type": "SPLIT_SETTLEMENT",
+        "kind": "trap",
+        "criterion": "both halves of the split must match independently and correctly",
+        "passed": true,
+        "detail": "both split batches (setl_XirZRiRBaepZIT, setl_kM3u5c1f6VqnJM) matched independently to their own bank credits",
+        "description": "A single day's transactions were paid out across two settlement batches (setl_XirZRiRBaepZIT and setl_kM3u5c1f6VqnJM)."
+      },
+      {
+        "id": "EC10",
+        "type": "NEAR_DUPLICATE_UTR",
+        "kind": "trap",
+        "criterion": "the two lookalike UTRs must NOT be conflated into one match",
+        "passed": true,
+        "detail": "both lookalike-UTR credits matched, to 2 DISTINCT settlements \u2014 not conflated",
+        "description": "Two unrelated settlements carry visually similar UTRs ('206389694w93' vs '206389694wxy')."
+      }
+    ]
+  },
+  "forecast": {
+    "as_of": "2026-07-10",
+    "horizon_days": 14,
+    "behaviour": {
+      "settlement_lag": {
+        "observations": 64,
+        "median_days": 2.0,
+        "p90_days": 2,
+        "stdev_days": 0.0,
+        "min_days": 2,
+        "max_days": 2,
+        "source": "learned from 64 observed settlement cycle"
+      },
+      "credit_lag": {
+        "observations": 11,
+        "median_days": 0,
+        "p90_days": 0,
+        "stdev_days": 0.86,
+        "min_days": 0,
+        "max_days": 3,
+        "source": "learned from 11 observed bank credit lag"
+      },
+      "contracted_cycle_days": 2,
+      "drift_note": null
+    },
+    "confidence_band": "moderate",
+    "confidence_reason": "settlement timing varies by roughly 0.86 days; expect projected dates to move by a day either way",
+    "expected_total_paise": 1169872,
+    "expected_total": "Rs 11,698.72",
+    "late_case_total": "Rs 11,698.72",
+    "inflight_count": 4,
+    "inflight_net_paise": 2786709,
+    "inflight_net": "Rs 27,867.09",
+    "awaiting_credit_count": 0,
+    "awaiting_credit_paise": 0,
+    "awaiting_credit": "Rs 0.00",
+    "timeline": [
+      {
+        "date": "2026-07-10",
+        "weekday": "Fri",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 0,
+        "cumulative": "Rs 0.00",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-11",
+        "weekday": "Sat",
+        "expected_paise": 442733,
+        "expected": "Rs 4,427.33",
+        "late_case_paise": 442733,
+        "cumulative_paise": 442733,
+        "cumulative": "Rs 4,427.33",
+        "item_count": 1,
+        "sources": [
+          "order order_2053 (Rs 4,427.33 net)"
+        ]
+      },
+      {
+        "date": "2026-07-12",
+        "weekday": "Sun",
+        "expected_paise": 727139,
+        "expected": "Rs 7,271.39",
+        "late_case_paise": 727139,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 1,
+        "sources": [
+          "order order_2006 (Rs 7,271.39 net)"
+        ]
+      },
+      {
+        "date": "2026-07-13",
+        "weekday": "Mon",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-14",
+        "weekday": "Tue",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-15",
+        "weekday": "Wed",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-16",
+        "weekday": "Thu",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-17",
+        "weekday": "Fri",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-18",
+        "weekday": "Sat",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-19",
+        "weekday": "Sun",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-20",
+        "weekday": "Mon",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-21",
+        "weekday": "Tue",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-22",
+        "weekday": "Wed",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-23",
+        "weekday": "Thu",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      },
+      {
+        "date": "2026-07-24",
+        "weekday": "Fri",
+        "expected_paise": 0,
+        "expected": "Rs 0.00",
+        "late_case_paise": 0,
+        "cumulative_paise": 1169872,
+        "cumulative": "Rs 11,698.72",
+        "item_count": 0,
+        "sources": []
+      }
+    ],
+    "at_risk": [
+      {
+        "category": "ON_HOLD",
+        "amount_paise": 1629656,
+        "amount": "Rs 16,296.56",
+        "count": 1,
+        "note": "1 transaction(s) worth Rs 16,296.56 are flagged on hold as a risk reserve. This money exists but is not scheduled to land, so it is excluded from the forecast rather than counted as delayed."
+      }
+    ],
+    "inflight_detail": [
+      {
+        "order_id": "order_2015",
+        "gross": 1629656,
+        "fee": 32593,
+        "tax": 5867,
+        "net": 1591196,
+        "method": "netbanking",
+        "captured": "2026-07-06T09:10:00",
+        "expected_date": "2026-07-08",
+        "late_date": "2026-07-08",
+        "net_display": "Rs 15,911.96"
+      },
+      {
+        "order_id": "order_2006",
+        "gross": 727139,
+        "fee": 0,
+        "tax": 0,
+        "net": 727139,
+        "method": "upi",
+        "captured": "2026-07-10T14:33:00",
+        "expected_date": "2026-07-12",
+        "late_date": "2026-07-12",
+        "net_display": "Rs 7,271.39"
+      },
+      {
+        "order_id": "order_2053",
+        "gross": 453434,
+        "fee": 9069,
+        "tax": 1632,
+        "net": 442733,
+        "method": "card",
+        "captured": "2026-07-09T04:24:00",
+        "expected_date": "2026-07-11",
+        "late_date": "2026-07-11",
+        "net_display": "Rs 4,427.33"
+      },
+      {
+        "order_id": "order_2022",
+        "gross": 25641,
+        "fee": 0,
+        "tax": 0,
+        "net": 25641,
+        "method": "upi",
+        "captured": "2026-07-05T06:27:00",
+        "expected_date": "2026-07-07",
+        "late_date": "2026-07-07",
+        "net_display": "Rs 256.41"
+      }
+    ],
+    "awaiting_detail": []
+  },
+  "journal": [
+    {
+      "entry_id": "JV-0001",
+      "date": "2026-07-03",
+      "narration": "Razorpay settlement setl_4jB6nBvbdFo9xb credited to bank as Rs 47,442.78 covering 6 transaction(s) gross Rs 47,851.83, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_4jB6nBvbdFo9xb",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 4785183,
+      "total_credit_paise": 4785183,
+      "total_debit": "Rs 47,851.83",
+      "total_credit": "Rs 47,851.83",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 4744278,
+          "credit_paise": 0,
+          "debit": "Rs 47,442.78",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_r7DXQsedBE"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 34665,
+          "credit_paise": 0,
+          "debit": "Rs 346.65",
+          "credit": "",
+          "memo": "MDR on Rs 47,851.83 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 6240,
+          "credit_paise": 0,
+          "debit": "Rs 62.40",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 4785183,
+          "debit": "",
+          "credit": "Rs 47,851.83",
+          "memo": "Clearing account discharged for settlement setl_4jB6nBvbdFo9xb"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0002",
+      "date": "2026-07-04",
+      "narration": "Razorpay settlement setl_XirZRiRBaepZIT credited to bank as Rs 20,440.26 covering 3 transaction(s) gross Rs 20,554.43, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_XirZRiRBaepZIT",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 2055443,
+      "total_credit_paise": 2055443,
+      "total_debit": "Rs 20,554.43",
+      "total_credit": "Rs 20,554.43",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 2044026,
+          "credit_paise": 0,
+          "debit": "Rs 20,440.26",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_vi1t9vyVFg"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 9675,
+          "credit_paise": 0,
+          "debit": "Rs 96.75",
+          "credit": "",
+          "memo": "MDR on Rs 20,554.43 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 1742,
+          "credit_paise": 0,
+          "debit": "Rs 17.42",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 2055443,
+          "debit": "",
+          "credit": "Rs 20,554.43",
+          "memo": "Clearing account discharged for settlement setl_XirZRiRBaepZIT"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0003",
+      "date": "2026-07-05",
+      "narration": "Razorpay settlement setl_ohoNMdZEHNJSsa credited to bank as Rs 3,830.38 covering 3 transaction(s) gross Rs 3,867.58, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_ohoNMdZEHNJSsa",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 386758,
+      "total_credit_paise": 386758,
+      "total_debit": "Rs 3,867.58",
+      "total_credit": "Rs 3,867.58",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 383038,
+          "credit_paise": 0,
+          "debit": "Rs 3,830.38",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_CqpgrxMp1j"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 3153,
+          "credit_paise": 0,
+          "debit": "Rs 31.53",
+          "credit": "",
+          "memo": "MDR on Rs 3,867.58 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 567,
+          "credit_paise": 0,
+          "debit": "Rs 5.67",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 386758,
+          "debit": "",
+          "credit": "Rs 3,867.58",
+          "memo": "Clearing account discharged for settlement setl_ohoNMdZEHNJSsa"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0004",
+      "date": "2026-07-06",
+      "narration": "Razorpay settlement setl_lPGw7HWFb2cxxU credited to bank as Rs 76,284.93 covering 8 transaction(s) gross Rs 77,357.09, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_lPGw7HWFb2cxxU",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 7735709,
+      "total_credit_paise": 7735709,
+      "total_debit": "Rs 77,357.09",
+      "total_credit": "Rs 77,357.09",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 7628493,
+          "credit_paise": 0,
+          "debit": "Rs 76,284.93",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_5Slj9C2Efy"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 90860,
+          "credit_paise": 0,
+          "debit": "Rs 908.60",
+          "credit": "",
+          "memo": "MDR on Rs 77,357.09 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 16356,
+          "credit_paise": 0,
+          "debit": "Rs 163.56",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 7735709,
+          "debit": "",
+          "credit": "Rs 77,357.09",
+          "memo": "Clearing account discharged for settlement setl_lPGw7HWFb2cxxU"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0005",
+      "date": "2026-07-07",
+      "narration": "Razorpay settlement setl_oOgKUivuNZQ8Dl credited to bank as Rs 30,186.10 covering 5 transaction(s) gross Rs 35,079.27, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_oOgKUivuNZQ8Dl",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 3507927,
+      "total_credit_paise": 3507927,
+      "total_debit": "Rs 35,079.27",
+      "total_credit": "Rs 35,079.27",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 3018610,
+          "credit_paise": 0,
+          "debit": "Rs 30,186.10",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_7nvdE2ODH0"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 55627,
+          "credit_paise": 0,
+          "debit": "Rs 556.27",
+          "credit": "",
+          "memo": "MDR on Rs 35,079.27 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 10013,
+          "credit_paise": 0,
+          "debit": "Rs 100.13",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "4100",
+          "account_name": "Sales Returns & Refunds",
+          "account_type": "revenue",
+          "debit_paise": 423677,
+          "credit_paise": 0,
+          "debit": "Rs 4,236.77",
+          "credit": "",
+          "memo": "Refunds netted from this settlement"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 3507927,
+          "debit": "",
+          "credit": "Rs 35,079.27",
+          "memo": "Clearing account discharged for settlement setl_oOgKUivuNZQ8Dl"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0006",
+      "date": "2026-07-08",
+      "narration": "Razorpay settlement setl_scmc5F9HpUlwW1 credited to bank as Rs 1,27,884.35 covering 12 transaction(s) gross Rs 1,29,799.89, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_scmc5F9HpUlwW1",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 12979989,
+      "total_credit_paise": 12979989,
+      "total_debit": "Rs 1,29,799.89",
+      "total_credit": "Rs 1,29,799.89",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 12788435,
+          "credit_paise": 0,
+          "debit": "Rs 1,27,884.35",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_iqwzcdIwrx"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 162334,
+          "credit_paise": 0,
+          "debit": "Rs 1,623.34",
+          "credit": "",
+          "memo": "MDR on Rs 1,29,799.89 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 29220,
+          "credit_paise": 0,
+          "debit": "Rs 292.20",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 12979989,
+          "debit": "",
+          "credit": "Rs 1,29,799.89",
+          "memo": "Clearing account discharged for settlement setl_scmc5F9HpUlwW1"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0007",
+      "date": "2026-07-09",
+      "narration": "Razorpay settlement setl_ByB7vlQwXqfAA9 credited to bank as Rs 69,374.66 covering 7 transaction(s) gross Rs 71,006.10, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_ByB7vlQwXqfAA9",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 7100610,
+      "total_credit_paise": 7100610,
+      "total_debit": "Rs 71,006.10",
+      "total_credit": "Rs 71,006.10",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 6937466,
+          "credit_paise": 0,
+          "debit": "Rs 69,374.66",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_Vr9Qh8yXv6"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 139171,
+          "credit_paise": 0,
+          "debit": "Rs 1,391.71",
+          "credit": "",
+          "memo": "MDR on Rs 71,006.10 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 23973,
+          "credit_paise": 0,
+          "debit": "Rs 239.73",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 7100610,
+          "debit": "",
+          "credit": "Rs 71,006.10",
+          "memo": "Clearing account discharged for settlement setl_ByB7vlQwXqfAA9"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0008",
+      "date": "2026-07-10",
+      "narration": "Razorpay settlement setl_gusBSkBBT4MANX credited to bank as Rs 72,368.42 covering 8 transaction(s) gross Rs 73,572.08, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_gusBSkBBT4MANX",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 7357208,
+      "total_credit_paise": 7357208,
+      "total_debit": "Rs 73,572.08",
+      "total_credit": "Rs 73,572.08",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 7236842,
+          "credit_paise": 0,
+          "debit": "Rs 72,368.42",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_mFFciuDCLF"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 102005,
+          "credit_paise": 0,
+          "debit": "Rs 1,020.05",
+          "credit": "",
+          "memo": "MDR on Rs 73,572.08 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 18361,
+          "credit_paise": 0,
+          "debit": "Rs 183.61",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 7357208,
+          "debit": "",
+          "credit": "Rs 73,572.08",
+          "memo": "Clearing account discharged for settlement setl_gusBSkBBT4MANX"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0009",
+      "date": "2026-07-11",
+      "narration": "Razorpay settlement setl_zFUjb0QBhoOw6c credited to bank as Rs 29,266.29 covering 5 transaction(s) gross Rs 29,885.82, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_zFUjb0QBhoOw6c",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 2988582,
+      "total_credit_paise": 2988582,
+      "total_debit": "Rs 29,885.82",
+      "total_credit": "Rs 29,885.82",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 2926629,
+          "credit_paise": 0,
+          "debit": "Rs 29,266.29",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_5tyM0KFFEI"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 52502,
+          "credit_paise": 0,
+          "debit": "Rs 525.02",
+          "credit": "",
+          "memo": "MDR on Rs 29,885.82 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 9451,
+          "credit_paise": 0,
+          "debit": "Rs 94.51",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 2988582,
+          "debit": "",
+          "credit": "Rs 29,885.82",
+          "memo": "Clearing account discharged for settlement setl_zFUjb0QBhoOw6c"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0010",
+      "date": "2026-07-12",
+      "narration": "Razorpay settlement setl_xVJGyOphTExIqq credited to bank as Rs 3,143.28 covering 5 transaction(s) gross Rs 29,412.85, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_xVJGyOphTExIqq",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 2941285,
+      "total_credit_paise": 2941285,
+      "total_debit": "Rs 29,412.85",
+      "total_credit": "Rs 29,412.85",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 314328,
+          "credit_paise": 0,
+          "debit": "Rs 3,143.28",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_YwP8KXSQbD"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 12451,
+          "credit_paise": 0,
+          "debit": "Rs 124.51",
+          "credit": "",
+          "memo": "MDR on Rs 29,412.85 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 2241,
+          "credit_paise": 0,
+          "debit": "Rs 22.41",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "4100",
+          "account_name": "Sales Returns & Refunds",
+          "account_type": "revenue",
+          "debit_paise": 831151,
+          "credit_paise": 0,
+          "debit": "Rs 8,311.51",
+          "credit": "",
+          "memo": "Refunds netted from this settlement"
+        },
+        {
+          "account_code": "5220",
+          "account_name": "Chargeback Losses",
+          "account_type": "expense",
+          "debit_paise": 1706114,
+          "credit_paise": 0,
+          "debit": "Rs 17,061.14",
+          "credit": "",
+          "memo": "Disputed transactions debited"
+        },
+        {
+          "account_code": "5230",
+          "account_name": "Dispute Handling Fees",
+          "account_type": "expense",
+          "debit_paise": 75000,
+          "credit_paise": 0,
+          "debit": "Rs 750.00",
+          "credit": "",
+          "memo": "Chargeback handling fees"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 2941285,
+          "debit": "",
+          "credit": "Rs 29,412.85",
+          "memo": "Clearing account discharged for settlement setl_xVJGyOphTExIqq"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0011",
+      "date": "2026-07-04",
+      "narration": "Razorpay settlement setl_kM3u5c1f6VqnJM credited to bank as Rs 25,404.20 covering 2 transaction(s) gross Rs 25,788.25, net of gateway charges, GST on those charges, refunds and disputes.",
+      "source_ref": "setl_kM3u5c1f6VqnJM",
+      "category": "settlement",
+      "balanced": true,
+      "total_debit_paise": 2578825,
+      "total_credit_paise": 2578825,
+      "total_debit": "Rs 25,788.25",
+      "total_credit": "Rs 25,788.25",
+      "lines": [
+        {
+          "account_code": "1010",
+          "account_name": "Bank \u2014 Current Account",
+          "account_type": "asset",
+          "debit_paise": 2540420,
+          "credit_paise": 0,
+          "debit": "Rs 25,404.20",
+          "credit": "",
+          "memo": "NEFT credit, bank txn bnk_SKkMM0jQb6"
+        },
+        {
+          "account_code": "5210",
+          "account_name": "Payment Gateway Charges",
+          "account_type": "expense",
+          "debit_paise": 32547,
+          "credit_paise": 0,
+          "debit": "Rs 325.47",
+          "credit": "",
+          "memo": "MDR on Rs 25,788.25 of settled sales"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 5858,
+          "credit_paise": 0,
+          "debit": "Rs 58.58",
+          "credit": "",
+          "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 2578825,
+          "debit": "",
+          "credit": "Rs 25,788.25",
+          "memo": "Clearing account discharged for settlement setl_kM3u5c1f6VqnJM"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0012",
+      "date": "2026-07-08",
+      "narration": "1 transaction(s) worth Rs 16,296.56 withheld by the gateway as a risk reserve. Recognised as a receivable rather than cash, because the money exists but is not available.",
+      "source_ref": "on_hold_reserve",
+      "category": "reserve",
+      "balanced": true,
+      "total_debit_paise": 1629656,
+      "total_credit_paise": 1629656,
+      "total_debit": "Rs 16,296.56",
+      "total_credit": "Rs 16,296.56",
+      "lines": [
+        {
+          "account_code": "1100",
+          "account_name": "Trade Receivables",
+          "account_type": "asset",
+          "debit_paise": 1629656,
+          "credit_paise": 0,
+          "debit": "Rs 16,296.56",
+          "credit": "",
+          "memo": "Amounts held by gateway as reserve"
+        },
+        {
+          "account_code": "1210",
+          "account_name": "Razorpay Clearing Account",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 1629656,
+          "debit": "",
+          "credit": "Rs 16,296.56",
+          "memo": "Clearing discharged for held transactions"
+        }
+      ]
+    },
+    {
+      "entry_id": "JV-0013",
+      "date": "2026-07-01",
+      "narration": "True-up between GST accrued per transaction (Rs 1,240.22) and the monthly tax invoice RZP/202607/119857 (Rs 1,238.79). The invoice is the document that supports the input tax credit claim, so the ledger is aligned to it.",
+      "source_ref": "RZP/202607/119857",
+      "category": "gst_trueup",
+      "balanced": true,
+      "total_debit_paise": 143,
+      "total_credit_paise": 143,
+      "total_debit": "Rs 1.43",
+      "total_credit": "Rs 1.43",
+      "lines": [
+        {
+          "account_code": "5900",
+          "account_name": "Rounding Differences",
+          "account_type": "expense",
+          "debit_paise": 143,
+          "credit_paise": 0,
+          "debit": "Rs 1.43",
+          "credit": "",
+          "memo": "Accrual true-up"
+        },
+        {
+          "account_code": "1310",
+          "account_name": "Input GST Recoverable",
+          "account_type": "asset",
+          "debit_paise": 0,
+          "credit_paise": 143,
+          "debit": "",
+          "credit": "Rs 1.43",
+          "memo": "GST reduced to monthly invoice"
+        }
+      ]
+    }
+  ],
+  "journal_summary": {
+    "entries_generated": 13,
+    "entries_balanced": 13,
+    "entries_unbalanced": 0,
+    "trial_balance": [
+      {
+        "account_code": "1010",
+        "account_name": "Bank \u2014 Current Account",
+        "account_type": "asset",
+        "debit_paise": 50562565,
+        "credit_paise": 0,
+        "debit": "Rs 5,05,625.65",
+        "credit": "Rs 0.00",
+        "net_paise": 50562565,
+        "net": "Rs 5,05,625.65"
+      },
+      {
+        "account_code": "1100",
+        "account_name": "Trade Receivables",
+        "account_type": "asset",
+        "debit_paise": 1629656,
+        "credit_paise": 0,
+        "debit": "Rs 16,296.56",
+        "credit": "Rs 0.00",
+        "net_paise": 1629656,
+        "net": "Rs 16,296.56"
+      },
+      {
+        "account_code": "1210",
+        "account_name": "Razorpay Clearing Account",
+        "account_type": "asset",
+        "debit_paise": 0,
+        "credit_paise": 56047175,
+        "debit": "Rs 0.00",
+        "credit": "Rs 5,60,471.75",
+        "net_paise": -56047175,
+        "net": "-Rs 5,60,471.75"
+      },
+      {
+        "account_code": "1310",
+        "account_name": "Input GST Recoverable",
+        "account_type": "asset",
+        "debit_paise": 124022,
+        "credit_paise": 143,
+        "debit": "Rs 1,240.22",
+        "credit": "Rs 1.43",
+        "net_paise": 123879,
+        "net": "Rs 1,238.79"
+      },
+      {
+        "account_code": "4100",
+        "account_name": "Sales Returns & Refunds",
+        "account_type": "revenue",
+        "debit_paise": 1254828,
+        "credit_paise": 0,
+        "debit": "Rs 12,548.28",
+        "credit": "Rs 0.00",
+        "net_paise": 1254828,
+        "net": "Rs 12,548.28"
+      },
+      {
+        "account_code": "5210",
+        "account_name": "Payment Gateway Charges",
+        "account_type": "expense",
+        "debit_paise": 694990,
+        "credit_paise": 0,
+        "debit": "Rs 6,949.90",
+        "credit": "Rs 0.00",
+        "net_paise": 694990,
+        "net": "Rs 6,949.90"
+      },
+      {
+        "account_code": "5220",
+        "account_name": "Chargeback Losses",
+        "account_type": "expense",
+        "debit_paise": 1706114,
+        "credit_paise": 0,
+        "debit": "Rs 17,061.14",
+        "credit": "Rs 0.00",
+        "net_paise": 1706114,
+        "net": "Rs 17,061.14"
+      },
+      {
+        "account_code": "5230",
+        "account_name": "Dispute Handling Fees",
+        "account_type": "expense",
+        "debit_paise": 75000,
+        "credit_paise": 0,
+        "debit": "Rs 750.00",
+        "credit": "Rs 0.00",
+        "net_paise": 75000,
+        "net": "Rs 750.00"
+      },
+      {
+        "account_code": "5900",
+        "account_name": "Rounding Differences",
+        "account_type": "expense",
+        "debit_paise": 143,
+        "credit_paise": 0,
+        "debit": "Rs 1.43",
+        "credit": "Rs 0.00",
+        "net_paise": 143,
+        "net": "Rs 1.43"
+      }
+    ],
+    "trial_debit_total_paise": 56047318,
+    "trial_credit_total_paise": 56047318,
+    "trial_debit_total": "Rs 5,60,473.18",
+    "trial_credit_total": "Rs 5,60,473.18",
+    "trial_balances": true,
+    "gst_recoverable": "Rs 1,238.79",
+    "gateway_cost": "Rs 6,949.90"
+  },
+  "journal_unbalanced": [],
+  "order_summary": {
+    "fee_overcharge_paise": 3067,
+    "tax_variance_paise": -1079,
+    "absorbed_rounding_paise": 0,
+    "orders_seen": 65,
+    "orders_total": 68
+  },
+  "batch_matches": [
+    {
+      "bank_txn_id": "bnk_r7DXQsedBE",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 4744278,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 47,442.78 matched to settlement setl_4jB6nBvbdFo9xb. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_vi1t9vyVFg",
+      "settlement_id": "setl_XirZRiRBaepZIT",
+      "amount": 2044026,
+      "confidence": 0.72,
+      "variance_code": "TIMING_LAG",
+      "amount_diff": 0,
+      "days_apart": 3,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 20,440.26 matched to settlement setl_XirZRiRBaepZIT. Amount agrees exactly but the credit landed 3 days after the settlement, outside the expected 2-day window."
+    },
+    {
+      "bank_txn_id": "bnk_CqpgrxMp1j",
+      "settlement_id": "setl_ohoNMdZEHNJSsa",
+      "amount": 383038,
+      "confidence": 0.88,
+      "variance_code": "TIMING_LAG",
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "prefix",
+      "reason": "Bank credit Rs 3,830.38 matched to settlement setl_ohoNMdZEHNJSsa. Amount and date (+0d) agree; the bank reference is a truncation of the settlement UTR."
+    },
+    {
+      "bank_txn_id": "bnk_5Slj9C2Efy",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 7628493,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 76,284.93 matched to settlement setl_lPGw7HWFb2cxxU. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_7nvdE2ODH0",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 3018610,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 30,186.10 matched to settlement setl_oOgKUivuNZQ8Dl. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_iqwzcdIwrx",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 12788435,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 1,27,884.35 matched to settlement setl_scmc5F9HpUlwW1. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_Vr9Qh8yXv6",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 6937466,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 69,374.66 matched to settlement setl_ByB7vlQwXqfAA9. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_mFFciuDCLF",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 7236842,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 72,368.42 matched to settlement setl_gusBSkBBT4MANX. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_5tyM0KFFEI",
+      "settlement_id": "setl_zFUjb0QBhoOw6c",
+      "amount": 2926629,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 29,266.29 matched to settlement setl_zFUjb0QBhoOw6c. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_YwP8KXSQbD",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 314328,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 3,143.28 matched to settlement setl_xVJGyOphTExIqq. Amount, date (+0d) and UTR all agree."
+    },
+    {
+      "bank_txn_id": "bnk_SKkMM0jQb6",
+      "settlement_id": "setl_kM3u5c1f6VqnJM",
+      "amount": 2540420,
+      "confidence": 0.99,
+      "variance_code": null,
+      "amount_diff": 0,
+      "days_apart": 0,
+      "utr_relationship": "exact",
+      "reason": "Bank credit Rs 25,404.20 matched to settlement setl_kM3u5c1f6VqnJM. Amount, date (+0d) and UTR all agree."
+    }
+  ],
+  "order_matches": [
+    {
+      "order_id": "order_2012",
+      "payment_id": "pay_ay5WrRTWPElndT",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 756839,
+      "fee": 15137,
+      "tax": 2725,
+      "credit": 738977,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2012 (Rs 7,568.39, card) settled in setl_4jB6nBvbdFo9xb: fee Rs 151.37 at 2.00% and GST Rs 27.25 at 18% both recomputed and agree. Net credit Rs 7,389.77."
+    },
+    {
+      "order_id": "order_2028",
+      "payment_id": "pay_uCu2r6AZDUd7ne",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 867546,
+      "fee": 17351,
+      "tax": 3123,
+      "credit": 847072,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2028 (Rs 8,675.46, card) settled in setl_4jB6nBvbdFo9xb: fee Rs 173.51 at 2.00% and GST Rs 31.23 at 18% both recomputed and agree. Net credit Rs 8,470.72."
+    },
+    {
+      "order_id": "order_2036",
+      "payment_id": "pay_Y6fpIzKMWx4sKA",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 1078021,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1078021,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2036 (Rs 10,780.21, upi) settled in setl_4jB6nBvbdFo9xb: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 10,780.21."
+    },
+    {
+      "order_id": "order_2047",
+      "payment_id": "pay_xjGJXke1Mo4iCp",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 108838,
+      "fee": 2177,
+      "tax": 392,
+      "credit": 106269,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2047 (Rs 1,088.38, netbanking) settled in setl_4jB6nBvbdFo9xb: fee Rs 21.77 at 2.00% and GST Rs 3.92 at 18% both recomputed and agree. Net credit Rs 1,062.69."
+    },
+    {
+      "order_id": "order_2050",
+      "payment_id": "pay_BJTfsUkiH8G4Zp",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 1673702,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1673702,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2050 (Rs 16,737.02, upi) settled in setl_4jB6nBvbdFo9xb: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 16,737.02."
+    },
+    {
+      "order_id": "order_2068",
+      "payment_id": "pay_YZ8fOcR9GLw4yW",
+      "settlement_id": "setl_4jB6nBvbdFo9xb",
+      "amount": 300237,
+      "fee": 0,
+      "tax": 0,
+      "credit": 300237,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2068 (Rs 3,002.37, upi) settled in setl_4jB6nBvbdFo9xb: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 3,002.37."
+    },
+    {
+      "order_id": "order_2007",
+      "payment_id": "pay_0Fmxk754LEgw9Y",
+      "settlement_id": "setl_kM3u5c1f6VqnJM",
+      "amount": 951470,
+      "fee": 0,
+      "tax": 0,
+      "credit": 951470,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2007 (Rs 9,514.70, upi) settled in setl_kM3u5c1f6VqnJM: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 9,514.70."
+    },
+    {
+      "order_id": "order_2008",
+      "payment_id": "pay_EeVVhDIq2AnHTm",
+      "settlement_id": "setl_kM3u5c1f6VqnJM",
+      "amount": 1627355,
+      "fee": 32547,
+      "tax": 5858,
+      "credit": 1588950,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2008 (Rs 16,273.55, card) settled in setl_kM3u5c1f6VqnJM: fee Rs 325.47 at 2.00% and GST Rs 58.58 at 18% both recomputed and agree. Net credit Rs 15,889.50."
+    },
+    {
+      "order_id": "order_2034",
+      "payment_id": "pay_tU6QlTrKVL8Zsw",
+      "settlement_id": "setl_XirZRiRBaepZIT",
+      "amount": 483737,
+      "fee": 9675,
+      "tax": 1742,
+      "credit": 472320,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2034 (Rs 4,837.37, card) settled in setl_XirZRiRBaepZIT: fee Rs 96.75 at 2.00% and GST Rs 17.42 at 18% both recomputed and agree. Net credit Rs 4,723.20."
+    },
+    {
+      "order_id": "order_2037",
+      "payment_id": "pay_nOjkeaBKsoRRCQ",
+      "settlement_id": "setl_XirZRiRBaepZIT",
+      "amount": 1137537,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1137537,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2037 (Rs 11,375.37, upi) settled in setl_XirZRiRBaepZIT: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 11,375.37."
+    },
+    {
+      "order_id": "order_2060",
+      "payment_id": "pay_IhroAIVMPILOQb",
+      "settlement_id": "setl_XirZRiRBaepZIT",
+      "amount": 434169,
+      "fee": 0,
+      "tax": 0,
+      "credit": 434169,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2060 (Rs 4,341.69, upi) settled in setl_XirZRiRBaepZIT: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 4,341.69."
+    },
+    {
+      "order_id": "order_2002",
+      "payment_id": "pay_vj7uff0LYTH8xI",
+      "settlement_id": "setl_ohoNMdZEHNJSsa",
+      "amount": 36761,
+      "fee": 735,
+      "tax": 132,
+      "credit": 35894,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2002 (Rs 367.61, netbanking) settled in setl_ohoNMdZEHNJSsa: fee Rs 7.35 at 2.00% and GST Rs 1.32 at 18% both recomputed and agree. Net credit Rs 358.94."
+    },
+    {
+      "order_id": "order_2017",
+      "payment_id": "pay_ZKjht3X13npgW2",
+      "settlement_id": "setl_ohoNMdZEHNJSsa",
+      "amount": 229081,
+      "fee": 0,
+      "tax": 0,
+      "credit": 229081,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2017 (Rs 2,290.81, upi) settled in setl_ohoNMdZEHNJSsa: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 2,290.81."
+    },
+    {
+      "order_id": "order_2062",
+      "payment_id": "pay_PqPEBqUhArQEPc",
+      "settlement_id": "setl_ohoNMdZEHNJSsa",
+      "amount": 120916,
+      "fee": 2418,
+      "tax": 435,
+      "credit": 118063,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2062 (Rs 1,209.16, card) settled in setl_ohoNMdZEHNJSsa: fee Rs 24.18 at 2.00% and GST Rs 4.35 at 18% both recomputed and agree. Net credit Rs 1,180.63."
+    },
+    {
+      "order_id": "order_2003",
+      "payment_id": "pay_coreogrNwwmq6O",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 684920,
+      "fee": 13698,
+      "tax": 2466,
+      "credit": 668756,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2003 (Rs 6,849.20, netbanking) settled in setl_lPGw7HWFb2cxxU: fee Rs 136.98 at 2.00% and GST Rs 24.66 at 18% both recomputed and agree. Net credit Rs 6,687.56."
+    },
+    {
+      "order_id": "order_2004",
+      "payment_id": "pay_x9NIQ0Wobtqn62",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 999759,
+      "fee": 0,
+      "tax": 0,
+      "credit": 999759,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2004 (Rs 9,997.59, upi) settled in setl_lPGw7HWFb2cxxU: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 9,997.59."
+    },
+    {
+      "order_id": "order_2018",
+      "payment_id": "pay_Y2bTu5X1YqWg21",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 1392772,
+      "fee": 27855,
+      "tax": 5014,
+      "credit": 1359903,
+      "method": "wallet",
+      "confidence": 0.99,
+      "reason": "Order order_2018 (Rs 13,927.72, wallet) settled in setl_lPGw7HWFb2cxxU: fee Rs 278.55 at 2.00% and GST Rs 50.14 at 18% both recomputed and agree. Net credit Rs 13,599.03."
+    },
+    {
+      "order_id": "order_2023",
+      "payment_id": "pay_c9LVC2JSxyjQ31",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 434892,
+      "fee": 0,
+      "tax": 0,
+      "credit": 434892,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2023 (Rs 4,348.92, upi) settled in setl_lPGw7HWFb2cxxU: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 4,348.92."
+    },
+    {
+      "order_id": "order_2029",
+      "payment_id": "pay_jhPInRVkLUhY7g",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 1758036,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1758036,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2029 (Rs 17,580.36, upi) settled in setl_lPGw7HWFb2cxxU: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 17,580.36."
+    },
+    {
+      "order_id": "order_2038",
+      "payment_id": "pay_HO4ZektUJrhQR6",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 1165693,
+      "fee": 23314,
+      "tax": 4197,
+      "credit": 1138182,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2038 (Rs 11,656.93, netbanking) settled in setl_lPGw7HWFb2cxxU: fee Rs 233.14 at 2.00% and GST Rs 41.97 at 18% both recomputed and agree. Net credit Rs 11,381.82."
+    },
+    {
+      "order_id": "order_2042",
+      "payment_id": "pay_tazn0h6Oj5sRzD",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 1174754,
+      "fee": 23495,
+      "tax": 4229,
+      "credit": 1147030,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2042 (Rs 11,747.54, card) settled in setl_lPGw7HWFb2cxxU: fee Rs 234.95 at 2.00% and GST Rs 42.29 at 18% both recomputed and agree. Net credit Rs 11,470.30."
+    },
+    {
+      "order_id": "order_2063",
+      "payment_id": "pay_VVrhEAiHoIPvyU",
+      "settlement_id": "setl_lPGw7HWFb2cxxU",
+      "amount": 124883,
+      "fee": 2498,
+      "tax": 450,
+      "credit": 121935,
+      "method": "wallet",
+      "confidence": 0.99,
+      "reason": "Order order_2063 (Rs 1,248.83, wallet) settled in setl_lPGw7HWFb2cxxU: fee Rs 24.98 at 2.00% and GST Rs 4.50 at 18% both recomputed and agree. Net credit Rs 1,219.35."
+    },
+    {
+      "order_id": "order_2001",
+      "payment_id": "pay_igTHKbfoLISRAB",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 70547,
+      "fee": 0,
+      "tax": 0,
+      "credit": 70547,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2001 (Rs 705.47, upi) settled in setl_oOgKUivuNZQ8Dl: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 705.47."
+    },
+    {
+      "order_id": "order_2014",
+      "payment_id": "pay_SoyPstUeC99enq",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 602307,
+      "fee": 0,
+      "tax": 0,
+      "credit": 602307,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2014 (Rs 6,023.07, upi) settled in setl_oOgKUivuNZQ8Dl: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 6,023.07."
+    },
+    {
+      "order_id": "order_2020",
+      "payment_id": "pay_KvWB9h3lcBGYQ6",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 1781621,
+      "fee": 35632,
+      "tax": 6414,
+      "credit": 1739575,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2020 (Rs 17,816.21, card) settled in setl_oOgKUivuNZQ8Dl: fee Rs 356.32 at 2.00% and GST Rs 64.14 at 18% both recomputed and agree. Net credit Rs 17,395.75."
+    },
+    {
+      "order_id": "order_2035",
+      "payment_id": "pay_IRh1E2JDBld6DY",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 999750,
+      "fee": 19995,
+      "tax": 3599,
+      "credit": 976156,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2035 (Rs 9,997.50, card) settled in setl_oOgKUivuNZQ8Dl: fee Rs 199.95 at 2.00% and GST Rs 35.99 at 18% both recomputed and agree. Net credit Rs 9,761.56."
+    },
+    {
+      "order_id": "order_2056",
+      "payment_id": "pay_TGUDWFgF6cW1GC",
+      "settlement_id": "setl_oOgKUivuNZQ8Dl",
+      "amount": 53702,
+      "fee": 0,
+      "tax": 0,
+      "credit": 53702,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2056 (Rs 537.02, upi) settled in setl_oOgKUivuNZQ8Dl: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 537.02."
+    },
+    {
+      "order_id": "order_2009",
+      "payment_id": "pay_GhnuKoneNo41eo",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1250796,
+      "fee": 25016,
+      "tax": 4503,
+      "credit": 1221277,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2009 (Rs 12,507.96, card) settled in setl_scmc5F9HpUlwW1: fee Rs 250.16 at 2.00% and GST Rs 45.03 at 18% both recomputed and agree. Net credit Rs 12,212.77."
+    },
+    {
+      "order_id": "order_2016",
+      "payment_id": "pay_NqE40fAraVNqTI",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1128775,
+      "fee": 22576,
+      "tax": 4064,
+      "credit": 1102135,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2016 (Rs 11,287.75, card) settled in setl_scmc5F9HpUlwW1: fee Rs 225.76 at 2.00% and GST Rs 40.64 at 18% both recomputed and agree. Net credit Rs 11,021.35."
+    },
+    {
+      "order_id": "order_2019",
+      "payment_id": "pay_Xoblu17rNy8H6h",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1701167,
+      "fee": 34023,
+      "tax": 6124,
+      "credit": 1661020,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2019 (Rs 17,011.67, card) settled in setl_scmc5F9HpUlwW1: fee Rs 340.23 at 2.00% and GST Rs 61.24 at 18% both recomputed and agree. Net credit Rs 16,610.20."
+    },
+    {
+      "order_id": "order_2021",
+      "payment_id": "pay_Ph3FPuRIlPxUkJ",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 152609,
+      "fee": 3052,
+      "tax": 549,
+      "credit": 149008,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2021 (Rs 1,526.09, card) settled in setl_scmc5F9HpUlwW1: fee Rs 30.52 at 2.00% and GST Rs 5.49 at 18% both recomputed and agree. Net credit Rs 1,490.08."
+    },
+    {
+      "order_id": "order_2044",
+      "payment_id": "pay_HCtlRJoWcURYxP",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 908871,
+      "fee": 0,
+      "tax": 0,
+      "credit": 908871,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2044 (Rs 9,088.71, upi) settled in setl_scmc5F9HpUlwW1: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 9,088.71."
+    },
+    {
+      "order_id": "order_2051",
+      "payment_id": "pay_7i71S87XwXaHCP",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 563563,
+      "fee": 11271,
+      "tax": 2029,
+      "credit": 550263,
+      "method": "wallet",
+      "confidence": 0.99,
+      "reason": "Order order_2051 (Rs 5,635.63, wallet) settled in setl_scmc5F9HpUlwW1: fee Rs 112.71 at 2.00% and GST Rs 20.29 at 18% both recomputed and agree. Net credit Rs 5,502.63."
+    },
+    {
+      "order_id": "order_2052",
+      "payment_id": "pay_ob2I4ndZ4szi6s",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1525894,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1525894,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2052 (Rs 15,258.94, upi) settled in setl_scmc5F9HpUlwW1: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 15,258.94."
+    },
+    {
+      "order_id": "order_2054",
+      "payment_id": "pay_w3Ndr86ZfnN8du",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 455829,
+      "fee": 0,
+      "tax": 0,
+      "credit": 455829,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2054 (Rs 4,558.29, upi) settled in setl_scmc5F9HpUlwW1: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 4,558.29."
+    },
+    {
+      "order_id": "order_2059",
+      "payment_id": "pay_d7IPz26A4drtgF",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1383849,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1383849,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2059 (Rs 13,838.49, upi) settled in setl_scmc5F9HpUlwW1: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 13,838.49."
+    },
+    {
+      "order_id": "order_2061",
+      "payment_id": "pay_liOeT8fGxCjtu6",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 588828,
+      "fee": 0,
+      "tax": 0,
+      "credit": 588828,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2061 (Rs 5,888.28, upi) settled in setl_scmc5F9HpUlwW1: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 5,888.28."
+    },
+    {
+      "order_id": "order_2064",
+      "payment_id": "pay_JRzhbuXMZ5f0pK",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1706114,
+      "fee": 34122,
+      "tax": 6142,
+      "credit": 1665850,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2064 (Rs 17,061.14, card) settled in setl_scmc5F9HpUlwW1: fee Rs 341.22 at 2.00% and GST Rs 61.42 at 18% both recomputed and agree. Net credit Rs 16,658.50."
+    },
+    {
+      "order_id": "order_2065",
+      "payment_id": "pay_WeNGmWv7Ojgpkj",
+      "settlement_id": "setl_scmc5F9HpUlwW1",
+      "amount": 1613694,
+      "fee": 32274,
+      "tax": 5809,
+      "credit": 1575611,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2065 (Rs 16,136.94, card) settled in setl_scmc5F9HpUlwW1: fee Rs 322.74 at 2.00% and GST Rs 58.09 at 18% both recomputed and agree. Net credit Rs 15,756.11."
+    },
+    {
+      "order_id": "order_2026",
+      "payment_id": "pay_CdZyV6b2JD6sy3",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 142124,
+      "fee": 0,
+      "tax": 0,
+      "credit": 142124,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2026 (Rs 1,421.24, upi) settled in setl_ByB7vlQwXqfAA9: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 1,421.24."
+    },
+    {
+      "order_id": "order_2030",
+      "payment_id": "pay_mKZpRsQXXJcHPe",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 1075787,
+      "fee": 21516,
+      "tax": 3873,
+      "credit": 1050398,
+      "method": "wallet",
+      "confidence": 0.99,
+      "reason": "Order order_2030 (Rs 10,757.87, wallet) settled in setl_ByB7vlQwXqfAA9: fee Rs 215.16 at 2.00% and GST Rs 38.73 at 18% both recomputed and agree. Net credit Rs 10,503.98."
+    },
+    {
+      "order_id": "order_2041",
+      "payment_id": "pay_9OHzlwUMVmI5BR",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 1795584,
+      "fee": 35912,
+      "tax": 6464,
+      "credit": 1753208,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2041 (Rs 17,955.84, card) settled in setl_ByB7vlQwXqfAA9: fee Rs 359.12 at 2.00% and GST Rs 64.64 at 18% both recomputed and agree. Net credit Rs 17,532.08."
+    },
+    {
+      "order_id": "order_2043",
+      "payment_id": "pay_LUieV0vWqaTZJO",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 1031014,
+      "fee": 20620,
+      "tax": 3712,
+      "credit": 1006682,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2043 (Rs 10,310.14, card) settled in setl_ByB7vlQwXqfAA9: fee Rs 206.20 at 2.00% and GST Rs 37.12 at 18% both recomputed and agree. Net credit Rs 10,066.82."
+    },
+    {
+      "order_id": "order_2046",
+      "payment_id": "pay_SV2ceN59UAgN2B",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 1593285,
+      "fee": 31866,
+      "tax": 5736,
+      "credit": 1555683,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2046 (Rs 15,932.85, netbanking) settled in setl_ByB7vlQwXqfAA9: fee Rs 318.66 at 2.00% and GST Rs 57.36 at 18% both recomputed and agree. Net credit Rs 15,556.83."
+    },
+    {
+      "order_id": "order_2049",
+      "payment_id": "pay_JQUdLE4rXLvNMQ",
+      "settlement_id": "setl_ByB7vlQwXqfAA9",
+      "amount": 563726,
+      "fee": 11275,
+      "tax": 2030,
+      "credit": 550421,
+      "method": "wallet",
+      "confidence": 0.99,
+      "reason": "Order order_2049 (Rs 5,637.26, wallet) settled in setl_ByB7vlQwXqfAA9: fee Rs 112.75 at 2.00% and GST Rs 20.30 at 18% both recomputed and agree. Net credit Rs 5,504.21."
+    },
+    {
+      "order_id": "order_2005",
+      "payment_id": "pay_iUHUAKw9iEU1jj",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 936047,
+      "fee": 18721,
+      "tax": 3370,
+      "credit": 913956,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2005 (Rs 9,360.47, card) settled in setl_gusBSkBBT4MANX: fee Rs 187.21 at 2.00% and GST Rs 33.70 at 18% both recomputed and agree. Net credit Rs 9,139.56."
+    },
+    {
+      "order_id": "order_2011",
+      "payment_id": "pay_lC2eY1gOHafUoz",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 372050,
+      "fee": 7441,
+      "tax": 1339,
+      "credit": 363270,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2011 (Rs 3,720.50, card) settled in setl_gusBSkBBT4MANX: fee Rs 74.41 at 2.00% and GST Rs 13.39 at 18% both recomputed and agree. Net credit Rs 3,632.70."
+    },
+    {
+      "order_id": "order_2025",
+      "payment_id": "pay_U0rWEoBSou3ejx",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 1382146,
+      "fee": 27643,
+      "tax": 4976,
+      "credit": 1349527,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2025 (Rs 13,821.46, netbanking) settled in setl_gusBSkBBT4MANX: fee Rs 276.43 at 2.00% and GST Rs 49.76 at 18% both recomputed and agree. Net credit Rs 13,495.27."
+    },
+    {
+      "order_id": "order_2031",
+      "payment_id": "pay_7NZRBT7qYHDBTq",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 791549,
+      "fee": 15831,
+      "tax": 2850,
+      "credit": 772868,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2031 (Rs 7,915.49, card) settled in setl_gusBSkBBT4MANX: fee Rs 158.31 at 2.00% and GST Rs 28.50 at 18% both recomputed and agree. Net credit Rs 7,728.68."
+    },
+    {
+      "order_id": "order_2032",
+      "payment_id": "pay_CLxb0lnXv2Rra6",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 183068,
+      "fee": 3661,
+      "tax": 659,
+      "credit": 178748,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2032 (Rs 1,830.68, netbanking) settled in setl_gusBSkBBT4MANX: fee Rs 36.61 at 2.00% and GST Rs 6.59 at 18% both recomputed and agree. Net credit Rs 1,787.48."
+    },
+    {
+      "order_id": "order_2048",
+      "payment_id": "pay_He69s7QCs90gxw",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 1665498,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1665498,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2048 (Rs 16,654.98, upi) settled in setl_gusBSkBBT4MANX: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 16,654.98."
+    },
+    {
+      "order_id": "order_2066",
+      "payment_id": "pay_IJQ2N9u8tBDNXK",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 1435425,
+      "fee": 28708,
+      "tax": 5167,
+      "credit": 1401550,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2066 (Rs 14,354.25, card) settled in setl_gusBSkBBT4MANX: fee Rs 287.08 at 2.00% and GST Rs 51.67 at 18% both recomputed and agree. Net credit Rs 14,015.50."
+    },
+    {
+      "order_id": "order_2067",
+      "payment_id": "pay_wrN8fKxJ7Tc4Jl",
+      "settlement_id": "setl_gusBSkBBT4MANX",
+      "amount": 591425,
+      "fee": 0,
+      "tax": 0,
+      "credit": 591425,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2067 (Rs 5,914.25, upi) settled in setl_gusBSkBBT4MANX: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 5,914.25."
+    },
+    {
+      "order_id": "order_2024",
+      "payment_id": "pay_I4hiCGItUBY3A4",
+      "settlement_id": "setl_zFUjb0QBhoOw6c",
+      "amount": 424307,
+      "fee": 0,
+      "tax": 0,
+      "credit": 424307,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2024 (Rs 4,243.07, upi) settled in setl_zFUjb0QBhoOw6c: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 4,243.07."
+    },
+    {
+      "order_id": "order_2045",
+      "payment_id": "pay_12BGCSzOjD8uQO",
+      "settlement_id": "setl_zFUjb0QBhoOw6c",
+      "amount": 92464,
+      "fee": 0,
+      "tax": 0,
+      "credit": 92464,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2045 (Rs 924.64, upi) settled in setl_zFUjb0QBhoOw6c: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 924.64."
+    },
+    {
+      "order_id": "order_2055",
+      "payment_id": "pay_n1uj3a1iipkOba",
+      "settlement_id": "setl_zFUjb0QBhoOw6c",
+      "amount": 399421,
+      "fee": 7988,
+      "tax": 1438,
+      "credit": 389995,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2055 (Rs 3,994.21, netbanking) settled in setl_zFUjb0QBhoOw6c: fee Rs 79.88 at 2.00% and GST Rs 14.38 at 18% both recomputed and agree. Net credit Rs 3,899.95."
+    },
+    {
+      "order_id": "order_2058",
+      "payment_id": "pay_nBovCzfAPxj5eZ",
+      "settlement_id": "setl_zFUjb0QBhoOw6c",
+      "amount": 1305718,
+      "fee": 26114,
+      "tax": 4701,
+      "credit": 1274903,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2058 (Rs 13,057.18, card) settled in setl_zFUjb0QBhoOw6c: fee Rs 261.14 at 2.00% and GST Rs 47.01 at 18% both recomputed and agree. Net credit Rs 12,749.03."
+    },
+    {
+      "order_id": "order_2010",
+      "payment_id": "pay_pDzfOvz1dOOdTX",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 266382,
+      "fee": 5328,
+      "tax": 959,
+      "credit": 260095,
+      "method": "card",
+      "confidence": 0.99,
+      "reason": "Order order_2010 (Rs 2,663.82, card) settled in setl_xVJGyOphTExIqq: fee Rs 53.28 at 2.00% and GST Rs 9.59 at 18% both recomputed and agree. Net credit Rs 2,600.95."
+    },
+    {
+      "order_id": "order_2013",
+      "payment_id": "pay_5GdF0ee1z6JJcf",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 129232,
+      "fee": 0,
+      "tax": 0,
+      "credit": 129232,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2013 (Rs 1,292.32, upi) settled in setl_xVJGyOphTExIqq: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 1,292.32."
+    },
+    {
+      "order_id": "order_2027",
+      "payment_id": "pay_nBbuQzkChMbyIb",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 1365681,
+      "fee": 0,
+      "tax": 0,
+      "credit": 1365681,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2027 (Rs 13,656.81, upi) settled in setl_xVJGyOphTExIqq: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 13,656.81."
+    },
+    {
+      "order_id": "order_2039",
+      "payment_id": "pay_Atpf7ZJ69PqcUD",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 823854,
+      "fee": 0,
+      "tax": 0,
+      "credit": 823854,
+      "method": "upi",
+      "confidence": 0.99,
+      "reason": "Order order_2039 (Rs 8,238.54, upi) settled in setl_xVJGyOphTExIqq: zero-MDR instrument (UPI), so fee and GST are correctly nil. Net credit Rs 8,238.54."
+    },
+    {
+      "order_id": "order_2040",
+      "payment_id": "pay_Y8DztgjzEPyVcf",
+      "settlement_id": "setl_xVJGyOphTExIqq",
+      "amount": 356136,
+      "fee": 7123,
+      "tax": 1282,
+      "credit": 347731,
+      "method": "netbanking",
+      "confidence": 0.99,
+      "reason": "Order order_2040 (Rs 3,561.36, netbanking) settled in setl_xVJGyOphTExIqq: fee Rs 71.23 at 2.00% and GST Rs 12.82 at 18% both recomputed and agree. Net credit Rs 3,477.31."
+    }
+  ],
+  "unmatched_settlements": []
+}

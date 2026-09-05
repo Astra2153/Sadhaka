@@ -1,0 +1,19 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+Backend/output/audit_trail.db
+
+# node
+node_modules/
+dist/
+.env
+.env.local
+.vercel
+*.local
+
+# os
+.DS_Store
+Thumbs.db

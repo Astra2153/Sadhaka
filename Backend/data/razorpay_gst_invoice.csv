@@ -1,0 +1,2 @@
+invoice_no,invoice_date,period,supplier_gstin,supplier_name,recipient_gstin,recipient_name,place_of_supply,taxable_value,igst,cgst,sgst,total_tax,invoice_total,reflected_in_gstr2b
+RZP/202607/119857,2026-08-01,2026-07,29AAGCR4375J1ZU,RAZORPAY SOFTWARE PRIVATE LIMITED,27AABCK1234M1Z5,Kalyani Retail Private Limited,27,694990,123879,0,0,123879,818869,yes

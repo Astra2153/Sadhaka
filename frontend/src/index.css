@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Design language: a ledger spread, not a dashboard.
+ *
+ * The subject is double-entry reconciliation — two records that must tally —
+ * so the organising metaphor is the accounting page: ruled horizontal lines,
+ * columnar alignment, figures set in a serif with real presence, and colour
+ * used only where it carries accounting meaning (credit green, debit brick).
+ * There are no cards with drop shadows and no gradient hero numbers, because
+ * neither belongs on a page a finance controller would print.
+ *
+ * Numerals are tabular everywhere so rupee columns align on the decimal. That
+ * is not a stylistic preference; misaligned figures are genuinely harder to
+ * scan for the error you are looking for.
+ */
+
+@layer base {
+  :root {
+    --paper: #FBFAF6;
+    --paper-sunk: #F4F1E9;
+    --ink: #17293D;
+    --ink-soft: #5A6B7C;
+    --rule: #DDD6C8;
+    --rule-strong: #C3B9A5;
+    --credit: #2C6A4E;
+    --debit: #9B3A2F;
+    --indigo: #3A44A0;
+    --amber: #8A6A1F;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans;
+    font-size: 15px;
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif tracking-[-0.012em];
+  }
+
+  /* Focus is visible and consistent. A finance tool gets used by keyboard. */
+  :focus-visible {
+    outline: 2px solid var(--indigo);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: #DDE0F2;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1180px] px-6;
+  }
+
+  /* Figures: serif, weighted, tabular. Used for every money value that
+     carries meaning rather than sitting inside prose. */
+  .figure {
+    @apply font-serif font-medium tabular-nums tracking-[-0.015em];
+  }
+
+  /* A ruled row — the fundamental unit of a ledger page. */
+  .ruled {
+    @apply border-b border-rule;
+  }
+
+  .rule-heavy {
+    @apply border-b-[1.5px] border-ink;
+  }
+
+  /* Tables inherit the ledger treatment rather than being styled per page. */
+  .ledger-table {
+    @apply w-full border-collapse text-[13.5px];
+  }
+  .ledger-table thead th {
+    @apply pb-[9px] pl-3.5 text-right text-[12px] font-semibold text-ink-soft
+           border-b-[1.5px] border-ink;
+  }
+  .ledger-table thead th:first-child {
+    @apply pl-0 text-left;
+  }
+  .ledger-table tbody td {
+    @apply py-[11px] pl-3.5 text-right border-b border-rule
+           font-serif text-[14px] align-top;
+  }
+  .ledger-table tbody td:first-child {
+    @apply pl-0 text-left font-sans text-[13px];
+  }
+  .ledger-table tbody tr.selectable {
+    @apply cursor-pointer;
+  }
+  .ledger-table tbody tr.selectable:hover {
+    @apply bg-paper-sunk;
+  }
+
+  /* Filter chips. Square, bordered, no pill shapes. */
+  .chip {
+    @apply border border-rule-strong px-3 py-1.5 text-[12.5px] text-ink-soft
+           rounded-[2px] bg-transparent;
+  }
+  .chip:hover {
+    @apply border-ink text-ink;
+  }
+  .chip[aria-pressed="true"] {
+    @apply bg-ink text-paper border-ink;
+  }
+
+  .field {
+    @apply border border-rule-strong bg-paper px-3 py-1.5 text-[13px]
+           text-ink rounded-[2px];
+  }
+
+  /* A finding: a bordered note that carries a verdict. The left border colour
+     is the verdict, so the reader knows the tone before reading. */
+  .finding {
+    @apply border-l-[3px] pl-[18px] py-3.5 max-w-[80ch];
+  }
+  .finding-bad    { border-color: var(--debit); }
+  .finding-good   { border-color: var(--credit); }
+  .finding-warn   { border-color: var(--amber); }
+  .finding-note   { border-color: var(--indigo); }
+
+  .meter {
+    @apply relative h-[7px] overflow-hidden border border-rule bg-paper-sunk;
+  }
+  .meter > i {
+    @apply absolute inset-y-0 left-0 block;
+    background: var(--credit);
+  }
+  .meter.warn > i { background: var(--amber); }
+  .meter.bad  > i { background: var(--debit); }
+}
+
+
+/* ---------------------------------------------------------------------------
+ * Motion
+ *
+ * CSS-only, no animation library. Sections settle in on load with a short
+ * fade and a few pixels of travel — enough to give the page a sense of being
+ * composed rather than dumped, not enough to make a reader wait for it.
+ *
+ * The stagger is capped at six steps: beyond that the last element on a long
+ * page would visibly lag, which is exactly the kind of animation that stops
+ * being pleasant the second time you load the page.
+ *
+ * Everything here is disabled wholesale under prefers-reduced-motion, which
+ * matters more than usual for a finance tool — vestibular triggers are not a
+ * reasonable price for a fade.
+ * ------------------------------------------------------------------------ */
+
+@keyframes settle-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-from-right {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-settle {
+  animation: settle-in 380ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.animate-fade {
+  animation: fade-in 300ms ease-out both;
+}
+
+.animate-panel {
+  animation: slide-from-right 220ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Stagger children so a page composes top-down instead of appearing at once. */
+.stagger > * { animation: settle-in 380ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+.stagger > *:nth-child(1) { animation-delay: 0ms; }
+.stagger > *:nth-child(2) { animation-delay: 55ms; }
+.stagger > *:nth-child(3) { animation-delay: 110ms; }
+.stagger > *:nth-child(4) { animation-delay: 165ms; }
+.stagger > *:nth-child(5) { animation-delay: 220ms; }
+.stagger > *:nth-child(n+6) { animation-delay: 265ms; }
+
+/* Figures earn a slightly slower reveal — they are the thing being read. */
+.figure { transition: color 160ms ease-out; }
+
+/* Rows respond to the pointer without moving, so a hover never shifts the
+   number a reader is trying to compare against the row above it. */
+.ledger-table tbody tr.selectable { transition: background-color 120ms ease-out; }
+.chip { transition: background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-settle, .animate-fade, .animate-panel, .stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Recharts leaves its own fonts and colours behind; bring them into the
+   system so charts read as part of the page rather than bolted on. */
+.recharts-text,
+.recharts-cartesian-axis-tick-value {
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-size: 11px;
+  fill: var(--ink-soft);
+}
+.recharts-cartesian-grid line {
+  stroke: var(--rule);
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: var(--paper) !important;
+  border: 1px solid var(--rule-strong) !important;
+  border-radius: 2px !important;
+  font-family: "Inter", system-ui, sans-serif !important;
+  font-size: 12.5px !important;
+}

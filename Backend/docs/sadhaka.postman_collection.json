@@ -1,0 +1,391 @@
+{
+  "info": {
+    "name": "Sadhaka \u2014 Settlement Reconciliation API",
+    "description": "Reconciles Razorpay settlement data across five engine stages \u2014 bank credit to settlement batch, settlement batch to individual orders, settlement GST to the monthly tax invoice, forward cash position, and double-entry journal generation \u2014 plus a marketplace scenario for Section 194-O TDS / Section 52 GST TCS, and an adversarial harness that attacks the engine's own matching logic to measure detection limits and confidence calibration.\n\n**Every figure returned by this API is read from the audit trail written by the engine. Nothing is recomputed at display time** \u2014 if an endpoint and the SQLite audit trail could ever disagree, the audit trail would be decorative, so the two are structurally the same source.\n\n**Typical order of calls** for a fresh environment: `POST /run` to execute the pipeline (or run `python src/run_pipeline.py` directly), then `GET /summary` for headline metrics, `GET /exceptions` for what needs attention, `GET /trace/{entity_id}` to ask why a specific order/payment/settlement did or didn't reconcile, and `GET /verification` for the adversarial self-test results (run `python src/run_verification.py --thorough` first to populate it).\n\nA ready-to-import request collection is at `docs/sadhaka.postman_collection.json` in the repo, and `docs/requests.http` works directly in VS Code's REST Client extension for manual, no-UI testing of every endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "system",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Liveness check. Also reports whether any reconciliation has been run."
+          }
+        }
+      ]
+    },
+    {
+      "name": "engine",
+      "item": [
+        {
+          "name": "Trigger Run",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/run",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "run"
+              ]
+            },
+            "description": "Execute the full three-stage reconciliation and return the summary."
+          }
+        },
+        {
+          "name": "List Runs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/runs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "runs"
+              ]
+            },
+            "description": "All reconciliation runs, newest first."
+          }
+        }
+      ]
+    },
+    {
+      "name": "reporting",
+      "item": [
+        {
+          "name": "Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "summary"
+              ]
+            },
+            "description": "Headline metrics: throughput, match rates with their denominators,\nexception split, money, and the self-score against the answer key."
+          }
+        },
+        {
+          "name": "Exceptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/exceptions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "exceptions"
+              ]
+            },
+            "description": "The exception list, split into benign and actionable."
+          }
+        },
+        {
+          "name": "Matches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/matches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "matches"
+              ]
+            },
+            "description": "Successful matches with the rule that produced them and the confidence."
+          }
+        },
+        {
+          "name": "Audit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/audit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "audit"
+              ]
+            },
+            "description": "The full decision log \u2014 every match and every exception, filterable."
+          }
+        },
+        {
+          "name": "Trace",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/trace/order_2012",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "trace",
+                "order_2012"
+              ]
+            },
+            "description": "Everything the engine decided about one entity, with a plain-English\nnarrative assembled from the recorded reasons."
+          }
+        },
+        {
+          "name": "Gst",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gst",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gst"
+              ]
+            },
+            "description": "GST and input tax credit position: settlement tax vs the monthly\ninvoice, ITC eligibility with any blockers named, and effective MDR/GST\nper payment instrument."
+          }
+        },
+        {
+          "name": "Scorecard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/scorecard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "scorecard"
+              ]
+            },
+            "description": "Self-score against the generator's answer key."
+          }
+        },
+        {
+          "name": "Forecast",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/forecast",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forecast"
+              ]
+            },
+            "description": "Forward cash position: what lands, when, and with what confidence."
+          }
+        },
+        {
+          "name": "Journal",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/journal",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "journal"
+              ]
+            },
+            "description": "The double-entry postings this reconciliation implies, plus the trial\nbalance. Entries that do not balance to the paise are rejected upstream\nand never appear here."
+          }
+        }
+      ]
+    },
+    {
+      "name": "reference",
+      "item": [
+        {
+          "name": "Variance Codes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/variance-codes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "variance-codes"
+              ]
+            },
+            "description": "The variance taxonomy, and which codes are benign vs actionable."
+          }
+        },
+        {
+          "name": "Configuration",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/config",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "config"
+              ]
+            },
+            "description": "The rates and tolerances the engine ran with."
+          }
+        }
+      ]
+    },
+    {
+      "name": "scenarios",
+      "item": [
+        {
+          "name": "Marketplace",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/marketplace",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "marketplace"
+              ]
+            },
+            "description": "Run the marketplace scenario, where the platform pays third-party\nsellers and Section 194-O TDS and Section 52 GST TCS therefore apply."
+          }
+        }
+      ]
+    },
+    {
+      "name": "verification",
+      "item": [
+        {
+          "name": "Verification",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verification",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verification"
+              ]
+            },
+            "description": "The most recent adversarial verification report."
+          }
+        },
+        {
+          "name": "Detection Limits",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verification/detection-limits",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verification",
+                "detection-limits"
+              ]
+            },
+            "description": "Detection rate as a function of fault magnitude, per fault type, with\nWilson confidence intervals."
+          }
+        },
+        {
+          "name": "Calibration",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verification/calibration",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verification",
+                "calibration"
+              ]
+            },
+            "description": "Is the confidence score honest? Reliability curve, expected calibration\nerror and Brier score, measured against the generator's ground truth."
+          }
+        },
+        {
+          "name": "Counterfactuals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verification/counterfactuals",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verification",
+                "counterfactuals"
+              ]
+            },
+            "description": "For each exception, the minimal change that would make it reconcile."
+          }
+        },
+        {
+          "name": "Run Verification Endpoint",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verification/run",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verification",
+                "run"
+              ]
+            },
+            "description": "Run the harness on demand. 'quick' takes about a minute; 'thorough'\ntakes considerably longer but is the only profile that can establish\ndetection floors."
+          }
+        }
+      ]
+    }
+  ]
+}

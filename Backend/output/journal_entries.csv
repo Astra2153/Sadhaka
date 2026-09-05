@@ -1,0 +1,53 @@
+entry_id,date,account_code,account_name,debit,credit,narration,memo,source_ref
+JV-0001,2026-07-03,1010,Bank — Current Account,47442.78,,"Razorpay settlement setl_4jB6nBvbdFo9xb credited to bank as Rs 47,442.78 covering 6 transaction(s) gross Rs 47,851.83, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_r7DXQsedBE",setl_4jB6nBvbdFo9xb
+JV-0001,2026-07-03,5210,Payment Gateway Charges,346.65,,,"MDR on Rs 47,851.83 of settled sales",setl_4jB6nBvbdFo9xb
+JV-0001,2026-07-03,1310,Input GST Recoverable,62.40,,,18% GST on gateway charges — recoverable as input tax credit,setl_4jB6nBvbdFo9xb
+JV-0001,2026-07-03,1210,Razorpay Clearing Account,,47851.83,,Clearing account discharged for settlement setl_4jB6nBvbdFo9xb,setl_4jB6nBvbdFo9xb
+JV-0002,2026-07-04,1010,Bank — Current Account,20440.26,,"Razorpay settlement setl_XirZRiRBaepZIT credited to bank as Rs 20,440.26 covering 3 transaction(s) gross Rs 20,554.43, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_vi1t9vyVFg",setl_XirZRiRBaepZIT
+JV-0002,2026-07-04,5210,Payment Gateway Charges,96.75,,,"MDR on Rs 20,554.43 of settled sales",setl_XirZRiRBaepZIT
+JV-0002,2026-07-04,1310,Input GST Recoverable,17.42,,,18% GST on gateway charges — recoverable as input tax credit,setl_XirZRiRBaepZIT
+JV-0002,2026-07-04,1210,Razorpay Clearing Account,,20554.43,,Clearing account discharged for settlement setl_XirZRiRBaepZIT,setl_XirZRiRBaepZIT
+JV-0003,2026-07-05,1010,Bank — Current Account,3830.38,,"Razorpay settlement setl_ohoNMdZEHNJSsa credited to bank as Rs 3,830.38 covering 3 transaction(s) gross Rs 3,867.58, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_CqpgrxMp1j",setl_ohoNMdZEHNJSsa
+JV-0003,2026-07-05,5210,Payment Gateway Charges,31.53,,,"MDR on Rs 3,867.58 of settled sales",setl_ohoNMdZEHNJSsa
+JV-0003,2026-07-05,1310,Input GST Recoverable,5.67,,,18% GST on gateway charges — recoverable as input tax credit,setl_ohoNMdZEHNJSsa
+JV-0003,2026-07-05,1210,Razorpay Clearing Account,,3867.58,,Clearing account discharged for settlement setl_ohoNMdZEHNJSsa,setl_ohoNMdZEHNJSsa
+JV-0004,2026-07-06,1010,Bank — Current Account,76284.93,,"Razorpay settlement setl_lPGw7HWFb2cxxU credited to bank as Rs 76,284.93 covering 8 transaction(s) gross Rs 77,357.09, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_5Slj9C2Efy",setl_lPGw7HWFb2cxxU
+JV-0004,2026-07-06,5210,Payment Gateway Charges,908.60,,,"MDR on Rs 77,357.09 of settled sales",setl_lPGw7HWFb2cxxU
+JV-0004,2026-07-06,1310,Input GST Recoverable,163.56,,,18% GST on gateway charges — recoverable as input tax credit,setl_lPGw7HWFb2cxxU
+JV-0004,2026-07-06,1210,Razorpay Clearing Account,,77357.09,,Clearing account discharged for settlement setl_lPGw7HWFb2cxxU,setl_lPGw7HWFb2cxxU
+JV-0005,2026-07-07,1010,Bank — Current Account,30186.10,,"Razorpay settlement setl_oOgKUivuNZQ8Dl credited to bank as Rs 30,186.10 covering 5 transaction(s) gross Rs 35,079.27, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_7nvdE2ODH0",setl_oOgKUivuNZQ8Dl
+JV-0005,2026-07-07,5210,Payment Gateway Charges,556.27,,,"MDR on Rs 35,079.27 of settled sales",setl_oOgKUivuNZQ8Dl
+JV-0005,2026-07-07,1310,Input GST Recoverable,100.13,,,18% GST on gateway charges — recoverable as input tax credit,setl_oOgKUivuNZQ8Dl
+JV-0005,2026-07-07,4100,Sales Returns & Refunds,4236.77,,,Refunds netted from this settlement,setl_oOgKUivuNZQ8Dl
+JV-0005,2026-07-07,1210,Razorpay Clearing Account,,35079.27,,Clearing account discharged for settlement setl_oOgKUivuNZQ8Dl,setl_oOgKUivuNZQ8Dl
+JV-0006,2026-07-08,1010,Bank — Current Account,127884.35,,"Razorpay settlement setl_scmc5F9HpUlwW1 credited to bank as Rs 1,27,884.35 covering 12 transaction(s) gross Rs 1,29,799.89, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_iqwzcdIwrx",setl_scmc5F9HpUlwW1
+JV-0006,2026-07-08,5210,Payment Gateway Charges,1623.34,,,"MDR on Rs 1,29,799.89 of settled sales",setl_scmc5F9HpUlwW1
+JV-0006,2026-07-08,1310,Input GST Recoverable,292.20,,,18% GST on gateway charges — recoverable as input tax credit,setl_scmc5F9HpUlwW1
+JV-0006,2026-07-08,1210,Razorpay Clearing Account,,129799.89,,Clearing account discharged for settlement setl_scmc5F9HpUlwW1,setl_scmc5F9HpUlwW1
+JV-0007,2026-07-09,1010,Bank — Current Account,69374.66,,"Razorpay settlement setl_ByB7vlQwXqfAA9 credited to bank as Rs 69,374.66 covering 7 transaction(s) gross Rs 71,006.10, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_Vr9Qh8yXv6",setl_ByB7vlQwXqfAA9
+JV-0007,2026-07-09,5210,Payment Gateway Charges,1391.71,,,"MDR on Rs 71,006.10 of settled sales",setl_ByB7vlQwXqfAA9
+JV-0007,2026-07-09,1310,Input GST Recoverable,239.73,,,18% GST on gateway charges — recoverable as input tax credit,setl_ByB7vlQwXqfAA9
+JV-0007,2026-07-09,1210,Razorpay Clearing Account,,71006.10,,Clearing account discharged for settlement setl_ByB7vlQwXqfAA9,setl_ByB7vlQwXqfAA9
+JV-0008,2026-07-10,1010,Bank — Current Account,72368.42,,"Razorpay settlement setl_gusBSkBBT4MANX credited to bank as Rs 72,368.42 covering 8 transaction(s) gross Rs 73,572.08, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_mFFciuDCLF",setl_gusBSkBBT4MANX
+JV-0008,2026-07-10,5210,Payment Gateway Charges,1020.05,,,"MDR on Rs 73,572.08 of settled sales",setl_gusBSkBBT4MANX
+JV-0008,2026-07-10,1310,Input GST Recoverable,183.61,,,18% GST on gateway charges — recoverable as input tax credit,setl_gusBSkBBT4MANX
+JV-0008,2026-07-10,1210,Razorpay Clearing Account,,73572.08,,Clearing account discharged for settlement setl_gusBSkBBT4MANX,setl_gusBSkBBT4MANX
+JV-0009,2026-07-11,1010,Bank — Current Account,29266.29,,"Razorpay settlement setl_zFUjb0QBhoOw6c credited to bank as Rs 29,266.29 covering 5 transaction(s) gross Rs 29,885.82, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_5tyM0KFFEI",setl_zFUjb0QBhoOw6c
+JV-0009,2026-07-11,5210,Payment Gateway Charges,525.02,,,"MDR on Rs 29,885.82 of settled sales",setl_zFUjb0QBhoOw6c
+JV-0009,2026-07-11,1310,Input GST Recoverable,94.51,,,18% GST on gateway charges — recoverable as input tax credit,setl_zFUjb0QBhoOw6c
+JV-0009,2026-07-11,1210,Razorpay Clearing Account,,29885.82,,Clearing account discharged for settlement setl_zFUjb0QBhoOw6c,setl_zFUjb0QBhoOw6c
+JV-0010,2026-07-12,1010,Bank — Current Account,3143.28,,"Razorpay settlement setl_xVJGyOphTExIqq credited to bank as Rs 3,143.28 covering 5 transaction(s) gross Rs 29,412.85, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_YwP8KXSQbD",setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,5210,Payment Gateway Charges,124.51,,,"MDR on Rs 29,412.85 of settled sales",setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,1310,Input GST Recoverable,22.41,,,18% GST on gateway charges — recoverable as input tax credit,setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,4100,Sales Returns & Refunds,8311.51,,,Refunds netted from this settlement,setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,5220,Chargeback Losses,17061.14,,,Disputed transactions debited,setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,5230,Dispute Handling Fees,750.00,,,Chargeback handling fees,setl_xVJGyOphTExIqq
+JV-0010,2026-07-12,1210,Razorpay Clearing Account,,29412.85,,Clearing account discharged for settlement setl_xVJGyOphTExIqq,setl_xVJGyOphTExIqq
+JV-0011,2026-07-04,1010,Bank — Current Account,25404.20,,"Razorpay settlement setl_kM3u5c1f6VqnJM credited to bank as Rs 25,404.20 covering 2 transaction(s) gross Rs 25,788.25, net of gateway charges, GST on those charges, refunds and disputes.","NEFT credit, bank txn bnk_SKkMM0jQb6",setl_kM3u5c1f6VqnJM
+JV-0011,2026-07-04,5210,Payment Gateway Charges,325.47,,,"MDR on Rs 25,788.25 of settled sales",setl_kM3u5c1f6VqnJM
+JV-0011,2026-07-04,1310,Input GST Recoverable,58.58,,,18% GST on gateway charges — recoverable as input tax credit,setl_kM3u5c1f6VqnJM
+JV-0011,2026-07-04,1210,Razorpay Clearing Account,,25788.25,,Clearing account discharged for settlement setl_kM3u5c1f6VqnJM,setl_kM3u5c1f6VqnJM
+JV-0012,2026-07-08,1100,Trade Receivables,16296.56,,"1 transaction(s) worth Rs 16,296.56 withheld by the gateway as a risk reserve. Recognised as a receivable rather than cash, because the money exists but is not available.",Amounts held by gateway as reserve,on_hold_reserve
+JV-0012,2026-07-08,1210,Razorpay Clearing Account,,16296.56,,Clearing discharged for held transactions,on_hold_reserve
+JV-0013,2026-07-01,5900,Rounding Differences,1.43,,"True-up between GST accrued per transaction (Rs 1,240.22) and the monthly tax invoice RZP/202607/119857 (Rs 1,238.79). The invoice is the document that supports the input tax credit claim, so the ledger is aligned to it.",Accrual true-up,RZP/202607/119857
+JV-0013,2026-07-01,1310,Input GST Recoverable,,1.43,,GST reduced to monthly invoice,RZP/202607/119857

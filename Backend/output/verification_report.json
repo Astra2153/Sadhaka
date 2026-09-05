@@ -1,0 +1,1249 @@
+{
+  "profile": "thorough",
+  "seed": 42,
+  "elapsed_seconds": 5.3,
+  "total_attack_trials": 1975,
+  "calibration_samples": 1282,
+  "baseline": {
+    "exceptions_on_clean_data": 15,
+    "entities_flagged": 25,
+    "matches": 11,
+    "note": "These are the engine's normal findings on untampered data \u2014 on-hold reserves, unsettled orders, refunds in later batches. Every detection below is counted only if it flags an entity NOT already in this set."
+  },
+  "detection_limits": [
+    {
+      "fault_type": "FEE_OVERCHARGE",
+      "label": "MDR overcharged on one transaction",
+      "unit": "paise",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "Rs 0.01",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "Rs 0.02",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "Rs 0.05",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "Rs 0.10",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 25,
+          "magnitude_display": "Rs 0.25",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 50,
+          "magnitude_display": "Rs 0.50",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 100,
+          "magnitude_display": "Rs 1.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 200,
+          "magnitude_display": "Rs 2.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 400,
+          "magnitude_display": "Rs 4.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 800,
+          "magnitude_display": "Rs 8.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 1600,
+          "magnitude_display": "Rs 16.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 3200,
+          "magnitude_display": "Rs 32.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 8000,
+          "magnitude_display": "Rs 80.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 20000,
+          "magnitude_display": "Rs 200.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 7.5,
+      "lod95": 9.75,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 275,
+      "aggregate_ci": [
+        0.9862,
+        1.0
+      ],
+      "lod50_display": "Rs 0.07",
+      "lod95_display": "Rs 0.09",
+      "statement": "MDR overcharged on one transaction: reliably detected at or above Rs 0.09. Across 275 trials above tolerance the detection rate is 100% (95% CI 99-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "GST_UNDERSTATE",
+      "label": "GST on the fee understated",
+      "unit": "paise",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "Rs 0.01",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "Rs 0.02",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "Rs 0.05",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "Rs 0.10",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 25,
+          "magnitude_display": "Rs 0.25",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 50,
+          "magnitude_display": "Rs 0.50",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 100,
+          "magnitude_display": "Rs 1.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 200,
+          "magnitude_display": "Rs 2.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 400,
+          "magnitude_display": "Rs 4.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 800,
+          "magnitude_display": "Rs 8.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 1600,
+          "magnitude_display": "Rs 16.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 3200,
+          "magnitude_display": "Rs 32.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 7.5,
+      "lod95": 9.75,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 225,
+      "aggregate_ci": [
+        0.9832,
+        1.0
+      ],
+      "lod50_display": "Rs 0.07",
+      "lod95_display": "Rs 0.09",
+      "statement": "GST on the fee understated: reliably detected at or above Rs 0.09. Across 225 trials above tolerance the detection rate is 100% (95% CI 98-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "PAYOUT_SKIM",
+      "label": "Money skimmed from the bank credit",
+      "unit": "paise",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "Rs 0.01",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "Rs 0.02",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "Rs 0.05",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "Rs 0.10",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 25,
+          "magnitude_display": "Rs 0.25",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 50,
+          "magnitude_display": "Rs 0.50",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 100,
+          "magnitude_display": "Rs 1.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 200,
+          "magnitude_display": "Rs 2.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 400,
+          "magnitude_display": "Rs 4.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 800,
+          "magnitude_display": "Rs 8.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 1600,
+          "magnitude_display": "Rs 16.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 3200,
+          "magnitude_display": "Rs 32.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 8000,
+          "magnitude_display": "Rs 80.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 20000,
+          "magnitude_display": "Rs 200.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 1,
+      "lod95": 1,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 150,
+      "aggregate_ci": [
+        0.975,
+        1.0
+      ],
+      "lod50_display": "Rs 0.01",
+      "lod95_display": "Rs 0.01",
+      "statement": "Money skimmed from the bank credit: reliably detected at or above Rs 0.01. Across 150 trials above tolerance the detection rate is 100% (95% CI 98-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "ORDER_TAMPER",
+      "label": "Settled gross inflated above the order",
+      "unit": "paise",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "Rs 0.01",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "Rs 0.02",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "Rs 0.05",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "Rs 0.10",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 25,
+          "magnitude_display": "Rs 0.25",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 50,
+          "magnitude_display": "Rs 0.50",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 100,
+          "magnitude_display": "Rs 1.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 200,
+          "magnitude_display": "Rs 2.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 400,
+          "magnitude_display": "Rs 4.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 800,
+          "magnitude_display": "Rs 8.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 1600,
+          "magnitude_display": "Rs 16.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 3200,
+          "magnitude_display": "Rs 32.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 8000,
+          "magnitude_display": "Rs 80.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 20000,
+          "magnitude_display": "Rs 200.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 1,
+      "lod95": 1,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 275,
+      "aggregate_ci": [
+        0.9862,
+        1.0
+      ],
+      "lod50_display": "Rs 0.01",
+      "lod95_display": "Rs 0.01",
+      "statement": "Settled gross inflated above the order: reliably detected at or above Rs 0.01. Across 275 trials above tolerance the detection rate is 100% (95% CI 99-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "PHANTOM_TXN",
+      "label": "Settled transaction with no matching order",
+      "unit": "paise",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "Rs 0.01",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "Rs 0.02",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "Rs 0.05",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "Rs 0.10",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 25,
+          "magnitude_display": "Rs 0.25",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 50,
+          "magnitude_display": "Rs 0.50",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 100,
+          "magnitude_display": "Rs 1.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 200,
+          "magnitude_display": "Rs 2.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 400,
+          "magnitude_display": "Rs 4.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 800,
+          "magnitude_display": "Rs 8.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 1600,
+          "magnitude_display": "Rs 16.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 3200,
+          "magnitude_display": "Rs 32.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 8000,
+          "magnitude_display": "Rs 80.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 20000,
+          "magnitude_display": "Rs 200.00",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 1,
+      "lod95": 1,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 350,
+      "aggregate_ci": [
+        0.9891,
+        1.0
+      ],
+      "lod50_display": "Rs 0.01",
+      "lod95_display": "Rs 0.01",
+      "statement": "Settled transaction with no matching order: reliably detected at or above Rs 0.01. Across 350 trials above tolerance the detection rate is 100% (95% CI 99-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "MISSING_CREDIT",
+      "label": "Settlement created, bank credit never arrived",
+      "unit": "categorical",
+      "levels": [
+        {
+          "magnitude": 0,
+          "magnitude_display": "n/a",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 0,
+      "lod95": 0,
+      "verdict": "underpowered",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ],
+      "lod50_display": null,
+      "lod95_display": null,
+      "statement": "Settlement created, bank credit never arrived: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion."
+    },
+    {
+      "fault_type": "DUPLICATE_CREDIT",
+      "label": "The same settlement credited twice",
+      "unit": "categorical",
+      "levels": [
+        {
+          "magnitude": 0,
+          "magnitude_display": "n/a",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 0,
+      "lod95": 0,
+      "verdict": "underpowered",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ],
+      "lod50_display": null,
+      "lod95_display": null,
+      "statement": "The same settlement credited twice: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion."
+    },
+    {
+      "fault_type": "DATE_SHIFT",
+      "label": "Bank credit delayed beyond the window",
+      "unit": "days",
+      "levels": [
+        {
+          "magnitude": 1,
+          "magnitude_display": "1 days",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 2,
+          "magnitude_display": "2 days",
+          "trials": 25,
+          "detected": 0,
+          "detection_rate": 0.0,
+          "ci_low": 0.0,
+          "ci_high": 0.1332,
+          "correct_code_rate": 0.0
+        },
+        {
+          "magnitude": 3,
+          "magnitude_display": "3 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 4,
+          "magnitude_display": "4 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 5,
+          "magnitude_display": "5 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 7,
+          "magnitude_display": "7 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 10,
+          "magnitude_display": "10 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        },
+        {
+          "magnitude": 14,
+          "magnitude_display": "14 days",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 2.5,
+      "lod95": 2.95,
+      "verdict": "floor_established",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 150,
+      "aggregate_ci": [
+        0.975,
+        1.0
+      ],
+      "lod50_display": "2.5 days",
+      "lod95_display": "3.0 days",
+      "statement": "Bank credit delayed beyond the window: reliably detected at or above 3.0 days. Across 150 trials above tolerance the detection rate is 100% (95% CI 98-100%). Below the floor no claim is made, because the fault is smaller than the engine's own declared tolerance."
+    },
+    {
+      "fault_type": "UTR_CORRUPT",
+      "label": "Bank reference bears no relation to the UTR",
+      "unit": "categorical",
+      "levels": [
+        {
+          "magnitude": 0,
+          "magnitude_display": "n/a",
+          "trials": 25,
+          "detected": 25,
+          "detection_rate": 1.0,
+          "ci_low": 0.8668,
+          "ci_high": 1.0,
+          "correct_code_rate": 1.0
+        }
+      ],
+      "lod50": 0,
+      "lod95": 0,
+      "verdict": "underpowered",
+      "underpowered": false,
+      "trials_per_level": 25,
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ],
+      "lod50_display": null,
+      "lod95_display": null,
+      "statement": "Bank reference bears no relation to the UTR: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion."
+    }
+  ],
+  "calibration": {
+    "samples": 1282,
+    "bins": [
+      {
+        "range": "0.65-0.75",
+        "lo": 0.65,
+        "hi": 0.75,
+        "count": 328,
+        "claimed_confidence": 0.7056,
+        "observed_accuracy": 1.0,
+        "gap": 0.2944,
+        "direction": "underconfident"
+      },
+      {
+        "range": "0.85-0.92",
+        "lo": 0.85,
+        "hi": 0.92,
+        "count": 382,
+        "claimed_confidence": 0.8634,
+        "observed_accuracy": 1.0,
+        "gap": 0.1366,
+        "direction": "underconfident"
+      },
+      {
+        "range": "0.97-1.01",
+        "lo": 0.97,
+        "hi": 1.01,
+        "count": 572,
+        "claimed_confidence": 0.99,
+        "observed_accuracy": 1.0,
+        "gap": 0.01,
+        "direction": "calibrated"
+      }
+    ],
+    "ece": 0.1205,
+    "brier_score": 0.0279,
+    "overall_accuracy": 1.0,
+    "mean_confidence": 0.8795,
+    "verdict": "Underconfident: the engine is right more often than it claims (expected calibration error 0.120). This is the safe direction to be wrong in \u2014 it sends work to a human that a human did not need to do."
+  },
+  "counterfactuals": [
+    {
+      "subject_id": "bnk_vi1t9vyVFg",
+      "variance_code": "TIMING_LAG",
+      "original_reason": "Matched, but the credit landed 3 days after the settlement was created, outside the expected 2-day window. Amount agrees exactly, so this is a bank-side delay, not missing money. (settlement setl_XirZRiRBaepZIT)",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "bnk_CqpgrxMp1j",
+      "variance_code": "TIMING_LAG",
+      "original_reason": "Matched on amount and date, but the bank reference '478833337H8' does not exactly correspond to the settlement UTR '478833337h83' (prefix). Reference drift of this kind is routine; the match itself is sound. (settlement setl_ohoNMdZEHNJSsa)",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "rfnd_xp07LjfP4tOPhR",
+      "variance_code": "PARTIAL_PAYMENT",
+      "original_reason": "Refund of Rs 4,236.77 against payment pay_0Fmxk754LEgw9Y (order order_2007, original Rs 9,514.70). Debited in settlement setl_oOgKUivuNZQ8Dl, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "pay_BHs8YGPI5g2q3U",
+      "variance_code": "ON_HOLD",
+      "original_reason": "Transaction pay_BHs8YGPI5g2q3U (Rs 16,296.56) is flagged on_hold and withheld from the payout as a reserve. Correctly excluded from the settled total \u2014 this is not missing money.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "pay_gSB3tjhMKSxLsF",
+      "variance_code": "TAX_DEDUCTION",
+      "original_reason": "GST charged Rs 21.58 on a fee of Rs 179.82 is 12.00%, not the statutory 18% which would be Rs 32.37. Difference -Rs 10.79. Understated GST reduces the input tax credit the merchant can legitimately claim.",
+      "counterfactual": {
+        "available": true,
+        "changes": [
+          {
+            "field": "GST charged",
+            "current": "Rs 21.58",
+            "required": "Rs 32.37",
+            "delta": "Rs 10.79",
+            "delta_paise": 1079,
+            "text": "GST would need to move by Rs 10.79 to Rs 32.37, which is 18% of the Rs 179.82 fee"
+          }
+        ],
+        "narrative": "GST here is 12.00% of the fee rather than the statutory 18%. Correcting it to Rs 32.37 clears the exception and restores Rs 10.79 of input tax credit. Understated GST is not a rounding matter \u2014 the merchant cannot claim credit that was never charged.",
+        "actionable": true
+      }
+    },
+    {
+      "subject_id": "pay_DSBbszpPwIv9Iv",
+      "variance_code": "FEE_DEDUCTION",
+      "original_reason": "MDR charged Rs 184.00 on Rs 7,666.72 (2.400%) but the contracted rate for 'card' is 2.00%, which would be Rs 153.33. Overcharged by Rs 30.67.",
+      "counterfactual": {
+        "available": true,
+        "changes": [
+          {
+            "field": "fee charged",
+            "current": "Rs 184.00",
+            "required": "Rs 153.33",
+            "delta": "-Rs 30.67",
+            "delta_paise": -3067,
+            "text": "the fee would need to drop by Rs 30.67 to Rs 153.33"
+          },
+          {
+            "field": "contracted rate",
+            "current": "2.00%",
+            "required": "2.400%",
+            "text": "alternatively, the contracted rate for 'card' would need to be 2.400% instead of 2.00% \u2014 check whether a rate change was agreed and not reflected in the configuration"
+          }
+        ],
+        "narrative": "This clears if the fee is corrected to Rs 153.33, or if the contracted rate really is 2.400%. The two possibilities have very different consequences: a billing error is recoverable, an unrecorded rate change is not. At this transaction's frequency the difference is roughly Rs 7,667.50 a year, so it is worth resolving which it is.",
+        "actionable": true
+      }
+    },
+    {
+      "subject_id": "rfnd_xXYPZTQGOAwwln",
+      "variance_code": "PARTIAL_PAYMENT",
+      "original_reason": "Refund of Rs 3,694.68 against payment pay_LUieV0vWqaTZJO (order order_2043, original Rs 10,310.14). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "rfnd_9jsWFHTGP2MLjl",
+      "variance_code": "PARTIAL_PAYMENT",
+      "original_reason": "Refund of Rs 3,967.55 against payment pay_GhnuKoneNo41eo (order order_2009, original Rs 12,507.96). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "rfnd_cwS8LUWoo7W4mQ",
+      "variance_code": "PARTIAL_PAYMENT",
+      "original_reason": "Refund of Rs 649.28 against payment pay_5GdF0ee1z6JJcf (order order_2013, original Rs 1,292.32). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "disp_VWFzkmL2dDx5SF",
+      "variance_code": "CHARGEBACK",
+      "original_reason": "Chargeback debit of Rs 17,811.14 against payment pay_JRzhbuXMZ5f0pK (dispute disp_VWFzkmL2dDx5SF), comprising the disputed value Rs 17,061.14 plus a handling fee of Rs 750.00. Debited in settlement setl_xVJGyOphTExIqq.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "order_2006",
+      "variance_code": "NOT_YET_SETTLED",
+      "original_reason": "Order order_2006 (Rs 7,271.39, captured 2026-07-10 14:33:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "order_2022",
+      "variance_code": "NOT_YET_SETTLED",
+      "original_reason": "Order order_2022 (Rs 256.41, captured 2026-07-05 06:27:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "order_2053",
+      "variance_code": "NOT_YET_SETTLED",
+      "original_reason": "Order order_2053 (Rs 4,534.34, captured 2026-07-09 04:24:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "RZP/202607/119857",
+      "variance_code": "ROUNDING",
+      "original_reason": "Monthly GST invoice RZP/202607/119857 declares tax of Rs 1,238.79; the sum of per-transaction GST across all settled rows is Rs 1,240.22. Difference -Rs 1.43, within the Rs 5.00 monthly tolerance. This is accumulated per-transaction rounding, not an error \u2014 book a rounding journal for the difference.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    },
+    {
+      "subject_id": "settlement_gst_total",
+      "variance_code": "TAX_DEDUCTION",
+      "original_reason": "Across all settled transactions, GST actually deducted was Rs 1,240.22, but 18% of the Rs 6,949.90 of fees charged would be Rs 1,250.98 \u2014 GST is understated by Rs 10.76. Every rupee of understated GST is a rupee of input tax credit the merchant cannot claim.",
+      "counterfactual": {
+        "available": false,
+        "narrative": "No single small adjustment would resolve this. That is itself a finding \u2014 it means the cause is structural rather than a value being off.",
+        "actionable": false
+      }
+    }
+  ],
+  "blind_spots": [],
+  "underpowered": [
+    {
+      "fault_type": "MISSING_CREDIT",
+      "label": "Settlement created, bank credit never arrived",
+      "statement": "Settlement created, bank credit never arrived: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion.",
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ]
+    },
+    {
+      "fault_type": "DUPLICATE_CREDIT",
+      "label": "The same settlement credited twice",
+      "statement": "The same settlement credited twice: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion.",
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ]
+    },
+    {
+      "fault_type": "UTR_CORRUPT",
+      "label": "Bank reference bears no relation to the UTR",
+      "statement": "Bank reference bears no relation to the UTR: detected in 100% of 25 trials (95% CI 87-100%). This fault has no magnitude axis \u2014 it either happened or it did not. Too few trials to draw a firm conclusion.",
+      "aggregate_rate": 1.0,
+      "aggregate_trials": 25,
+      "aggregate_ci": [
+        0.8668,
+        1.0
+      ]
+    }
+  ],
+  "headline": "Attacked with 1975 injected faults across 9 fault types. Smallest reliably detected money fault: Rs 0.01. Blind spots found: 0. Confidence calibration error: 0.1205."
+}

@@ -1,0 +1,128 @@
+{
+  "note": "ANSWER KEY. The reconciliation engine never reads this file. It exists so the engine can be scored honestly against known truth.",
+  "merchant": {
+    "merchant_id": "acc_SadhakaDemo01",
+    "legal_name": "Kalyani Retail Private Limited",
+    "gstin": "27AABCK1234M1Z5",
+    "settlement_model": "payment_aggregator",
+    "settlement_cycle": "T+2"
+  },
+  "statutory_position": {
+    "gst_on_mdr": "18% on fee only. Present throughout.",
+    "tds_194o": "NOT deducted. Razorpay acts as payment aggregator, not e-commerce operator. Absent by design.",
+    "gst_tcs_52": "NOT applicable. Not a marketplace ECO. Absent by design.",
+    "upi_mdr": "Zero MDR by statute (Sec 10A PSS Act). Fee and tax are 0 on UPI rows."
+  },
+  "edge_cases": [
+    {
+      "id": "EC1",
+      "code": "PARTIAL_PAYMENT",
+      "type": "REFUND_IN_LATER_BATCH",
+      "description": "Partial refunds issued after the original sale settled; the refund debit appears in a later settlement batch than the sale it relates to.",
+      "order_ids": [
+        "order_2007",
+        "order_2043",
+        "order_2009",
+        "order_2013"
+      ],
+      "expected_behaviour": "Matcher must link the refund to its original payment_id across batches, not flag it as an unexplained debit."
+    },
+    {
+      "id": "EC2",
+      "code": "CHARGEBACK",
+      "type": "DISPUTE_DEBIT",
+      "description": "A chargeback debits both the disputed transaction value and a Rs 750 handling fee from a later settlement.",
+      "order_ids": [
+        "order_2064"
+      ],
+      "expected_behaviour": "Classified CHARGEBACK, linked to the original payment, not counted as a fee variance."
+    },
+    {
+      "id": "EC3",
+      "code": "NOT_YET_SETTLED",
+      "type": "ORDER_IN_FLIGHT",
+      "description": "Orders captured inside the settlement cycle window, so they legitimately appear in no settlement batch yet.",
+      "order_ids": [
+        "order_2006",
+        "order_2022",
+        "order_2053"
+      ],
+      "expected_behaviour": "Reported NOT_YET_SETTLED (benign), never as missing money."
+    },
+    {
+      "id": "EC4",
+      "code": "ON_HOLD",
+      "type": "RESERVE_HOLD",
+      "description": "A captured transaction flagged on_hold=true and withheld from the payout as a risk reserve.",
+      "order_ids": [
+        "order_2015"
+      ],
+      "expected_behaviour": "Excluded from the expected payout total. Must NOT be treated as missing money."
+    },
+    {
+      "id": "EC5",
+      "code": "FEE_DEDUCTION",
+      "type": "WRONG_MDR_RATE",
+      "description": "One transaction charged MDR at 2.4% instead of the contracted 2.0%.",
+      "order_ids": [
+        "order_2033"
+      ],
+      "expected_behaviour": "Flagged FEE_DEDUCTION with the rupee overcharge quantified."
+    },
+    {
+      "id": "EC6",
+      "code": "TAX_DEDUCTION",
+      "type": "WRONG_GST_RATE",
+      "description": "GST on the fee computed at 12% instead of the statutory 18%.",
+      "order_ids": [
+        "order_2057"
+      ],
+      "expected_behaviour": "Flagged TAX_DEDUCTION; understated GST distorts the ITC claim."
+    },
+    {
+      "id": "EC7",
+      "code": "PARTIAL_PAYMENT",
+      "type": "SPLIT_SETTLEMENT",
+      "description": "A single day's transactions were paid out across two settlement batches (setl_XirZRiRBaepZIT and setl_kM3u5c1f6VqnJM).",
+      "settlement_ids": [
+        "setl_XirZRiRBaepZIT",
+        "setl_kM3u5c1f6VqnJM"
+      ],
+      "expected_behaviour": "Both batches match independently; the day's orders reconcile only when combined."
+    },
+    {
+      "id": "EC8",
+      "code": "TIMING_LAG",
+      "type": "DELAYED_BANK_CREDIT",
+      "description": "Bank credit for UTR 666690337n24 landed 3 days after the settlement date (bank holiday).",
+      "bank_txn_id": "bnk_vi1t9vyVFg",
+      "expected_behaviour": "Still matched (amount agrees) but flagged TIMING_LAG, which is benign."
+    },
+    {
+      "id": "EC9",
+      "code": "TIMING_LAG",
+      "type": "UTR_FORMAT_DRIFT",
+      "description": "Bank recorded the UTR as '478833337H8' where Razorpay recorded '478833337h83' (uppercased and truncated).",
+      "bank_txn_id": "bnk_CqpgrxMp1j",
+      "expected_behaviour": "Exact UTR string match fails. Must still match on amount+date with downgraded confidence, NOT drop the match."
+    },
+    {
+      "id": "EC10",
+      "code": "DUPLICATE_CANDIDATE",
+      "type": "NEAR_DUPLICATE_UTR",
+      "description": "Two unrelated settlements carry visually similar UTRs ('206389694w93' vs '206389694wxy').",
+      "bank_txn_ids": [
+        "bnk_r7DXQsedBE",
+        "bnk_7nvdE2ODH0"
+      ],
+      "expected_behaviour": "A fuzzy-UTR matcher would conflate these. Correct behaviour is to match on amount + date and keep them distinct."
+    },
+    {
+      "id": "EC11",
+      "code": "ROUNDING",
+      "type": "GST_INVOICE_VS_SETTLEMENT_DRIFT",
+      "description": "Monthly GST invoice tax (Rs 1,238.79) differs from summed per-transaction tax (Rs 1,240.22) by -Rs 1.43 from accumulated per-transaction rounding.",
+      "expected_behaviour": "Within monthly tolerance -> ROUNDING, ITC still claimable, journal adjustment noted."
+    }
+  ]
+}

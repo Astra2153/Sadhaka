@@ -1,0 +1,85 @@
+### Sadhaka API — manual requests
+### Open in VS Code with the "REST Client" extension (humao.rest-client) and click
+### "Send Request" above any block. No Postman install needed.
+###
+### Start the API first:  uvicorn api.main:app --reload --port 8000
+
+@baseUrl = http://127.0.0.1:8000
+
+### === system ===
+
+### Health
+GET {{baseUrl}}/health
+
+
+### === engine ===
+
+### Trigger Run
+POST {{baseUrl}}/run
+
+### List Runs
+GET {{baseUrl}}/runs
+
+
+### === reporting ===
+
+### Summary
+GET {{baseUrl}}/summary
+
+### Exceptions
+GET {{baseUrl}}/exceptions
+
+### Matches
+GET {{baseUrl}}/matches
+
+### Audit
+GET {{baseUrl}}/audit
+
+### Trace
+GET {{baseUrl}}/trace/order_2012
+
+### Gst
+GET {{baseUrl}}/gst
+
+### Scorecard
+GET {{baseUrl}}/scorecard
+
+### Forecast
+GET {{baseUrl}}/forecast
+
+### Journal
+GET {{baseUrl}}/journal
+
+
+### === reference ===
+
+### Variance Codes
+GET {{baseUrl}}/variance-codes
+
+### Configuration
+GET {{baseUrl}}/config
+
+
+### === scenarios ===
+
+### Marketplace
+GET {{baseUrl}}/marketplace
+
+
+### === verification ===
+
+### Verification
+GET {{baseUrl}}/verification
+
+### Detection Limits
+GET {{baseUrl}}/verification/detection-limits
+
+### Calibration
+GET {{baseUrl}}/verification/calibration
+
+### Counterfactuals
+GET {{baseUrl}}/verification/counterfactuals
+
+### Run Verification Endpoint
+POST {{baseUrl}}/verification/run
+

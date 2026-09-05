@@ -1,0 +1,4022 @@
+{
+ "summary": {
+  "run_id": "run_20260903_211820_55a160",
+  "exception_summary": {
+   "by_code": [
+    {
+     "code": "TIMING_LAG",
+     "meaning": "Correct match, but the bank credit landed outside the expected settlement window.",
+     "benign": true,
+     "count": 2,
+     "value_paise": 2427064,
+     "examples": [
+      {
+       "subject_id": "bnk_vi1t9vyVFg",
+       "order_id": null,
+       "reason": "Matched, but the credit landed 3 days after the settlement was created, outside the expected 2-day window. Amount agrees exactly, so this is a bank-side delay, not missing money. (settlement setl_XirZRiRBaepZIT)"
+      },
+      {
+       "subject_id": "bnk_CqpgrxMp1j",
+       "order_id": null,
+       "reason": "Matched on amount and date, but the bank reference '478833337H8' does not exactly correspond to the settlement UTR '478833337h83' (prefix). Reference drift of this kind is routine; the match itself is sound. (settlement setl_ohoNMdZEHNJSsa)"
+      }
+     ]
+    },
+    {
+     "code": "CHARGEBACK",
+     "meaning": "Dispute debit reduces the payout, typically in a batch later than the original sale.",
+     "benign": false,
+     "count": 1,
+     "value_paise": 1781114,
+     "examples": [
+      {
+       "subject_id": "disp_VWFzkmL2dDx5SF",
+       "order_id": "order_2064",
+       "reason": "Chargeback debit of Rs 17,811.14 against payment pay_JRzhbuXMZ5f0pK (dispute disp_VWFzkmL2dDx5SF), comprising the disputed value Rs 17,061.14 plus a handling fee of Rs 750.00. Debited in settlement setl_xVJGyOphTExIqq."
+      }
+     ]
+    },
+    {
+     "code": "ON_HOLD",
+     "meaning": "Amount captured but withheld (reserve/hold); correctly excluded from this payout.",
+     "benign": true,
+     "count": 1,
+     "value_paise": 1629656,
+     "examples": [
+      {
+       "subject_id": "pay_BHs8YGPI5g2q3U",
+       "order_id": "order_2015",
+       "reason": "Transaction pay_BHs8YGPI5g2q3U (Rs 16,296.56) is flagged on_hold and withheld from the payout as a reserve. Correctly excluded from the settled total \u2014 this is not missing money."
+      }
+     ]
+    },
+    {
+     "code": "PARTIAL_PAYMENT",
+     "meaning": "Refund or partial refund adjusts a prior sale, often in a later batch.",
+     "benign": false,
+     "count": 4,
+     "value_paise": 1254828,
+     "examples": [
+      {
+       "subject_id": "rfnd_xp07LjfP4tOPhR",
+       "order_id": "order_2007",
+       "reason": "Refund of Rs 4,236.77 against payment pay_0Fmxk754LEgw9Y (order order_2007, original Rs 9,514.70). Debited in settlement setl_oOgKUivuNZQ8Dl, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+      },
+      {
+       "subject_id": "rfnd_xXYPZTQGOAwwln",
+       "order_id": "order_2043",
+       "reason": "Refund of Rs 3,694.68 against payment pay_LUieV0vWqaTZJO (order order_2043, original Rs 10,310.14). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+      },
+      {
+       "subject_id": "rfnd_9jsWFHTGP2MLjl",
+       "order_id": "order_2009",
+       "reason": "Refund of Rs 3,967.55 against payment pay_GhnuKoneNo41eo (order order_2009, original Rs 12,507.96). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled."
+      }
+     ]
+    },
+    {
+     "code": "NOT_YET_SETTLED",
+     "meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed).",
+     "benign": true,
+     "count": 3,
+     "value_paise": 1206214,
+     "examples": [
+      {
+       "subject_id": "order_2006",
+       "order_id": "order_2006",
+       "reason": "Order order_2006 (Rs 7,271.39, captured 2026-07-10 14:33:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+      },
+      {
+       "subject_id": "order_2022",
+       "order_id": "order_2022",
+       "reason": "Order order_2022 (Rs 256.41, captured 2026-07-05 06:27:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+      },
+      {
+       "subject_id": "order_2053",
+       "order_id": "order_2053",
+       "reason": "Order order_2053 (Rs 4,534.34, captured 2026-07-09 04:24:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money."
+      }
+     ]
+    },
+    {
+     "code": "FEE_DEDUCTION",
+     "meaning": "MDR/platform fee differs from the contracted rate for this instrument.",
+     "benign": false,
+     "count": 1,
+     "value_paise": 3067,
+     "examples": [
+      {
+       "subject_id": "pay_DSBbszpPwIv9Iv",
+       "order_id": "order_2033",
+       "reason": "MDR charged Rs 184.00 on Rs 7,666.72 (2.400%) but the contracted rate for 'card' is 2.00%, which would be Rs 153.33. Overcharged by Rs 30.67."
+      }
+     ]
+    },
+    {
+     "code": "TAX_DEDUCTION",
+     "meaning": "GST-on-MDR differs from 18% of the charged fee.",
+     "benign": false,
+     "count": 2,
+     "value_paise": 2155,
+     "examples": [
+      {
+       "subject_id": "pay_gSB3tjhMKSxLsF",
+       "order_id": "order_2057",
+       "reason": "GST charged Rs 21.58 on a fee of Rs 179.82 is 12.00%, not the statutory 18% which would be Rs 32.37. Difference -Rs 10.79. Understated GST reduces the input tax credit the merchant can legitimately claim."
+      },
+      {
+       "subject_id": "settlement_gst_total",
+       "order_id": null,
+       "reason": "Across all settled transactions, GST actually deducted was Rs 1,240.22, but 18% of the Rs 6,949.90 of fees charged would be Rs 1,250.98 \u2014 GST is understated by Rs 10.76. Every rupee of understated GST is a rupee of input tax credit the merchant cannot claim."
+      }
+     ]
+    },
+    {
+     "code": "ROUNDING",
+     "meaning": "Sub-rupee drift from per-transaction fee/GST rounding.",
+     "benign": true,
+     "count": 1,
+     "value_paise": 143,
+     "examples": [
+      {
+       "subject_id": "RZP/202607/119857",
+       "order_id": null,
+       "reason": "Monthly GST invoice RZP/202607/119857 declares tax of Rs 1,238.79; the sum of per-transaction GST across all settled rows is Rs 1,240.22. Difference -Rs 1.43, within the Rs 5.00 monthly tolerance. This is accumulated per-transaction rounding, not an error \u2014 book a rounding journal for the difference."
+      }
+     ]
+    }
+   ],
+   "actionable_count": 8,
+   "benign_count": 7
+  },
+  "forecast": {
+   "as_of": "2026-07-10",
+   "horizon_days": 14,
+   "behaviour": {
+    "settlement_lag": {
+     "observations": 64,
+     "median_days": 2.0,
+     "p90_days": 2,
+     "stdev_days": 0.0,
+     "min_days": 2,
+     "max_days": 2,
+     "source": "learned from 64 observed settlement cycle"
+    },
+    "credit_lag": {
+     "observations": 11,
+     "median_days": 0,
+     "p90_days": 0,
+     "stdev_days": 0.86,
+     "min_days": 0,
+     "max_days": 3,
+     "source": "learned from 11 observed bank credit lag"
+    },
+    "contracted_cycle_days": 2,
+    "drift_note": null
+   },
+   "confidence_band": "moderate",
+   "confidence_reason": "settlement timing varies by roughly 0.86 days; expect projected dates to move by a day either way",
+   "expected_total_paise": 1169872,
+   "expected_total": "Rs 11,698.72",
+   "late_case_total": "Rs 11,698.72",
+   "inflight_count": 4,
+   "inflight_net_paise": 2786709,
+   "inflight_net": "Rs 27,867.09",
+   "awaiting_credit_count": 0,
+   "awaiting_credit_paise": 0,
+   "awaiting_credit": "Rs 0.00",
+   "timeline": [
+    {
+     "date": "2026-07-10",
+     "weekday": "Fri",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 0,
+     "cumulative": "Rs 0.00",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-11",
+     "weekday": "Sat",
+     "expected_paise": 442733,
+     "expected": "Rs 4,427.33",
+     "late_case_paise": 442733,
+     "cumulative_paise": 442733,
+     "cumulative": "Rs 4,427.33",
+     "item_count": 1,
+     "sources": [
+      "order order_2053 (Rs 4,427.33 net)"
+     ]
+    },
+    {
+     "date": "2026-07-12",
+     "weekday": "Sun",
+     "expected_paise": 727139,
+     "expected": "Rs 7,271.39",
+     "late_case_paise": 727139,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 1,
+     "sources": [
+      "order order_2006 (Rs 7,271.39 net)"
+     ]
+    },
+    {
+     "date": "2026-07-13",
+     "weekday": "Mon",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-14",
+     "weekday": "Tue",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-15",
+     "weekday": "Wed",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-16",
+     "weekday": "Thu",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-17",
+     "weekday": "Fri",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-18",
+     "weekday": "Sat",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-19",
+     "weekday": "Sun",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-20",
+     "weekday": "Mon",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-21",
+     "weekday": "Tue",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-22",
+     "weekday": "Wed",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-23",
+     "weekday": "Thu",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    },
+    {
+     "date": "2026-07-24",
+     "weekday": "Fri",
+     "expected_paise": 0,
+     "expected": "Rs 0.00",
+     "late_case_paise": 0,
+     "cumulative_paise": 1169872,
+     "cumulative": "Rs 11,698.72",
+     "item_count": 0,
+     "sources": []
+    }
+   ],
+   "at_risk": [
+    {
+     "category": "ON_HOLD",
+     "amount_paise": 1629656,
+     "amount": "Rs 16,296.56",
+     "count": 1,
+     "note": "1 transaction(s) worth Rs 16,296.56 are flagged on hold as a risk reserve. This money exists but is not scheduled to land, so it is excluded from the forecast rather than counted as delayed."
+    }
+   ],
+   "inflight_detail": [
+    {
+     "order_id": "order_2015",
+     "gross": 1629656,
+     "fee": 32593,
+     "tax": 5867,
+     "net": 1591196,
+     "method": "netbanking",
+     "captured": "2026-07-06T09:10:00",
+     "expected_date": "2026-07-08",
+     "late_date": "2026-07-08",
+     "net_display": "Rs 15,911.96"
+    },
+    {
+     "order_id": "order_2006",
+     "gross": 727139,
+     "fee": 0,
+     "tax": 0,
+     "net": 727139,
+     "method": "upi",
+     "captured": "2026-07-10T14:33:00",
+     "expected_date": "2026-07-12",
+     "late_date": "2026-07-12",
+     "net_display": "Rs 7,271.39"
+    },
+    {
+     "order_id": "order_2053",
+     "gross": 453434,
+     "fee": 9069,
+     "tax": 1632,
+     "net": 442733,
+     "method": "card",
+     "captured": "2026-07-09T04:24:00",
+     "expected_date": "2026-07-11",
+     "late_date": "2026-07-11",
+     "net_display": "Rs 4,427.33"
+    },
+    {
+     "order_id": "order_2022",
+     "gross": 25641,
+     "fee": 0,
+     "tax": 0,
+     "net": 25641,
+     "method": "upi",
+     "captured": "2026-07-05T06:27:00",
+     "expected_date": "2026-07-07",
+     "late_date": "2026-07-07",
+     "net_display": "Rs 256.41"
+    }
+   ],
+   "awaiting_detail": []
+  },
+  "gst_report": {
+   "settled_fee_total": 694990,
+   "settled_tax_total": 124022,
+   "expected_tax_on_fees": 125098,
+   "gst_understated": 1076,
+   "total_itc_claimable": 123879,
+   "total_itc_blocked": 0,
+   "invoices": [
+    {
+     "invoice_no": "RZP/202607/119857",
+     "period": "2026-07",
+     "supplier": "RAZORPAY SOFTWARE PRIVATE LIMITED",
+     "supplier_gstin": "29AAGCR4375J1ZU",
+     "taxable_value": 694990,
+     "invoice_tax": 123879,
+     "settlement_tax": 124022,
+     "tax_difference": -143,
+     "within_tolerance": true,
+     "reflected_in_gstr2b": true,
+     "itc_claimable": 123879,
+     "itc_blockers": []
+    }
+   ],
+   "by_instrument": {
+    "card": {
+     "count": 24,
+     "gross": 24965204,
+     "fee": 502370,
+     "tax": 89348,
+     "effective_mdr_pct": 2.0123,
+     "effective_gst_pct": 17.79,
+     "contracted_mdr_pct": 2.0,
+     "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+    },
+    "upi": {
+     "count": 26,
+     "gross": 19821316,
+     "fee": 0,
+     "tax": 0,
+     "effective_mdr_pct": 0.0,
+     "effective_gst_pct": 0.0,
+     "contracted_mdr_pct": 0.0,
+     "statutory_note": "Zero MDR by statute (Sec 10A PSS Act); nil fee and nil GST are correct."
+    },
+    "netbanking": {
+     "count": 9,
+     "gross": 5910268,
+     "fee": 118205,
+     "tax": 21278,
+     "effective_mdr_pct": 2.0,
+     "effective_gst_pct": 18.0,
+     "contracted_mdr_pct": 2.0,
+     "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+    },
+    "wallet": {
+     "count": 5,
+     "gross": 3720731,
+     "fee": 74415,
+     "tax": 13396,
+     "effective_mdr_pct": 2.0,
+     "effective_gst_pct": 18.0,
+     "contracted_mdr_pct": 2.0,
+     "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+    }
+   }
+  },
+  "journal_summary": {
+   "entries_generated": 13,
+   "entries_balanced": 13,
+   "entries_unbalanced": 0,
+   "trial_balance": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 50562565,
+     "credit_paise": 0,
+     "debit": "Rs 5,05,625.65",
+     "credit": "Rs 0.00",
+     "net_paise": 50562565,
+     "net": "Rs 5,05,625.65"
+    },
+    {
+     "account_code": "1100",
+     "account_name": "Trade Receivables",
+     "account_type": "asset",
+     "debit_paise": 1629656,
+     "credit_paise": 0,
+     "debit": "Rs 16,296.56",
+     "credit": "Rs 0.00",
+     "net_paise": 1629656,
+     "net": "Rs 16,296.56"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 56047175,
+     "debit": "Rs 0.00",
+     "credit": "Rs 5,60,471.75",
+     "net_paise": -56047175,
+     "net": "-Rs 5,60,471.75"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 124022,
+     "credit_paise": 143,
+     "debit": "Rs 1,240.22",
+     "credit": "Rs 1.43",
+     "net_paise": 123879,
+     "net": "Rs 1,238.79"
+    },
+    {
+     "account_code": "4100",
+     "account_name": "Sales Returns & Refunds",
+     "account_type": "revenue",
+     "debit_paise": 1254828,
+     "credit_paise": 0,
+     "debit": "Rs 12,548.28",
+     "credit": "Rs 0.00",
+     "net_paise": 1254828,
+     "net": "Rs 12,548.28"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 694990,
+     "credit_paise": 0,
+     "debit": "Rs 6,949.90",
+     "credit": "Rs 0.00",
+     "net_paise": 694990,
+     "net": "Rs 6,949.90"
+    },
+    {
+     "account_code": "5220",
+     "account_name": "Chargeback Losses",
+     "account_type": "expense",
+     "debit_paise": 1706114,
+     "credit_paise": 0,
+     "debit": "Rs 17,061.14",
+     "credit": "Rs 0.00",
+     "net_paise": 1706114,
+     "net": "Rs 17,061.14"
+    },
+    {
+     "account_code": "5230",
+     "account_name": "Dispute Handling Fees",
+     "account_type": "expense",
+     "debit_paise": 75000,
+     "credit_paise": 0,
+     "debit": "Rs 750.00",
+     "credit": "Rs 0.00",
+     "net_paise": 75000,
+     "net": "Rs 750.00"
+    },
+    {
+     "account_code": "5900",
+     "account_name": "Rounding Differences",
+     "account_type": "expense",
+     "debit_paise": 143,
+     "credit_paise": 0,
+     "debit": "Rs 1.43",
+     "credit": "Rs 0.00",
+     "net_paise": 143,
+     "net": "Rs 1.43"
+    }
+   ],
+   "trial_debit_total_paise": 56047318,
+   "trial_credit_total_paise": 56047318,
+   "trial_debit_total": "Rs 5,60,473.18",
+   "trial_credit_total": "Rs 5,60,473.18",
+   "trial_balances": true,
+   "gst_recoverable": "Rs 1,238.79",
+   "gateway_cost": "Rs 6,949.90"
+  },
+  "metrics": {
+   "throughput": {
+    "bank_credits": 11,
+    "settlement_batches": 11,
+    "recon_rows": 70,
+    "settled_transactions": 64,
+    "orders": 68,
+    "total_records_processed": 149
+   },
+   "match_rates": {
+    "batch_match_rate_pct": 100.0,
+    "batch_match_denominator": "11 of 11 bank credits",
+    "order_match_rate_pct": 96.88,
+    "order_match_denominator": "62 of 64 settled transactions verified with no variance",
+    "value_match_rate_pct": 96.94,
+    "value_match_denominator": "Rs 5,27,517.57 of Rs 5,44,175.19 settled value",
+    "bank_value_match_rate_pct": 100.0,
+    "bank_value_denominator": "Rs 5,05,625.65 of Rs 5,05,625.65 banked"
+   },
+   "exceptions": {
+    "total": 15,
+    "actionable": 8,
+    "benign": 7,
+    "actionable_value": "Rs 30,411.64",
+    "benign_value": "Rs 52,630.77",
+    "unresolved_settlements": 0
+   },
+   "confidence_distribution": {
+    "0.95-1.00": 71,
+    "0.85-0.95": 1,
+    "0.65-0.85": 1,
+    "below-0.65": 0
+   },
+   "money": {
+    "total_banked": "Rs 5,05,625.65",
+    "total_settled_gross": "Rs 5,44,175.19",
+    "total_fees_charged": "Rs 6,949.90",
+    "total_gst_on_fees": "Rs 1,240.22",
+    "gst_understated": "Rs 10.76",
+    "itc_claimable": "Rs 1,238.79",
+    "itc_blocked": "Rs 0.00"
+   }
+  },
+  "scorecard": {
+   "planted_faults": 9,
+   "detected": 9,
+   "recall_pct": 100.0,
+   "code_accuracy_pct": 100.0,
+   "planted_traps": 2,
+   "traps_passed": 2,
+   "trap_pass_pct": 100.0,
+   "cases": [
+    {
+     "id": "EC1",
+     "type": "REFUND_IN_LATER_BATCH",
+     "expected_code": "PARTIAL_PAYMENT",
+     "detected": true,
+     "correct_code": true,
+     "detail": "4 of 4 target entities flagged",
+     "description": "Partial refunds issued after the original sale settled; the refund debit appears in a later settlement batch than the sale it relates to."
+    },
+    {
+     "id": "EC2",
+     "type": "DISPUTE_DEBIT",
+     "expected_code": "CHARGEBACK",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "A chargeback debits both the disputed transaction value and a Rs 750 handling fee from a later settlement."
+    },
+    {
+     "id": "EC3",
+     "type": "ORDER_IN_FLIGHT",
+     "expected_code": "NOT_YET_SETTLED",
+     "detected": true,
+     "correct_code": true,
+     "detail": "3 of 3 target entities flagged",
+     "description": "Orders captured inside the settlement cycle window, so they legitimately appear in no settlement batch yet."
+    },
+    {
+     "id": "EC4",
+     "type": "RESERVE_HOLD",
+     "expected_code": "ON_HOLD",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "A captured transaction flagged on_hold=true and withheld from the payout as a risk reserve."
+    },
+    {
+     "id": "EC5",
+     "type": "WRONG_MDR_RATE",
+     "expected_code": "FEE_DEDUCTION",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "One transaction charged MDR at 2.4% instead of the contracted 2.0%."
+    },
+    {
+     "id": "EC6",
+     "type": "WRONG_GST_RATE",
+     "expected_code": "TAX_DEDUCTION",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "GST on the fee computed at 12% instead of the statutory 18%."
+    },
+    {
+     "id": "EC8",
+     "type": "DELAYED_BANK_CREDIT",
+     "expected_code": "TIMING_LAG",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "Bank credit for UTR 666690337n24 landed 3 days after the settlement date (bank holiday)."
+    },
+    {
+     "id": "EC9",
+     "type": "UTR_FORMAT_DRIFT",
+     "expected_code": "TIMING_LAG",
+     "detected": true,
+     "correct_code": true,
+     "detail": "1 of 1 target entities flagged",
+     "description": "Bank recorded the UTR as '478833337H8' where Razorpay recorded '478833337h83' (uppercased and truncated)."
+    },
+    {
+     "id": "EC11",
+     "type": "GST_INVOICE_VS_SETTLEMENT_DRIFT",
+     "expected_code": "ROUNDING",
+     "detected": true,
+     "correct_code": true,
+     "detail": "matched by variance code across the run",
+     "description": "Monthly GST invoice tax (Rs 1,238.79) differs from summed per-transaction tax (Rs 1,240.22) by -Rs 1.43 from accumulated per-transaction rounding."
+    }
+   ],
+   "traps": [
+    {
+     "id": "EC7",
+     "type": "SPLIT_SETTLEMENT",
+     "kind": "trap",
+     "criterion": "both halves of the split must match independently and correctly",
+     "passed": true,
+     "detail": "both split batches (setl_XirZRiRBaepZIT, setl_kM3u5c1f6VqnJM) matched independently to their own bank credits",
+     "description": "A single day's transactions were paid out across two settlement batches (setl_XirZRiRBaepZIT and setl_kM3u5c1f6VqnJM)."
+    },
+    {
+     "id": "EC10",
+     "type": "NEAR_DUPLICATE_UTR",
+     "kind": "trap",
+     "criterion": "the two lookalike UTRs must NOT be conflated into one match",
+     "passed": true,
+     "detail": "both lookalike-UTR credits matched, to 2 DISTINCT settlements \u2014 not conflated",
+     "description": "Two unrelated settlements carry visually similar UTRs ('206389694w93' vs '206389694wxy')."
+    }
+   ]
+  }
+ },
+ "exceptions": {
+  "run_id": "run_20260903_211820_55a160",
+  "count": 13,
+  "actionable": 8,
+  "benign": 5,
+  "exceptions": [
+   {
+    "decision_id": 81,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "adjustment",
+    "subject_id": "disp_VWFzkmL2dDx5SF",
+    "counterpart_type": "payment",
+    "counterpart_id": "pay_JRzhbuXMZ5f0pK",
+    "outcome": "EXCEPTION",
+    "variance_code": "CHARGEBACK",
+    "confidence": 0.95,
+    "rule_fired": "chargeback_debit",
+    "amount_subject": 1781114,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Chargeback debit of Rs 17,811.14 against payment pay_JRzhbuXMZ5f0pK (dispute disp_VWFzkmL2dDx5SF), comprising the disputed value Rs 17,061.14 plus a handling fee of Rs 750.00. Debited in settlement setl_xVJGyOphTExIqq.",
+    "evidence": {
+     "dispute_id": "disp_VWFzkmL2dDx5SF",
+     "handling_fee": 75000,
+     "settlement_id": "setl_xVJGyOphTExIqq"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 17,811.14",
+    "is_benign": false,
+    "code_meaning": "Dispute debit reduces the payout, typically in a batch later than the original sale."
+   },
+   {
+    "decision_id": 41,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "payment",
+    "subject_id": "pay_BHs8YGPI5g2q3U",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "ON_HOLD",
+    "confidence": 0.99,
+    "rule_fired": "on_hold_excluded",
+    "amount_subject": 1629656,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Transaction pay_BHs8YGPI5g2q3U (Rs 16,296.56) is flagged on_hold and withheld from the payout as a reserve. Correctly excluded from the settled total \u2014 this is not missing money.",
+    "evidence": {
+     "order_id": "order_2015",
+     "settled": false
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 16,296.56",
+    "is_benign": true,
+    "code_meaning": "Amount captured but withheld (reserve/hold); correctly excluded from this payout."
+   },
+   {
+    "decision_id": 89,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage4_forecast",
+    "subject_type": "forecast_risk",
+    "subject_id": "ON_HOLD",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "ON_HOLD",
+    "confidence": 0.85,
+    "rule_fired": "cash_at_risk",
+    "amount_subject": 1629656,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "1 transaction(s) worth Rs 16,296.56 are flagged on hold as a risk reserve. This money exists but is not scheduled to land, so it is excluded from the forecast rather than counted as delayed.",
+    "evidence": {
+     "count": 1
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 16,296.56",
+    "is_benign": true,
+    "code_meaning": "Amount captured but withheld (reserve/hold); correctly excluded from this payout."
+   },
+   {
+    "decision_id": 82,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "order",
+    "subject_id": "order_2006",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "NOT_YET_SETTLED",
+    "confidence": 0.9,
+    "rule_fired": "captured_not_yet_settled",
+    "amount_subject": 727139,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Order order_2006 (Rs 7,271.39, captured 2026-07-10 14:33:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+    "evidence": {
+     "created_at": "2026-07-10 14:33:00",
+     "method": "upi"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 7,271.39",
+    "is_benign": true,
+    "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed)."
+   },
+   {
+    "decision_id": 84,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "order",
+    "subject_id": "order_2053",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "NOT_YET_SETTLED",
+    "confidence": 0.9,
+    "rule_fired": "captured_not_yet_settled",
+    "amount_subject": 453434,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Order order_2053 (Rs 4,534.34, captured 2026-07-09 04:24:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+    "evidence": {
+     "created_at": "2026-07-09 04:24:00",
+     "method": "card"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 4,534.34",
+    "is_benign": true,
+    "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed)."
+   },
+   {
+    "decision_id": 39,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "refund",
+    "subject_id": "rfnd_xp07LjfP4tOPhR",
+    "counterpart_type": "payment",
+    "counterpart_id": "pay_0Fmxk754LEgw9Y",
+    "outcome": "EXCEPTION",
+    "variance_code": "PARTIAL_PAYMENT",
+    "confidence": 0.97,
+    "rule_fired": "refund_linked_to_payment",
+    "amount_subject": 423677,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Refund of Rs 4,236.77 against payment pay_0Fmxk754LEgw9Y (order order_2007, original Rs 9,514.70). Debited in settlement setl_oOgKUivuNZQ8Dl, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+    "evidence": {
+     "settlement_id": "setl_oOgKUivuNZQ8Dl",
+     "order_id": "order_2007"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 4,236.77",
+    "is_benign": false,
+    "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch."
+   },
+   {
+    "decision_id": 79,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "refund",
+    "subject_id": "rfnd_9jsWFHTGP2MLjl",
+    "counterpart_type": "payment",
+    "counterpart_id": "pay_GhnuKoneNo41eo",
+    "outcome": "EXCEPTION",
+    "variance_code": "PARTIAL_PAYMENT",
+    "confidence": 0.97,
+    "rule_fired": "refund_linked_to_payment",
+    "amount_subject": 396755,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Refund of Rs 3,967.55 against payment pay_GhnuKoneNo41eo (order order_2009, original Rs 12,507.96). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+    "evidence": {
+     "settlement_id": "setl_xVJGyOphTExIqq",
+     "order_id": "order_2009"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 3,967.55",
+    "is_benign": false,
+    "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch."
+   },
+   {
+    "decision_id": 78,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "refund",
+    "subject_id": "rfnd_xXYPZTQGOAwwln",
+    "counterpart_type": "payment",
+    "counterpart_id": "pay_LUieV0vWqaTZJO",
+    "outcome": "EXCEPTION",
+    "variance_code": "PARTIAL_PAYMENT",
+    "confidence": 0.97,
+    "rule_fired": "refund_linked_to_payment",
+    "amount_subject": 369468,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Refund of Rs 3,694.68 against payment pay_LUieV0vWqaTZJO (order order_2043, original Rs 10,310.14). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+    "evidence": {
+     "settlement_id": "setl_xVJGyOphTExIqq",
+     "order_id": "order_2043"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 3,694.68",
+    "is_benign": false,
+    "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch."
+   },
+   {
+    "decision_id": 80,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "refund",
+    "subject_id": "rfnd_cwS8LUWoo7W4mQ",
+    "counterpart_type": "payment",
+    "counterpart_id": "pay_5GdF0ee1z6JJcf",
+    "outcome": "EXCEPTION",
+    "variance_code": "PARTIAL_PAYMENT",
+    "confidence": 0.97,
+    "rule_fired": "refund_linked_to_payment",
+    "amount_subject": 64928,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Refund of Rs 649.28 against payment pay_5GdF0ee1z6JJcf (order order_2013, original Rs 1,292.32). Debited in settlement setl_xVJGyOphTExIqq, which is a later batch than the original sale \u2014 expected behaviour for a refund issued after the sale settled.",
+    "evidence": {
+     "settlement_id": "setl_xVJGyOphTExIqq",
+     "order_id": "order_2013"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 649.28",
+    "is_benign": false,
+    "code_meaning": "Refund or partial refund adjusts a prior sale, often in a later batch."
+   },
+   {
+    "decision_id": 83,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "order",
+    "subject_id": "order_2022",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "NOT_YET_SETTLED",
+    "confidence": 0.9,
+    "rule_fired": "captured_not_yet_settled",
+    "amount_subject": 25641,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "Order order_2022 (Rs 256.41, captured 2026-07-05 06:27:00) appears in no settlement batch. Within a T+2 cycle this is expected for recent orders \u2014 the payout has not been generated yet, so this is not missing money.",
+    "evidence": {
+     "created_at": "2026-07-05 06:27:00",
+     "method": "upi"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 256.41",
+    "is_benign": true,
+    "code_meaning": "Order captured but not yet included in any settlement batch (cycle not elapsed)."
+   },
+   {
+    "decision_id": 69,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "payment",
+    "subject_id": "pay_DSBbszpPwIv9Iv",
+    "counterpart_type": "order",
+    "counterpart_id": "order_2033",
+    "outcome": "EXCEPTION",
+    "variance_code": "FEE_DEDUCTION",
+    "confidence": 0.96,
+    "rule_fired": "recomputed_fee_deduction",
+    "amount_subject": 766672,
+    "amount_counterpart": null,
+    "variance_paise": 3067,
+    "reason": "MDR charged Rs 184.00 on Rs 7,666.72 (2.400%) but the contracted rate for 'card' is 2.00%, which would be Rs 153.33. Overcharged by Rs 30.67.",
+    "evidence": {
+     "charged_fee": 18400,
+     "expected_fee": 15333,
+     "charged_tax": 3312,
+     "expected_tax": 3312,
+     "method": "card",
+     "contracted_rate": 0.02,
+     "settlement_id": "setl_zFUjb0QBhoOw6c"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 7,666.72",
+    "variance_display": "Rs 30.67",
+    "is_benign": false,
+    "code_meaning": "MDR/platform fee differs from the contracted rate for this instrument."
+   },
+   {
+    "decision_id": 59,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage2_order",
+    "subject_type": "payment",
+    "subject_id": "pay_gSB3tjhMKSxLsF",
+    "counterpart_type": "order",
+    "counterpart_id": "order_2057",
+    "outcome": "EXCEPTION",
+    "variance_code": "TAX_DEDUCTION",
+    "confidence": 0.96,
+    "rule_fired": "recomputed_tax_deduction",
+    "amount_subject": 899090,
+    "amount_counterpart": null,
+    "variance_paise": -1079,
+    "reason": "GST charged Rs 21.58 on a fee of Rs 179.82 is 12.00%, not the statutory 18% which would be Rs 32.37. Difference -Rs 10.79. Understated GST reduces the input tax credit the merchant can legitimately claim.",
+    "evidence": {
+     "charged_fee": 17982,
+     "expected_fee": 17982,
+     "charged_tax": 2158,
+     "expected_tax": 3237,
+     "method": "card",
+     "contracted_rate": 0.02,
+     "settlement_id": "setl_ByB7vlQwXqfAA9"
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 8,990.90",
+    "variance_display": "-Rs 10.79",
+    "is_benign": false,
+    "code_meaning": "GST-on-MDR differs from 18% of the charged fee."
+   },
+   {
+    "decision_id": 87,
+    "run_id": "run_20260903_211820_55a160",
+    "stage": "stage3_gst",
+    "subject_type": "gst_period",
+    "subject_id": "settlement_gst_total",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TAX_DEDUCTION",
+    "confidence": 0.94,
+    "rule_fired": "gst_understated_vs_fees",
+    "amount_subject": 124022,
+    "amount_counterpart": 125098,
+    "variance_paise": -1076,
+    "reason": "Across all settled transactions, GST actually deducted was Rs 1,240.22, but 18% of the Rs 6,949.90 of fees charged would be Rs 1,250.98 \u2014 GST is understated by Rs 10.76. Every rupee of understated GST is a rupee of input tax credit the merchant cannot claim.",
+    "evidence": {
+     "settled_fee": 694990,
+     "gst_rate": 0.18
+    },
+    "created_at": "2026-09-03T21:18:20",
+    "amount_subject_display": "Rs 1,240.22",
+    "variance_display": "-Rs 10.76",
+    "is_benign": false,
+    "code_meaning": "GST-on-MDR differs from 18% of the charged fee."
+   }
+  ]
+ },
+ "gst": {
+  "run_id": "run_20260903_211820_55a160",
+  "settled_fee_total": 694990,
+  "settled_tax_total": 124022,
+  "expected_tax_on_fees": 125098,
+  "gst_understated": 1076,
+  "total_itc_claimable": 123879,
+  "total_itc_blocked": 0,
+  "invoices": [
+   {
+    "invoice_no": "RZP/202607/119857",
+    "period": "2026-07",
+    "supplier": "RAZORPAY SOFTWARE PRIVATE LIMITED",
+    "supplier_gstin": "29AAGCR4375J1ZU",
+    "taxable_value": 694990,
+    "invoice_tax": 123879,
+    "settlement_tax": 124022,
+    "tax_difference": -143,
+    "within_tolerance": true,
+    "reflected_in_gstr2b": true,
+    "itc_claimable": 123879,
+    "itc_blockers": []
+   }
+  ],
+  "by_instrument": {
+   "card": {
+    "count": 24,
+    "gross": 24965204,
+    "fee": 502370,
+    "tax": 89348,
+    "effective_mdr_pct": 2.0123,
+    "effective_gst_pct": 17.79,
+    "contracted_mdr_pct": 2.0,
+    "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+   },
+   "upi": {
+    "count": 26,
+    "gross": 19821316,
+    "fee": 0,
+    "tax": 0,
+    "effective_mdr_pct": 0.0,
+    "effective_gst_pct": 0.0,
+    "contracted_mdr_pct": 0.0,
+    "statutory_note": "Zero MDR by statute (Sec 10A PSS Act); nil fee and nil GST are correct."
+   },
+   "netbanking": {
+    "count": 9,
+    "gross": 5910268,
+    "fee": 118205,
+    "tax": 21278,
+    "effective_mdr_pct": 2.0,
+    "effective_gst_pct": 18.0,
+    "contracted_mdr_pct": 2.0,
+    "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+   },
+   "wallet": {
+    "count": 5,
+    "gross": 3720731,
+    "fee": 74415,
+    "tax": 13396,
+    "effective_mdr_pct": 2.0,
+    "effective_gst_pct": 18.0,
+    "contracted_mdr_pct": 2.0,
+    "statutory_note": "Contracted MDR 2.00% plus 18% GST on the fee."
+   }
+  },
+  "display": {
+   "settled_fee_total": "Rs 6,949.90",
+   "settled_tax_total": "Rs 1,240.22",
+   "expected_tax_on_fees": "Rs 1,250.98",
+   "gst_understated": "Rs 10.76",
+   "total_itc_claimable": "Rs 1,238.79",
+   "total_itc_blocked": "Rs 0.00"
+  }
+ },
+ "scorecard": {
+  "run_id": "run_20260903_211820_55a160",
+  "planted_faults": 9,
+  "detected": 9,
+  "recall_pct": 100.0,
+  "code_accuracy_pct": 100.0,
+  "planted_traps": 2,
+  "traps_passed": 2,
+  "trap_pass_pct": 100.0,
+  "cases": [
+   {
+    "id": "EC1",
+    "type": "REFUND_IN_LATER_BATCH",
+    "expected_code": "PARTIAL_PAYMENT",
+    "detected": true,
+    "correct_code": true,
+    "detail": "4 of 4 target entities flagged",
+    "description": "Partial refunds issued after the original sale settled; the refund debit appears in a later settlement batch than the sale it relates to."
+   },
+   {
+    "id": "EC2",
+    "type": "DISPUTE_DEBIT",
+    "expected_code": "CHARGEBACK",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "A chargeback debits both the disputed transaction value and a Rs 750 handling fee from a later settlement."
+   },
+   {
+    "id": "EC3",
+    "type": "ORDER_IN_FLIGHT",
+    "expected_code": "NOT_YET_SETTLED",
+    "detected": true,
+    "correct_code": true,
+    "detail": "3 of 3 target entities flagged",
+    "description": "Orders captured inside the settlement cycle window, so they legitimately appear in no settlement batch yet."
+   },
+   {
+    "id": "EC4",
+    "type": "RESERVE_HOLD",
+    "expected_code": "ON_HOLD",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "A captured transaction flagged on_hold=true and withheld from the payout as a risk reserve."
+   },
+   {
+    "id": "EC5",
+    "type": "WRONG_MDR_RATE",
+    "expected_code": "FEE_DEDUCTION",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "One transaction charged MDR at 2.4% instead of the contracted 2.0%."
+   },
+   {
+    "id": "EC6",
+    "type": "WRONG_GST_RATE",
+    "expected_code": "TAX_DEDUCTION",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "GST on the fee computed at 12% instead of the statutory 18%."
+   },
+   {
+    "id": "EC8",
+    "type": "DELAYED_BANK_CREDIT",
+    "expected_code": "TIMING_LAG",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "Bank credit for UTR 666690337n24 landed 3 days after the settlement date (bank holiday)."
+   },
+   {
+    "id": "EC9",
+    "type": "UTR_FORMAT_DRIFT",
+    "expected_code": "TIMING_LAG",
+    "detected": true,
+    "correct_code": true,
+    "detail": "1 of 1 target entities flagged",
+    "description": "Bank recorded the UTR as '478833337H8' where Razorpay recorded '478833337h83' (uppercased and truncated)."
+   },
+   {
+    "id": "EC11",
+    "type": "GST_INVOICE_VS_SETTLEMENT_DRIFT",
+    "expected_code": "ROUNDING",
+    "detected": true,
+    "correct_code": true,
+    "detail": "matched by variance code across the run",
+    "description": "Monthly GST invoice tax (Rs 1,238.79) differs from summed per-transaction tax (Rs 1,240.22) by -Rs 1.43 from accumulated per-transaction rounding."
+   }
+  ],
+  "traps": [
+   {
+    "id": "EC7",
+    "type": "SPLIT_SETTLEMENT",
+    "kind": "trap",
+    "criterion": "both halves of the split must match independently and correctly",
+    "passed": true,
+    "detail": "both split batches (setl_XirZRiRBaepZIT, setl_kM3u5c1f6VqnJM) matched independently to their own bank credits",
+    "description": "A single day's transactions were paid out across two settlement batches (setl_XirZRiRBaepZIT and setl_kM3u5c1f6VqnJM)."
+   },
+   {
+    "id": "EC10",
+    "type": "NEAR_DUPLICATE_UTR",
+    "kind": "trap",
+    "criterion": "the two lookalike UTRs must NOT be conflated into one match",
+    "passed": true,
+    "detail": "both lookalike-UTR credits matched, to 2 DISTINCT settlements \u2014 not conflated",
+    "description": "Two unrelated settlements carry visually similar UTRs ('206389694w93' vs '206389694wxy')."
+   }
+  ]
+ },
+ "config": {
+  "merchant": {
+   "legal_name": "Kalyani Retail Private Limited",
+   "gstin": "27AABCK1234M1Z5",
+   "state_code": "27",
+   "settlement_model": "payment_aggregator",
+   "settlement_cycle": "T+2"
+  },
+  "mdr_rates": {
+   "card": 0.02,
+   "netbanking": 0.02,
+   "wallet": 0.02,
+   "upi": 0.0
+  },
+  "gst_on_mdr_pct": 18.0,
+  "tolerances": {
+   "batch_rounding": "Rs 2.00",
+   "per_transaction_rounding": "Rs 0.05",
+   "date_window_days": 2,
+   "monthly_gst_invoice": "Rs 5.00"
+  },
+  "auto_accept_threshold": 0.65,
+  "statutory_notes": {
+   "gst_on_mdr": "18% on the fee only, never on transaction value.",
+   "upi_mdr": "Zero MDR by statute (Sec 10A PSS Act). Nil fee and nil GST are correct, not missing.",
+   "tds_194o": "Not deducted by a payment aggregator; applies to e-commerce operators. Absent by design.",
+   "gst_tcs_52": "Not applicable to a payment aggregator; applies to marketplace operators. Absent by design.",
+   "settlement_timing": "Post-Sept-2025 RBI Payment Aggregator Directions, the settlement cycle is contractual rather than a fixed T+1 mandate, so it is configurable here."
+  }
+ },
+ "forecast": {
+  "run_id": "run_20260903_211820_55a160",
+  "as_of": "2026-07-10",
+  "horizon_days": 14,
+  "behaviour": {
+   "settlement_lag": {
+    "observations": 64,
+    "median_days": 2.0,
+    "p90_days": 2,
+    "stdev_days": 0.0,
+    "min_days": 2,
+    "max_days": 2,
+    "source": "learned from 64 observed settlement cycle"
+   },
+   "credit_lag": {
+    "observations": 11,
+    "median_days": 0,
+    "p90_days": 0,
+    "stdev_days": 0.86,
+    "min_days": 0,
+    "max_days": 3,
+    "source": "learned from 11 observed bank credit lag"
+   },
+   "contracted_cycle_days": 2,
+   "drift_note": null
+  },
+  "confidence_band": "moderate",
+  "confidence_reason": "settlement timing varies by roughly 0.86 days; expect projected dates to move by a day either way",
+  "expected_total_paise": 1169872,
+  "expected_total": "Rs 11,698.72",
+  "late_case_total": "Rs 11,698.72",
+  "inflight_count": 4,
+  "inflight_net_paise": 2786709,
+  "inflight_net": "Rs 27,867.09",
+  "awaiting_credit_count": 0,
+  "awaiting_credit_paise": 0,
+  "awaiting_credit": "Rs 0.00",
+  "timeline": [
+   {
+    "date": "2026-07-10",
+    "weekday": "Fri",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 0,
+    "cumulative": "Rs 0.00",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-11",
+    "weekday": "Sat",
+    "expected_paise": 442733,
+    "expected": "Rs 4,427.33",
+    "late_case_paise": 442733,
+    "cumulative_paise": 442733,
+    "cumulative": "Rs 4,427.33",
+    "item_count": 1,
+    "sources": [
+     "order order_2053 (Rs 4,427.33 net)"
+    ]
+   },
+   {
+    "date": "2026-07-12",
+    "weekday": "Sun",
+    "expected_paise": 727139,
+    "expected": "Rs 7,271.39",
+    "late_case_paise": 727139,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 1,
+    "sources": [
+     "order order_2006 (Rs 7,271.39 net)"
+    ]
+   },
+   {
+    "date": "2026-07-13",
+    "weekday": "Mon",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-14",
+    "weekday": "Tue",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-15",
+    "weekday": "Wed",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-16",
+    "weekday": "Thu",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-17",
+    "weekday": "Fri",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-18",
+    "weekday": "Sat",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-19",
+    "weekday": "Sun",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-20",
+    "weekday": "Mon",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-21",
+    "weekday": "Tue",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-22",
+    "weekday": "Wed",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-23",
+    "weekday": "Thu",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   },
+   {
+    "date": "2026-07-24",
+    "weekday": "Fri",
+    "expected_paise": 0,
+    "expected": "Rs 0.00",
+    "late_case_paise": 0,
+    "cumulative_paise": 1169872,
+    "cumulative": "Rs 11,698.72",
+    "item_count": 0,
+    "sources": []
+   }
+  ],
+  "at_risk": [
+   {
+    "category": "ON_HOLD",
+    "amount_paise": 1629656,
+    "amount": "Rs 16,296.56",
+    "count": 1,
+    "note": "1 transaction(s) worth Rs 16,296.56 are flagged on hold as a risk reserve. This money exists but is not scheduled to land, so it is excluded from the forecast rather than counted as delayed."
+   }
+  ],
+  "inflight_detail": [
+   {
+    "order_id": "order_2015",
+    "gross": 1629656,
+    "fee": 32593,
+    "tax": 5867,
+    "net": 1591196,
+    "method": "netbanking",
+    "captured": "2026-07-06T09:10:00",
+    "expected_date": "2026-07-08",
+    "late_date": "2026-07-08",
+    "net_display": "Rs 15,911.96"
+   },
+   {
+    "order_id": "order_2006",
+    "gross": 727139,
+    "fee": 0,
+    "tax": 0,
+    "net": 727139,
+    "method": "upi",
+    "captured": "2026-07-10T14:33:00",
+    "expected_date": "2026-07-12",
+    "late_date": "2026-07-12",
+    "net_display": "Rs 7,271.39"
+   },
+   {
+    "order_id": "order_2053",
+    "gross": 453434,
+    "fee": 9069,
+    "tax": 1632,
+    "net": 442733,
+    "method": "card",
+    "captured": "2026-07-09T04:24:00",
+    "expected_date": "2026-07-11",
+    "late_date": "2026-07-11",
+    "net_display": "Rs 4,427.33"
+   },
+   {
+    "order_id": "order_2022",
+    "gross": 25641,
+    "fee": 0,
+    "tax": 0,
+    "net": 25641,
+    "method": "upi",
+    "captured": "2026-07-05T06:27:00",
+    "expected_date": "2026-07-07",
+    "late_date": "2026-07-07",
+    "net_display": "Rs 256.41"
+   }
+  ],
+  "awaiting_detail": []
+ },
+ "journal": [
+  {
+   "entry_id": "JV-0001",
+   "date": "2026-07-03",
+   "narration": "Razorpay settlement setl_4jB6nBvbdFo9xb credited to bank as Rs 47,442.78 covering 6 transaction(s) gross Rs 47,851.83, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_4jB6nBvbdFo9xb",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 4785183,
+   "total_credit_paise": 4785183,
+   "total_debit": "Rs 47,851.83",
+   "total_credit": "Rs 47,851.83",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 4744278,
+     "credit_paise": 0,
+     "debit": "Rs 47,442.78",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_r7DXQsedBE"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 34665,
+     "credit_paise": 0,
+     "debit": "Rs 346.65",
+     "credit": "",
+     "memo": "MDR on Rs 47,851.83 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 6240,
+     "credit_paise": 0,
+     "debit": "Rs 62.40",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 4785183,
+     "debit": "",
+     "credit": "Rs 47,851.83",
+     "memo": "Clearing account discharged for settlement setl_4jB6nBvbdFo9xb"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0002",
+   "date": "2026-07-04",
+   "narration": "Razorpay settlement setl_XirZRiRBaepZIT credited to bank as Rs 20,440.26 covering 3 transaction(s) gross Rs 20,554.43, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_XirZRiRBaepZIT",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 2055443,
+   "total_credit_paise": 2055443,
+   "total_debit": "Rs 20,554.43",
+   "total_credit": "Rs 20,554.43",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 2044026,
+     "credit_paise": 0,
+     "debit": "Rs 20,440.26",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_vi1t9vyVFg"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 9675,
+     "credit_paise": 0,
+     "debit": "Rs 96.75",
+     "credit": "",
+     "memo": "MDR on Rs 20,554.43 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 1742,
+     "credit_paise": 0,
+     "debit": "Rs 17.42",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 2055443,
+     "debit": "",
+     "credit": "Rs 20,554.43",
+     "memo": "Clearing account discharged for settlement setl_XirZRiRBaepZIT"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0003",
+   "date": "2026-07-05",
+   "narration": "Razorpay settlement setl_ohoNMdZEHNJSsa credited to bank as Rs 3,830.38 covering 3 transaction(s) gross Rs 3,867.58, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_ohoNMdZEHNJSsa",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 386758,
+   "total_credit_paise": 386758,
+   "total_debit": "Rs 3,867.58",
+   "total_credit": "Rs 3,867.58",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 383038,
+     "credit_paise": 0,
+     "debit": "Rs 3,830.38",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_CqpgrxMp1j"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 3153,
+     "credit_paise": 0,
+     "debit": "Rs 31.53",
+     "credit": "",
+     "memo": "MDR on Rs 3,867.58 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 567,
+     "credit_paise": 0,
+     "debit": "Rs 5.67",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 386758,
+     "debit": "",
+     "credit": "Rs 3,867.58",
+     "memo": "Clearing account discharged for settlement setl_ohoNMdZEHNJSsa"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0004",
+   "date": "2026-07-06",
+   "narration": "Razorpay settlement setl_lPGw7HWFb2cxxU credited to bank as Rs 76,284.93 covering 8 transaction(s) gross Rs 77,357.09, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_lPGw7HWFb2cxxU",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 7735709,
+   "total_credit_paise": 7735709,
+   "total_debit": "Rs 77,357.09",
+   "total_credit": "Rs 77,357.09",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 7628493,
+     "credit_paise": 0,
+     "debit": "Rs 76,284.93",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_5Slj9C2Efy"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 90860,
+     "credit_paise": 0,
+     "debit": "Rs 908.60",
+     "credit": "",
+     "memo": "MDR on Rs 77,357.09 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 16356,
+     "credit_paise": 0,
+     "debit": "Rs 163.56",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 7735709,
+     "debit": "",
+     "credit": "Rs 77,357.09",
+     "memo": "Clearing account discharged for settlement setl_lPGw7HWFb2cxxU"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0005",
+   "date": "2026-07-07",
+   "narration": "Razorpay settlement setl_oOgKUivuNZQ8Dl credited to bank as Rs 30,186.10 covering 5 transaction(s) gross Rs 35,079.27, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_oOgKUivuNZQ8Dl",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 3507927,
+   "total_credit_paise": 3507927,
+   "total_debit": "Rs 35,079.27",
+   "total_credit": "Rs 35,079.27",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 3018610,
+     "credit_paise": 0,
+     "debit": "Rs 30,186.10",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_7nvdE2ODH0"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 55627,
+     "credit_paise": 0,
+     "debit": "Rs 556.27",
+     "credit": "",
+     "memo": "MDR on Rs 35,079.27 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 10013,
+     "credit_paise": 0,
+     "debit": "Rs 100.13",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "4100",
+     "account_name": "Sales Returns & Refunds",
+     "account_type": "revenue",
+     "debit_paise": 423677,
+     "credit_paise": 0,
+     "debit": "Rs 4,236.77",
+     "credit": "",
+     "memo": "Refunds netted from this settlement"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 3507927,
+     "debit": "",
+     "credit": "Rs 35,079.27",
+     "memo": "Clearing account discharged for settlement setl_oOgKUivuNZQ8Dl"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0006",
+   "date": "2026-07-08",
+   "narration": "Razorpay settlement setl_scmc5F9HpUlwW1 credited to bank as Rs 1,27,884.35 covering 12 transaction(s) gross Rs 1,29,799.89, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_scmc5F9HpUlwW1",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 12979989,
+   "total_credit_paise": 12979989,
+   "total_debit": "Rs 1,29,799.89",
+   "total_credit": "Rs 1,29,799.89",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 12788435,
+     "credit_paise": 0,
+     "debit": "Rs 1,27,884.35",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_iqwzcdIwrx"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 162334,
+     "credit_paise": 0,
+     "debit": "Rs 1,623.34",
+     "credit": "",
+     "memo": "MDR on Rs 1,29,799.89 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 29220,
+     "credit_paise": 0,
+     "debit": "Rs 292.20",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 12979989,
+     "debit": "",
+     "credit": "Rs 1,29,799.89",
+     "memo": "Clearing account discharged for settlement setl_scmc5F9HpUlwW1"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0007",
+   "date": "2026-07-09",
+   "narration": "Razorpay settlement setl_ByB7vlQwXqfAA9 credited to bank as Rs 69,374.66 covering 7 transaction(s) gross Rs 71,006.10, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_ByB7vlQwXqfAA9",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 7100610,
+   "total_credit_paise": 7100610,
+   "total_debit": "Rs 71,006.10",
+   "total_credit": "Rs 71,006.10",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 6937466,
+     "credit_paise": 0,
+     "debit": "Rs 69,374.66",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_Vr9Qh8yXv6"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 139171,
+     "credit_paise": 0,
+     "debit": "Rs 1,391.71",
+     "credit": "",
+     "memo": "MDR on Rs 71,006.10 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 23973,
+     "credit_paise": 0,
+     "debit": "Rs 239.73",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 7100610,
+     "debit": "",
+     "credit": "Rs 71,006.10",
+     "memo": "Clearing account discharged for settlement setl_ByB7vlQwXqfAA9"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0008",
+   "date": "2026-07-10",
+   "narration": "Razorpay settlement setl_gusBSkBBT4MANX credited to bank as Rs 72,368.42 covering 8 transaction(s) gross Rs 73,572.08, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_gusBSkBBT4MANX",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 7357208,
+   "total_credit_paise": 7357208,
+   "total_debit": "Rs 73,572.08",
+   "total_credit": "Rs 73,572.08",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 7236842,
+     "credit_paise": 0,
+     "debit": "Rs 72,368.42",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_mFFciuDCLF"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 102005,
+     "credit_paise": 0,
+     "debit": "Rs 1,020.05",
+     "credit": "",
+     "memo": "MDR on Rs 73,572.08 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 18361,
+     "credit_paise": 0,
+     "debit": "Rs 183.61",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 7357208,
+     "debit": "",
+     "credit": "Rs 73,572.08",
+     "memo": "Clearing account discharged for settlement setl_gusBSkBBT4MANX"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0009",
+   "date": "2026-07-11",
+   "narration": "Razorpay settlement setl_zFUjb0QBhoOw6c credited to bank as Rs 29,266.29 covering 5 transaction(s) gross Rs 29,885.82, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_zFUjb0QBhoOw6c",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 2988582,
+   "total_credit_paise": 2988582,
+   "total_debit": "Rs 29,885.82",
+   "total_credit": "Rs 29,885.82",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 2926629,
+     "credit_paise": 0,
+     "debit": "Rs 29,266.29",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_5tyM0KFFEI"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 52502,
+     "credit_paise": 0,
+     "debit": "Rs 525.02",
+     "credit": "",
+     "memo": "MDR on Rs 29,885.82 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 9451,
+     "credit_paise": 0,
+     "debit": "Rs 94.51",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 2988582,
+     "debit": "",
+     "credit": "Rs 29,885.82",
+     "memo": "Clearing account discharged for settlement setl_zFUjb0QBhoOw6c"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0010",
+   "date": "2026-07-12",
+   "narration": "Razorpay settlement setl_xVJGyOphTExIqq credited to bank as Rs 3,143.28 covering 5 transaction(s) gross Rs 29,412.85, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_xVJGyOphTExIqq",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 2941285,
+   "total_credit_paise": 2941285,
+   "total_debit": "Rs 29,412.85",
+   "total_credit": "Rs 29,412.85",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 314328,
+     "credit_paise": 0,
+     "debit": "Rs 3,143.28",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_YwP8KXSQbD"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 12451,
+     "credit_paise": 0,
+     "debit": "Rs 124.51",
+     "credit": "",
+     "memo": "MDR on Rs 29,412.85 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 2241,
+     "credit_paise": 0,
+     "debit": "Rs 22.41",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "4100",
+     "account_name": "Sales Returns & Refunds",
+     "account_type": "revenue",
+     "debit_paise": 831151,
+     "credit_paise": 0,
+     "debit": "Rs 8,311.51",
+     "credit": "",
+     "memo": "Refunds netted from this settlement"
+    },
+    {
+     "account_code": "5220",
+     "account_name": "Chargeback Losses",
+     "account_type": "expense",
+     "debit_paise": 1706114,
+     "credit_paise": 0,
+     "debit": "Rs 17,061.14",
+     "credit": "",
+     "memo": "Disputed transactions debited"
+    },
+    {
+     "account_code": "5230",
+     "account_name": "Dispute Handling Fees",
+     "account_type": "expense",
+     "debit_paise": 75000,
+     "credit_paise": 0,
+     "debit": "Rs 750.00",
+     "credit": "",
+     "memo": "Chargeback handling fees"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 2941285,
+     "debit": "",
+     "credit": "Rs 29,412.85",
+     "memo": "Clearing account discharged for settlement setl_xVJGyOphTExIqq"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0011",
+   "date": "2026-07-04",
+   "narration": "Razorpay settlement setl_kM3u5c1f6VqnJM credited to bank as Rs 25,404.20 covering 2 transaction(s) gross Rs 25,788.25, net of gateway charges, GST on those charges, refunds and disputes.",
+   "source_ref": "setl_kM3u5c1f6VqnJM",
+   "category": "settlement",
+   "balanced": true,
+   "total_debit_paise": 2578825,
+   "total_credit_paise": 2578825,
+   "total_debit": "Rs 25,788.25",
+   "total_credit": "Rs 25,788.25",
+   "lines": [
+    {
+     "account_code": "1010",
+     "account_name": "Bank \u2014 Current Account",
+     "account_type": "asset",
+     "debit_paise": 2540420,
+     "credit_paise": 0,
+     "debit": "Rs 25,404.20",
+     "credit": "",
+     "memo": "NEFT credit, bank txn bnk_SKkMM0jQb6"
+    },
+    {
+     "account_code": "5210",
+     "account_name": "Payment Gateway Charges",
+     "account_type": "expense",
+     "debit_paise": 32547,
+     "credit_paise": 0,
+     "debit": "Rs 325.47",
+     "credit": "",
+     "memo": "MDR on Rs 25,788.25 of settled sales"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 5858,
+     "credit_paise": 0,
+     "debit": "Rs 58.58",
+     "credit": "",
+     "memo": "18% GST on gateway charges \u2014 recoverable as input tax credit"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 2578825,
+     "debit": "",
+     "credit": "Rs 25,788.25",
+     "memo": "Clearing account discharged for settlement setl_kM3u5c1f6VqnJM"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0012",
+   "date": "2026-07-08",
+   "narration": "1 transaction(s) worth Rs 16,296.56 withheld by the gateway as a risk reserve. Recognised as a receivable rather than cash, because the money exists but is not available.",
+   "source_ref": "on_hold_reserve",
+   "category": "reserve",
+   "balanced": true,
+   "total_debit_paise": 1629656,
+   "total_credit_paise": 1629656,
+   "total_debit": "Rs 16,296.56",
+   "total_credit": "Rs 16,296.56",
+   "lines": [
+    {
+     "account_code": "1100",
+     "account_name": "Trade Receivables",
+     "account_type": "asset",
+     "debit_paise": 1629656,
+     "credit_paise": 0,
+     "debit": "Rs 16,296.56",
+     "credit": "",
+     "memo": "Amounts held by gateway as reserve"
+    },
+    {
+     "account_code": "1210",
+     "account_name": "Razorpay Clearing Account",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 1629656,
+     "debit": "",
+     "credit": "Rs 16,296.56",
+     "memo": "Clearing discharged for held transactions"
+    }
+   ]
+  },
+  {
+   "entry_id": "JV-0013",
+   "date": "2026-07-01",
+   "narration": "True-up between GST accrued per transaction (Rs 1,240.22) and the monthly tax invoice RZP/202607/119857 (Rs 1,238.79). The invoice is the document that supports the input tax credit claim, so the ledger is aligned to it.",
+   "source_ref": "RZP/202607/119857",
+   "category": "gst_trueup",
+   "balanced": true,
+   "total_debit_paise": 143,
+   "total_credit_paise": 143,
+   "total_debit": "Rs 1.43",
+   "total_credit": "Rs 1.43",
+   "lines": [
+    {
+     "account_code": "5900",
+     "account_name": "Rounding Differences",
+     "account_type": "expense",
+     "debit_paise": 143,
+     "credit_paise": 0,
+     "debit": "Rs 1.43",
+     "credit": "",
+     "memo": "Accrual true-up"
+    },
+    {
+     "account_code": "1310",
+     "account_name": "Input GST Recoverable",
+     "account_type": "asset",
+     "debit_paise": 0,
+     "credit_paise": 143,
+     "debit": "",
+     "credit": "Rs 1.43",
+     "memo": "GST reduced to monthly invoice"
+    }
+   ]
+  }
+ ],
+ "journalSummary": {
+  "entries_generated": 13,
+  "entries_balanced": 13,
+  "entries_unbalanced": 0,
+  "trial_balance": [
+   {
+    "account_code": "1010",
+    "account_name": "Bank \u2014 Current Account",
+    "account_type": "asset",
+    "debit_paise": 50562565,
+    "credit_paise": 0,
+    "debit": "Rs 5,05,625.65",
+    "credit": "Rs 0.00",
+    "net_paise": 50562565,
+    "net": "Rs 5,05,625.65"
+   },
+   {
+    "account_code": "1100",
+    "account_name": "Trade Receivables",
+    "account_type": "asset",
+    "debit_paise": 1629656,
+    "credit_paise": 0,
+    "debit": "Rs 16,296.56",
+    "credit": "Rs 0.00",
+    "net_paise": 1629656,
+    "net": "Rs 16,296.56"
+   },
+   {
+    "account_code": "1210",
+    "account_name": "Razorpay Clearing Account",
+    "account_type": "asset",
+    "debit_paise": 0,
+    "credit_paise": 56047175,
+    "debit": "Rs 0.00",
+    "credit": "Rs 5,60,471.75",
+    "net_paise": -56047175,
+    "net": "-Rs 5,60,471.75"
+   },
+   {
+    "account_code": "1310",
+    "account_name": "Input GST Recoverable",
+    "account_type": "asset",
+    "debit_paise": 124022,
+    "credit_paise": 143,
+    "debit": "Rs 1,240.22",
+    "credit": "Rs 1.43",
+    "net_paise": 123879,
+    "net": "Rs 1,238.79"
+   },
+   {
+    "account_code": "4100",
+    "account_name": "Sales Returns & Refunds",
+    "account_type": "revenue",
+    "debit_paise": 1254828,
+    "credit_paise": 0,
+    "debit": "Rs 12,548.28",
+    "credit": "Rs 0.00",
+    "net_paise": 1254828,
+    "net": "Rs 12,548.28"
+   },
+   {
+    "account_code": "5210",
+    "account_name": "Payment Gateway Charges",
+    "account_type": "expense",
+    "debit_paise": 694990,
+    "credit_paise": 0,
+    "debit": "Rs 6,949.90",
+    "credit": "Rs 0.00",
+    "net_paise": 694990,
+    "net": "Rs 6,949.90"
+   },
+   {
+    "account_code": "5220",
+    "account_name": "Chargeback Losses",
+    "account_type": "expense",
+    "debit_paise": 1706114,
+    "credit_paise": 0,
+    "debit": "Rs 17,061.14",
+    "credit": "Rs 0.00",
+    "net_paise": 1706114,
+    "net": "Rs 17,061.14"
+   },
+   {
+    "account_code": "5230",
+    "account_name": "Dispute Handling Fees",
+    "account_type": "expense",
+    "debit_paise": 75000,
+    "credit_paise": 0,
+    "debit": "Rs 750.00",
+    "credit": "Rs 0.00",
+    "net_paise": 75000,
+    "net": "Rs 750.00"
+   },
+   {
+    "account_code": "5900",
+    "account_name": "Rounding Differences",
+    "account_type": "expense",
+    "debit_paise": 143,
+    "credit_paise": 0,
+    "debit": "Rs 1.43",
+    "credit": "Rs 0.00",
+    "net_paise": 143,
+    "net": "Rs 1.43"
+   }
+  ],
+  "trial_debit_total_paise": 56047318,
+  "trial_credit_total_paise": 56047318,
+  "trial_debit_total": "Rs 5,60,473.18",
+  "trial_credit_total": "Rs 5,60,473.18",
+  "trial_balances": true,
+  "gst_recoverable": "Rs 1,238.79",
+  "gateway_cost": "Rs 6,949.90"
+ },
+ "audit": {
+  "run_id": "run_20260903_212744_44a800",
+  "total": 48,
+  "returned": 48,
+  "offset": 0,
+  "decisions": [
+   {
+    "decision_id": 151,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3001",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3001",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 127492,
+    "amount_counterpart": 127492,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 1,274.92 on payout pout_3001 to Seller 1 Enterprises is reflected in Form 26AS as of 2026-07-25, and the amount agrees exactly. TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "evidence": {
+     "seller_id": "acc_SELLER001",
+     "rate": 0.05,
+     "entity_type": "individual"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 1,274.92"
+   },
+   {
+    "decision_id": 152,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3001",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3001",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 10842,
+    "amount_counterpart": 10842,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 108.42 is reflected in GSTR-8 as of 2026-07-26. TCS at 0.50% of net taxable supplies Rs 21,683.34, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 108.42"
+   },
+   {
+    "decision_id": 153,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3002",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 3253,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 32.53 on payout pout_3002 has not yet appeared in Form 26AS. The payout is 22 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 8 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 22,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER004"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 32.53"
+   },
+   {
+    "decision_id": 154,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3002",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3002",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 13870,
+    "amount_counterpart": 13870,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 138.70 is reflected in GSTR-8 as of 2026-07-12. TCS at 0.50% of net taxable supplies Rs 27,740.64, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER004"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 138.70"
+   },
+   {
+    "decision_id": 155,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3003",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3003",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 5173,
+    "amount_counterpart": 5173,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 51.73 on payout pout_3003 to Seller 4 Enterprises is reflected in Form 26AS as of 2026-07-13, and the amount agrees exactly. TDS at 0.10%. Seller 4 Enterprises is an individual whose projected annual gross of Rs 6,64,801.62 exceeds the Rs 5,00,000.00 threshold, so the exemption no longer applies.",
+    "evidence": {
+     "seller_id": "acc_SELLER004",
+     "rate": 0.001,
+     "entity_type": "individual"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 51.73"
+   },
+   {
+    "decision_id": 156,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3003",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3003",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 22508,
+    "amount_counterpart": 22508,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 225.08 is reflected in GSTR-8 as of 2026-07-18. TCS at 0.50% of net taxable supplies Rs 45,015.47, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER004"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 225.08"
+   },
+   {
+    "decision_id": 157,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3004",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 3777,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 37.77 on payout pout_3004 has not yet appeared in Form 26AS. The payout is 6 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 24 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 6,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 37.77"
+   },
+   {
+    "decision_id": 158,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3004",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 16286,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 162.86 on payout pout_3004 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 162.86"
+   },
+   {
+    "decision_id": 159,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3005",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3005",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 7587,
+    "amount_counterpart": 7587,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 75.87 on payout pout_3005 to Seller 5 Enterprises is reflected in Form 26AS as of 2026-07-21, and the amount agrees exactly. TDS at 0.10% on gross Rs 75,865.70. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER005",
+     "rate": 0.001,
+     "entity_type": "firm"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 75.87"
+   },
+   {
+    "decision_id": 160,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3005",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3005",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 32033,
+    "amount_counterpart": 32033,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 320.33 is reflected in GSTR-8 as of 2026-07-26. TCS at 0.50% of net taxable supplies Rs 64,066.18, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 320.33"
+   },
+   {
+    "decision_id": 161,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3006",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3006",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 1628,
+    "amount_counterpart": 1628,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 16.28 on payout pout_3006 to Seller 4 Enterprises is reflected in Form 26AS as of 2026-07-14, and the amount agrees exactly. TDS at 0.10%. Seller 4 Enterprises is an individual whose projected annual gross of Rs 6,29,349.69 exceeds the Rs 5,00,000.00 threshold, so the exemption no longer applies.",
+    "evidence": {
+     "seller_id": "acc_SELLER004",
+     "rate": 0.001,
+     "entity_type": "individual"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 16.28"
+   },
+   {
+    "decision_id": 162,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3006",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3006",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 7442,
+    "amount_counterpart": 7442,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 74.42 is reflected in GSTR-8 as of 2026-07-09. TCS at 0.50% of net taxable supplies Rs 14,883.38, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER004"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 74.42"
+   },
+   {
+    "decision_id": 163,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3007",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3007",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 165146,
+    "amount_counterpart": 165146,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 1,651.46 on payout pout_3007 to Seller 1 Enterprises is reflected in Form 26AS as of 2026-07-16, and the amount agrees exactly. TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "evidence": {
+     "seller_id": "acc_SELLER001",
+     "rate": 0.05,
+     "entity_type": "individual"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 1,651.46"
+   },
+   {
+    "decision_id": 164,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3007",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3007",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 14940,
+    "amount_counterpart": 14940,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 149.40 is reflected in GSTR-8 as of 2026-07-16. TCS at 0.50% of net taxable supplies Rs 29,880.04, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 149.40"
+   },
+   {
+    "decision_id": 165,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3008",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 7150,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 71.50 on payout pout_3008 has not yet appeared in Form 26AS. The payout is 13 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 17 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 13,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 71.50"
+   },
+   {
+    "decision_id": 166,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3008",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 31118,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 311.18 on payout pout_3008 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 311.18"
+   },
+   {
+    "decision_id": 167,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3009",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 8356,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 83.56 on payout pout_3009 has not yet appeared in Form 26AS. The payout is 7 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 23 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 7,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 83.56"
+   },
+   {
+    "decision_id": 168,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3009",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 36320,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 363.20 on payout pout_3009 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 363.20"
+   },
+   {
+    "decision_id": 169,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3010",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tds_correctly_not_deducted",
+    "amount_subject": 0,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "No TDS. Seller 2 Enterprises is a resident individual with PAN on file and projected gross of Rs 1,99,806.09 for the year, below the Rs 5,00,000.00 Section 194-O threshold.",
+    "evidence": {
+     "seller_id": "acc_SELLER002",
+     "entity_type": "individual",
+     "ytd_gross": 16668732
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 0.00"
+   },
+   {
+    "decision_id": 170,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3010",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 15129,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 151.29 on payout pout_3010 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER002"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 151.29"
+   },
+   {
+    "decision_id": 171,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3011",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 85774,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 857.74 on payout pout_3011 has not yet appeared in Form 26AS. The payout is 20 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 10 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 20,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 857.74"
+   },
+   {
+    "decision_id": 172,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3011",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3011",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 7083,
+    "amount_counterpart": 7083,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 70.83 is reflected in GSTR-8 as of 2026-07-23. TCS at 0.50% of net taxable supplies Rs 14,166.57, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 70.83"
+   },
+   {
+    "decision_id": 173,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3012",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 122960,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 1,229.60 on payout pout_3012 has not yet appeared in Form 26AS. The payout is 9 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 21 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 9,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER003"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 1,229.60"
+   },
+   {
+    "decision_id": 174,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3012",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 10220,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 102.20 on payout pout_3012 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER003"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 102.20"
+   },
+   {
+    "decision_id": 175,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3013",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 1014,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 10.14 on payout pout_3013 has not yet appeared in Form 26AS. The payout is 7 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 23 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 7,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 10.14"
+   },
+   {
+    "decision_id": 176,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3013",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3013",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 4165,
+    "amount_counterpart": 4165,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 41.65 is reflected in GSTR-8 as of 2026-07-26. TCS at 0.50% of net taxable supplies Rs 8,329.76, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 41.65"
+   },
+   {
+    "decision_id": 177,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3014",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3014",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 7975,
+    "amount_counterpart": 7975,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 79.75 on payout pout_3014 to Seller 6 Enterprises is reflected in Form 26AS as of 2026-07-19, and the amount agrees exactly. TDS at 0.10% on gross Rs 79,747.86. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER006",
+     "rate": 0.001,
+     "entity_type": "company"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 79.75"
+   },
+   {
+    "decision_id": 178,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3014",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3014",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 34093,
+    "amount_counterpart": 34093,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 340.93 is reflected in GSTR-8 as of 2026-07-16. TCS at 0.50% of net taxable supplies Rs 68,186.40, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 340.93"
+   },
+   {
+    "decision_id": 179,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3015",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 361833,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 3,618.33 on payout pout_3015 has not yet appeared in Form 26AS. The payout is 5 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 25 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 5,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 3,618.33"
+   },
+   {
+    "decision_id": 180,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3015",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 31035,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 310.35 on payout pout_3015 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 310.35"
+   },
+   {
+    "decision_id": 181,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3016",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3016",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 2929,
+    "amount_counterpart": 2929,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 29.29 on payout pout_3016 to Seller 6 Enterprises is reflected in Form 26AS as of 2026-07-25, and the amount agrees exactly. TDS at 0.10% on gross Rs 29,289.36. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER006",
+     "rate": 0.001,
+     "entity_type": "company"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 29.29"
+   },
+   {
+    "decision_id": 182,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3016",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 12990,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 129.90 on payout pout_3016 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 129.90"
+   },
+   {
+    "decision_id": 183,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3017",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tds_correctly_not_deducted",
+    "amount_subject": 0,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "No TDS. Seller 2 Enterprises is a resident individual with PAN on file and projected gross of Rs 1,78,785.32 for the year, below the Rs 5,00,000.00 Section 194-O threshold.",
+    "evidence": {
+     "seller_id": "acc_SELLER002",
+     "entity_type": "individual",
+     "ytd_gross": 16668732
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 0.00"
+   },
+   {
+    "decision_id": 184,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3017",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3017",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 5052,
+    "amount_counterpart": 5052,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 50.52 is reflected in GSTR-8 as of 2026-07-19. TCS at 0.50% of net taxable supplies Rs 10,103.81, collected against GSTIN 24AABCS1002M1Z2 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER002"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 50.52"
+   },
+   {
+    "decision_id": 185,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3018",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 375083,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 3,750.83 on payout pout_3018 has not yet appeared in Form 26AS. The payout is 14 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 16 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 14,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 3,750.83"
+   },
+   {
+    "decision_id": 186,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3018",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 32289,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 322.89 on payout pout_3018 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 322.89"
+   },
+   {
+    "decision_id": 187,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3019",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3019",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 1710,
+    "amount_counterpart": 1710,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 17.10 on payout pout_3019 to Seller 6 Enterprises is reflected in Form 26AS as of 2026-07-13, and the amount agrees exactly. TDS at 0.10% on gross Rs 17,103.48. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER006",
+     "rate": 0.001,
+     "entity_type": "company"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 17.10"
+   },
+   {
+    "decision_id": 188,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3019",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3019",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 7293,
+    "amount_counterpart": 7293,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 72.93 is reflected in GSTR-8 as of 2026-07-17. TCS at 0.50% of net taxable supplies Rs 14,586.05, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 72.93"
+   },
+   {
+    "decision_id": 189,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3020",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3020",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 5709,
+    "amount_counterpart": 5709,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 57.09 on payout pout_3020 to Seller 5 Enterprises is reflected in Form 26AS as of 2026-07-24, and the amount agrees exactly. TDS at 0.10% on gross Rs 57,087.63. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER005",
+     "rate": 0.001,
+     "entity_type": "firm"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 57.09"
+   },
+   {
+    "decision_id": 190,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3020",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 25937,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 259.37 on payout pout_3020 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER005"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 259.37"
+   },
+   {
+    "decision_id": 191,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3021",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 8163,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 81.63 on payout pout_3021 has not yet appeared in Form 26AS. The payout is 12 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 18 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 12,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 81.63"
+   },
+   {
+    "decision_id": 192,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3021",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3021",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 36074,
+    "amount_counterpart": 36074,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 360.74 is reflected in GSTR-8 as of 2026-07-22. TCS at 0.50% of net taxable supplies Rs 72,148.44, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 360.74"
+   },
+   {
+    "decision_id": 193,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3022",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.88,
+    "rule_fired": "tds_not_yet_in_26as",
+    "amount_subject": 205917,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TDS of Rs 2,059.17 on payout pout_3022 has not yet appeared in Form 26AS. The payout is 6 days old and 26AS commonly lags deduction by up to 30 days, so this is expected for another 24 day(s), not a shortfall.",
+    "evidence": {
+     "days_outstanding": 6,
+     "tolerance_days": 30,
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 2,059.17"
+   },
+   {
+    "decision_id": 194,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3022",
+    "counterpart_type": null,
+    "counterpart_id": null,
+    "outcome": "EXCEPTION",
+    "variance_code": "TIMING_LAG",
+    "confidence": 0.86,
+    "rule_fired": "tcs_not_yet_in_gstr8",
+    "amount_subject": 16954,
+    "amount_counterpart": null,
+    "variance_paise": null,
+    "reason": "TCS of Rs 169.54 on payout pout_3022 has not yet appeared in GSTR-8. The seller cannot use the credit in their electronic cash ledger until the operator files.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 169.54"
+   },
+   {
+    "decision_id": 195,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3023",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3023",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 157707,
+    "amount_counterpart": 157707,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 1,577.07 on payout pout_3023 to Seller 1 Enterprises is reflected in Form 26AS as of 2026-07-16, and the amount agrees exactly. TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "evidence": {
+     "seller_id": "acc_SELLER001",
+     "rate": 0.05,
+     "entity_type": "individual"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 1,577.07"
+   },
+   {
+    "decision_id": 196,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3023",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3023",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 14308,
+    "amount_counterpart": 14308,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 143.08 is reflected in GSTR-8 as of 2026-07-14. TCS at 0.50% of net taxable supplies Rs 28,616.99, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER001"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 143.08"
+   },
+   {
+    "decision_id": 197,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3024",
+    "counterpart_type": "form26as",
+    "counterpart_id": "pout_3024",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.98,
+    "rule_fired": "tds_reflected_in_26as",
+    "amount_subject": 6283,
+    "amount_counterpart": 6283,
+    "variance_paise": 0,
+    "reason": "TDS of Rs 62.83 on payout pout_3024 to Seller 6 Enterprises is reflected in Form 26AS as of 2026-07-21, and the amount agrees exactly. TDS at 0.10% on gross Rs 62,830.64. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "evidence": {
+     "seller_id": "acc_SELLER006",
+     "rate": 0.001,
+     "entity_type": "company"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 62.83"
+   },
+   {
+    "decision_id": 198,
+    "run_id": "run_20260903_212744_44a800",
+    "stage": "stage6_marketplace",
+    "subject_type": "payout",
+    "subject_id": "pout_3024",
+    "counterpart_type": "gstr8",
+    "counterpart_id": "pout_3024",
+    "outcome": "MATCHED",
+    "variance_code": null,
+    "confidence": 0.97,
+    "rule_fired": "tcs_reflected_in_gstr8",
+    "amount_subject": 28418,
+    "amount_counterpart": 28418,
+    "variance_paise": 0,
+    "reason": "TCS of Rs 284.18 is reflected in GSTR-8 as of 2026-07-23. TCS at 0.50% of net taxable supplies Rs 56,835.94, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "evidence": {
+     "seller_id": "acc_SELLER006"
+    },
+    "created_at": "2026-09-03T21:27:44",
+    "amount_subject_display": "Rs 284.18"
+   }
+  ]
+ },
+ "marketplace": {
+  "as_of": "2026-07-26",
+  "payout_count": 24,
+  "seller_count": 6,
+  "gross_paise": 107266943,
+  "gross": "Rs 10,72,669.43",
+  "commission": "Rs 1,39,870.24",
+  "tds_194o_deducted": "Rs 16,726.19",
+  "tds_194o_in_26as": "Rs 4,893.39",
+  "tds_not_yet_visible": "Rs 11,832.80",
+  "tcs_52_collected": "Rs 4,663.99",
+  "tcs_52_in_gstr8": "Rs 2,381.21",
+  "net_paid": "Rs 9,11,409.01",
+  "tds_matched": 11,
+  "tds_pending_within_tolerance": 11,
+  "tds_overdue": 0,
+  "rates_applied": {
+   "tds_194o_standard_pct": 0.1,
+   "tds_194o_no_pan_pct": 5.0,
+   "tcs_52_pct": 0.5,
+   "individual_huf_threshold": "Rs 5,00,000.00"
+  },
+  "payouts": [
+   {
+    "payout_id": "pout_3001",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 2549848,
+    "commission_paise": 381514,
+    "tds_194o_paise": 127492,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 10842,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 21,683.34, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 2030000,
+    "txn_date": "2026-07-05",
+    "gross": "Rs 25,498.48",
+    "tds": "Rs 1,274.92",
+    "tcs": "Rs 108.42",
+    "net_paid": "Rs 20,300.00"
+   },
+   {
+    "payout_id": "pout_3002",
+    "seller_id": "acc_SELLER004",
+    "seller_name": "Seller 4 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 3252754,
+    "commission_paise": 478690,
+    "tds_194o_paise": 3253,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10%. Seller 4 Enterprises is an individual whose projected annual gross of Rs 6,45,597.51 exceeds the Rs 5,00,000.00 threshold, so the exemption no longer applies.",
+    "tcs_52_paise": 13870,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 27,740.64, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "net_paid_paise": 2756941,
+    "txn_date": "2026-07-04",
+    "gross": "Rs 32,527.54",
+    "tds": "Rs 32.53",
+    "tcs": "Rs 138.70",
+    "net_paid": "Rs 27,569.41"
+   },
+   {
+    "payout_id": "pout_3003",
+    "seller_id": "acc_SELLER004",
+    "seller_name": "Seller 4 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 5173165,
+    "commission_paise": 671618,
+    "tds_194o_paise": 5173,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10%. Seller 4 Enterprises is an individual whose projected annual gross of Rs 6,64,801.62 exceeds the Rs 5,00,000.00 threshold, so the exemption no longer applies.",
+    "tcs_52_paise": 22508,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 45,015.47, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "net_paid_paise": 4473866,
+    "txn_date": "2026-07-01",
+    "gross": "Rs 51,731.65",
+    "tds": "Rs 51.73",
+    "tcs": "Rs 225.08",
+    "net_paid": "Rs 44,738.66"
+   },
+   {
+    "payout_id": "pout_3004",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 3777140,
+    "commission_paise": 519969,
+    "tds_194o_paise": 3777,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 37,771.40. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 16286,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 32,571.71, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 3237108,
+    "txn_date": "2026-07-20",
+    "gross": "Rs 37,771.40",
+    "tds": "Rs 37.77",
+    "tcs": "Rs 162.86",
+    "net_paid": "Rs 32,371.08"
+   },
+   {
+    "payout_id": "pout_3005",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 7586570,
+    "commission_paise": 1179952,
+    "tds_194o_paise": 7587,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 75,865.70. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 32033,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 64,066.18, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 6366998,
+    "txn_date": "2026-07-14",
+    "gross": "Rs 75,865.70",
+    "tds": "Rs 75.87",
+    "tcs": "Rs 320.33",
+    "net_paid": "Rs 63,669.98"
+   },
+   {
+    "payout_id": "pout_3006",
+    "seller_id": "acc_SELLER004",
+    "seller_name": "Seller 4 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 1627972,
+    "commission_paise": 139634,
+    "tds_194o_paise": 1628,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10%. Seller 4 Enterprises is an individual whose projected annual gross of Rs 6,29,349.69 exceeds the Rs 5,00,000.00 threshold, so the exemption no longer applies.",
+    "tcs_52_paise": 7442,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 14,883.38, collected against GSTIN 24AABCS1004M1Z4 and reported in GSTR-8.",
+    "net_paid_paise": 1479268,
+    "txn_date": "2026-07-04",
+    "gross": "Rs 16,279.72",
+    "tds": "Rs 16.28",
+    "tcs": "Rs 74.42",
+    "net_paid": "Rs 14,792.68"
+   },
+   {
+    "payout_id": "pout_3007",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 3302927,
+    "commission_paise": 314923,
+    "tds_194o_paise": 165146,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 14940,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 29,880.04, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 2807918,
+    "txn_date": "2026-07-06",
+    "gross": "Rs 33,029.27",
+    "tds": "Rs 1,651.46",
+    "tcs": "Rs 149.40",
+    "net_paid": "Rs 28,079.18"
+   },
+   {
+    "payout_id": "pout_3008",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 7150366,
+    "commission_paise": 926671,
+    "tds_194o_paise": 7150,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 71,503.66. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 31118,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 62,236.95, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 6185427,
+    "txn_date": "2026-07-13",
+    "gross": "Rs 71,503.66",
+    "tds": "Rs 71.50",
+    "tcs": "Rs 311.18",
+    "net_paid": "Rs 61,854.27"
+   },
+   {
+    "payout_id": "pout_3009",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 8355740,
+    "commission_paise": 1091825,
+    "tds_194o_paise": 8356,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 83,557.40. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 36320,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 72,639.15, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 7219239,
+    "txn_date": "2026-07-19",
+    "gross": "Rs 83,557.40",
+    "tds": "Rs 83.56",
+    "tcs": "Rs 363.20",
+    "net_paid": "Rs 72,192.39"
+   },
+   {
+    "payout_id": "pout_3010",
+    "seller_id": "acc_SELLER002",
+    "seller_name": "Seller 2 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 3311877,
+    "commission_paise": 285991,
+    "tds_194o_paise": 0,
+    "tds_rate": 0.0,
+    "tds_reason": "No TDS. Seller 2 Enterprises is a resident individual with PAN on file and projected gross of Rs 1,99,806.09 for the year, below the Rs 5,00,000.00 Section 194-O threshold.",
+    "tcs_52_paise": 15129,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 30,258.86, collected against GSTIN 24AABCS1002M1Z2 and reported in GSTR-8.",
+    "net_paid_paise": 3010757,
+    "txn_date": "2026-07-19",
+    "gross": "Rs 33,118.77",
+    "tds": "Rs 0.00",
+    "tcs": "Rs 151.29",
+    "net_paid": "Rs 30,107.57"
+   },
+   {
+    "payout_id": "pout_3011",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 1715476,
+    "commission_paise": 298819,
+    "tds_194o_paise": 85774,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 7083,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 14,166.57, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 1323800,
+    "txn_date": "2026-07-06",
+    "gross": "Rs 17,154.76",
+    "tds": "Rs 857.74",
+    "tcs": "Rs 70.83",
+    "net_paid": "Rs 13,238.00"
+   },
+   {
+    "payout_id": "pout_3012",
+    "seller_id": "acc_SELLER003",
+    "seller_name": "Seller 3 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 2459210,
+    "commission_paise": 415300,
+    "tds_194o_paise": 122960,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 3 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 10220,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 20,439.10, collected against GSTIN 29AABCS1003M1Z3 and reported in GSTR-8.",
+    "net_paid_paise": 1910730,
+    "txn_date": "2026-07-17",
+    "gross": "Rs 24,592.10",
+    "tds": "Rs 1,229.60",
+    "tcs": "Rs 102.20",
+    "net_paid": "Rs 19,107.30"
+   },
+   {
+    "payout_id": "pout_3013",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 1014368,
+    "commission_paise": 181392,
+    "tds_194o_paise": 1014,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 10,143.68. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 4165,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 8,329.76, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 827797,
+    "txn_date": "2026-07-19",
+    "gross": "Rs 10,143.68",
+    "tds": "Rs 10.14",
+    "tcs": "Rs 41.65",
+    "net_paid": "Rs 8,277.97"
+   },
+   {
+    "payout_id": "pout_3014",
+    "seller_id": "acc_SELLER006",
+    "seller_name": "Seller 6 Enterprises",
+    "entity_type": "company",
+    "gross_paise": 7974786,
+    "commission_paise": 1156146,
+    "tds_194o_paise": 7975,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 79,747.86. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 34093,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 68,186.40, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "net_paid_paise": 6776572,
+    "txn_date": "2026-07-02",
+    "gross": "Rs 79,747.86",
+    "tds": "Rs 79.75",
+    "tcs": "Rs 340.93",
+    "net_paid": "Rs 67,765.72"
+   },
+   {
+    "payout_id": "pout_3015",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 7236656,
+    "commission_paise": 1029594,
+    "tds_194o_paise": 361833,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 31035,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 62,070.62, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 5814194,
+    "txn_date": "2026-07-21",
+    "gross": "Rs 72,366.56",
+    "tds": "Rs 3,618.33",
+    "tcs": "Rs 310.35",
+    "net_paid": "Rs 58,141.94"
+   },
+   {
+    "payout_id": "pout_3016",
+    "seller_id": "acc_SELLER006",
+    "seller_name": "Seller 6 Enterprises",
+    "entity_type": "company",
+    "gross_paise": 2928936,
+    "commission_paise": 331023,
+    "tds_194o_paise": 2929,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 29,289.36. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 12990,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 25,979.13, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "net_paid_paise": 2581994,
+    "txn_date": "2026-07-15",
+    "gross": "Rs 29,289.36",
+    "tds": "Rs 29.29",
+    "tcs": "Rs 129.90",
+    "net_paid": "Rs 25,819.94"
+   },
+   {
+    "payout_id": "pout_3017",
+    "seller_id": "acc_SELLER002",
+    "seller_name": "Seller 2 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 1209800,
+    "commission_paise": 199419,
+    "tds_194o_paise": 0,
+    "tds_rate": 0.0,
+    "tds_reason": "No TDS. Seller 2 Enterprises is a resident individual with PAN on file and projected gross of Rs 1,78,785.32 for the year, below the Rs 5,00,000.00 Section 194-O threshold.",
+    "tcs_52_paise": 5052,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 10,103.81, collected against GSTIN 24AABCS1002M1Z2 and reported in GSTR-8.",
+    "net_paid_paise": 1005329,
+    "txn_date": "2026-07-11",
+    "gross": "Rs 12,098.00",
+    "tds": "Rs 0.00",
+    "tcs": "Rs 50.52",
+    "net_paid": "Rs 10,053.29"
+   },
+   {
+    "payout_id": "pout_3018",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 7501662,
+    "commission_paise": 1043788,
+    "tds_194o_paise": 375083,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 32289,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 64,578.74, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 6050502,
+    "txn_date": "2026-07-12",
+    "gross": "Rs 75,016.62",
+    "tds": "Rs 3,750.83",
+    "tcs": "Rs 322.89",
+    "net_paid": "Rs 60,505.02"
+   },
+   {
+    "payout_id": "pout_3019",
+    "seller_id": "acc_SELLER006",
+    "seller_name": "Seller 6 Enterprises",
+    "entity_type": "company",
+    "gross_paise": 1710348,
+    "commission_paise": 251743,
+    "tds_194o_paise": 1710,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 17,103.48. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 7293,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 14,586.05, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "net_paid_paise": 1449602,
+    "txn_date": "2026-07-03",
+    "gross": "Rs 17,103.48",
+    "tds": "Rs 17.10",
+    "tcs": "Rs 72.93",
+    "net_paid": "Rs 14,496.02"
+   },
+   {
+    "payout_id": "pout_3020",
+    "seller_id": "acc_SELLER005",
+    "seller_name": "Seller 5 Enterprises",
+    "entity_type": "firm",
+    "gross_paise": 5708763,
+    "commission_paise": 521382,
+    "tds_194o_paise": 5709,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 57,087.63. Seller 5 Enterprises is a firm, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 25937,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 51,873.81, collected against GSTIN 27AABCS1005M1Z5 and reported in GSTR-8.",
+    "net_paid_paise": 5155735,
+    "txn_date": "2026-07-16",
+    "gross": "Rs 57,087.63",
+    "tds": "Rs 57.09",
+    "tcs": "Rs 259.37",
+    "net_paid": "Rs 51,557.35"
+   },
+   {
+    "payout_id": "pout_3021",
+    "seller_id": "acc_SELLER006",
+    "seller_name": "Seller 6 Enterprises",
+    "entity_type": "company",
+    "gross_paise": 8163040,
+    "commission_paise": 948196,
+    "tds_194o_paise": 8163,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 81,630.40. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 36074,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 72,148.44, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "net_paid_paise": 7170607,
+    "txn_date": "2026-07-14",
+    "gross": "Rs 81,630.40",
+    "tds": "Rs 81.63",
+    "tcs": "Rs 360.74",
+    "net_paid": "Rs 71,706.07"
+   },
+   {
+    "payout_id": "pout_3022",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 4118338,
+    "commission_paise": 727527,
+    "tds_194o_paise": 205917,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 16954,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 33,908.11, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 3167940,
+    "txn_date": "2026-07-20",
+    "gross": "Rs 41,183.38",
+    "tds": "Rs 2,059.17",
+    "tcs": "Rs 169.54",
+    "net_paid": "Rs 31,679.40"
+   },
+   {
+    "payout_id": "pout_3023",
+    "seller_id": "acc_SELLER001",
+    "seller_name": "Seller 1 Enterprises",
+    "entity_type": "individual",
+    "gross_paise": 3154137,
+    "commission_paise": 292438,
+    "tds_194o_paise": 157707,
+    "tds_rate": 0.05,
+    "tds_reason": "TDS deducted at 5% because no PAN is on file for Seller 1 Enterprises. Section 206AA applies the higher rate until the seller furnishes a PAN.",
+    "tcs_52_paise": 14308,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 28,616.99, collected against GSTIN 07AABCS1001M1Z1 and reported in GSTR-8.",
+    "net_paid_paise": 2689684,
+    "txn_date": "2026-07-03",
+    "gross": "Rs 31,541.37",
+    "tds": "Rs 1,577.07",
+    "tcs": "Rs 143.08",
+    "net_paid": "Rs 26,896.84"
+   },
+   {
+    "payout_id": "pout_3024",
+    "seller_id": "acc_SELLER006",
+    "seller_name": "Seller 6 Enterprises",
+    "entity_type": "company",
+    "gross_paise": 6283064,
+    "commission_paise": 599470,
+    "tds_194o_paise": 6283,
+    "tds_rate": 0.001,
+    "tds_reason": "TDS at 0.10% on gross Rs 62,830.64. Seller 6 Enterprises is a company, for which Section 194-O has no turnover threshold \u2014 deduction applies from the first rupee.",
+    "tcs_52_paise": 28418,
+    "tcs_rate": 0.005,
+    "tcs_reason": "TCS at 0.50% of net taxable supplies Rs 56,835.94, collected against GSTIN 29AABCS1006M1Z6 and reported in GSTR-8.",
+    "net_paid_paise": 5648893,
+    "txn_date": "2026-07-10",
+    "gross": "Rs 62,830.64",
+    "tds": "Rs 62.83",
+    "tcs": "Rs 284.18",
+    "net_paid": "Rs 56,488.93"
+   }
+  ]
+ }
+}
